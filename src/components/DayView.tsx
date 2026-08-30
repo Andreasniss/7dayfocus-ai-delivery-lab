@@ -1,5 +1,6 @@
-import { useState } from 'react'
+import { useId, useState } from 'react'
 import { useDroppable } from '@dnd-kit/core'
+import { MAX_TOTAL_TASKS } from '../domain/weekState'
 import type { Task, AppSettings } from '../types'
 import { TaskItem } from './TaskItem'
 import { AddTask } from './AddTask'
@@ -17,10 +18,21 @@ interface Props {
   onMoveTask: (id: string, toDayIndex: number) => void
   onEditTask: (id: string, text: string) => void
   settings: AppSettings
+  taskLimitReached?: boolean
 }
 
-function DroppableZone({ id, children, className }: { id: string; children: React.ReactNode; className?: string }) {
-  const { setNodeRef, isOver } = useDroppable({ id })
+function DroppableZone({
+  id,
+  children,
+  className,
+  disabled = false,
+}: {
+  id: string
+  children: React.ReactNode
+  className?: string
+  disabled?: boolean
+}) {
+  const { setNodeRef, isOver } = useDroppable({ id, disabled })
   return (
     <div ref={setNodeRef} className={`${className ?? ''}${isOver ? ' dv-drop--over' : ''}`}>
       {children}
@@ -39,6 +51,7 @@ function UpcomingDay({
   onEditTask,
   onAddTask,
   settings,
+  taskLimitReached = false,
 }: {
   dayIndex: number
   weekStart: string
@@ -50,11 +63,12 @@ function UpcomingDay({
   onAddTask: (dayIndex: number, text: string, label?: Task['label']) => void
   onSetLabel: (id: string, label?: Task['label']) => void
   settings: AppSettings
+  taskLimitReached: boolean
 }) {
   const [expanded, setExpanded] = useState(false)
-  const { setNodeRef, isOver } = useDroppable({ id: `day-${dayIndex}` })
   const date = dayDate(weekStart, dayIndex)
   const label = formatDayLabel(date)
+  const disclosureId = `upcoming-day-${dayIndex}-tasks`
   const done = tasks.filter(t => t.completed).length
   const total = tasks.length
   
@@ -63,17 +77,24 @@ function UpcomingDay({
   const dayFull = total >= settings.maxTasksPerDay
   const isOverLimit = total > settings.maxTasksPerDay
   const isOverPriority = priorityTasks.length > settings.maxPriority
+  const { setNodeRef, isOver } = useDroppable({ id: `day-${dayIndex}`, disabled: dayFull })
 
   return (
     <div ref={setNodeRef} className={`dv-upcoming-day${isOver ? ' dv-drop--over' : ''}`}>
-      <button className="dv-upcoming-row" onClick={() => setExpanded(e => !e)}>
+      <button
+        type="button"
+        className="dv-upcoming-row"
+        aria-expanded={expanded}
+        aria-controls={disclosureId}
+        onClick={() => setExpanded(e => !e)}
+      >
         <span className={`dv-chevron${expanded ? ' dv-chevron--open' : ''}`} aria-hidden="true">›</span>
         <span className="dv-upcoming-name">{label.name}</span>
         <span className="dv-upcoming-date">{label.num} {label.month}</span>
         {(isOverLimit || isOverPriority) && (
-          <div className="day-limit-pill day-limit-pill--small" title="Exceeds focus limits">
+          <span className="day-limit-pill day-limit-pill--small" title="Exceeds focus limits">
             {isOverLimit ? total : priorityTasks.length}
-          </div>
+          </span>
         )}
         {total > 0 && (
           <span className={`dv-upcoming-count${done === total ? ' dv-upcoming-count--done' : ''}`}>
@@ -83,8 +104,7 @@ function UpcomingDay({
         {total === 0 && <span className="dv-upcoming-empty-label">No tasks</span>}
       </button>
 
-      {expanded && (
-        <div className="dv-upcoming-tasks">
+      <div id={disclosureId} className="dv-upcoming-tasks" hidden={!expanded}>
           {tasks.length === 0 ? (
             <p className="day-empty" style={{ padding: '8px 16px' }}>No tasks yet</p>
           ) : (
@@ -96,18 +116,22 @@ function UpcomingDay({
                 onDelete={() => onDeleteTask(task.id)}
                 onTogglePriority={() => onTogglePriority(task.id)}
                 onSetLabel={label => onSetLabel(task.id, label)}
-                canTogglePriority={!priorityFull || task.priority}
+                canTogglePriority={!priorityFull || task.priority === true}
                 onEditTask={onEditTask}
               />
             ))
           )}
-          <AddTask 
+          <AddTask
             onAdd={(text, label) => onAddTask(dayIndex, text, label)} 
-            disabled={dayFull}
-            placeholder={dayFull ? `Day is full (max ${settings.maxTasksPerDay})` : "Add a task..."}
+            dayLabel={`${label.name} ${label.num} ${label.month}`}
+            disabled={dayFull || taskLimitReached}
+            disabledReason={taskLimitReached
+              ? `Planner is full (max ${MAX_TOTAL_TASKS} tasks)`
+              : dayFull
+                ? `Day is full (max ${settings.maxTasksPerDay})`
+                : undefined}
           />
-        </div>
-      )}
+      </div>
     </div>
   )
 }
@@ -124,7 +148,10 @@ export function DayView({
   onMoveTask,
   onEditTask,
   settings,
+  taskLimitReached = false,
 }: Props) {
+  const capacityStatusId = `${useId()}-overdue-today-capacity-status`
+
   // Group overdue: incomplete tasks from past days of this week
   const overdueDays: Array<{ dayIndex: number; label: ReturnType<typeof formatDayLabel>; tasks: Task[] }> = []
   for (let i = 0; i < todayIdx; i++) {
@@ -137,6 +164,9 @@ export function DayView({
   const todayTasks = tasks.filter(t => t.dayIndex === todayIdx)
   const todayPriority = todayTasks.filter(t => t.priority)
   const todayRegular = todayTasks.filter(t => !t.priority)
+  const totalOverdue = overdueDays.reduce((count, day) => count + day.tasks.length, 0)
+  const availableToday = Math.max(0, settings.maxTasksPerDay - todayTasks.length)
+  const allOverdueFitToday = totalOverdue <= availableToday
   
   const isTodayOverLimit = todayTasks.length > settings.maxTasksPerDay
   const isTodayOverPriority = todayPriority.length > settings.maxPriority
@@ -144,6 +174,17 @@ export function DayView({
   const todayFull = todayTasks.length >= settings.maxTasksPerDay
 
   const upcomingIndices = Array.from({ length: Math.max(0, settings.weekLength - todayIdx - 1) }, (_, i) => todayIdx + 1 + i)
+
+  function moveTasksToToday(tasksToMove: Task[]) {
+    if (tasksToMove.length > availableToday) return
+    tasksToMove.forEach(task => onMoveTask(task.id, todayIdx))
+  }
+
+  const capacityStatus = !allOverdueFitToday
+    ? availableToday === 0
+      ? 'Today is full. Move or delete a task from Today before moving an overdue task.'
+      : `Today has ${availableToday} open ${availableToday === 1 ? 'slot' : 'slots'}. Move overdue tasks individually or free more space to move them all.`
+    : null
 
   return (
     <div className="day-view">
@@ -153,15 +194,20 @@ export function DayView({
         <div className="dv-rescue-banner">
           <div className="dv-rescue-text">
             <span className="dv-rescue-icon" aria-hidden="true">!</span>
-            <span>You have {overdueDays.reduce((acc, d) => acc + d.tasks.length, 0)} tasks from previous days.</span>
+            <span>You have {totalOverdue} tasks from previous days.</span>
+            {capacityStatus ? (
+              <span id={capacityStatusId} role="status" aria-live="polite">{capacityStatus}</span>
+            ) : null}
           </div>
           <button 
+            type="button"
             className="dv-rescue-btn"
-            onClick={() => {
-              overdueDays.forEach(day => {
-                day.tasks.forEach(task => onMoveTask(task.id, todayIdx))
-              })
-            }}
+            disabled={!allOverdueFitToday}
+            aria-describedby={!allOverdueFitToday ? capacityStatusId : undefined}
+            title={!allOverdueFitToday
+              ? `Needs ${totalOverdue} open ${totalOverdue === 1 ? 'slot' : 'slots'}; ${availableToday} available`
+              : undefined}
+            onClick={() => moveTasksToToday(overdueDays.flatMap(day => day.tasks))}
           >
             Move to Today
           </button>
@@ -181,14 +227,24 @@ export function DayView({
             </span>
           </div>
 
-          {overdueDays.map(({ dayIndex, label, tasks: dayTasks }) => (
+          {overdueDays.map(({ dayIndex, label, tasks: dayTasks }) => {
+            const sourcePriorityFull = tasks.filter(
+              task => task.dayIndex === dayIndex && task.priority,
+            ).length >= settings.maxPriority
+
+            return (
             <div key={dayIndex} className="dv-overdue-group">
               <div className="dv-overdue-day-header">
                 <span className="dv-overdue-day-label">{label.name} {label.num}</span>
                 <button
+                  type="button"
                   className="dv-move-all"
-                  onClick={() => dayTasks.forEach(t => onMoveTask(t.id, todayIdx))}
-                  title="Move all to Today"
+                  disabled={dayTasks.length > availableToday}
+                  aria-describedby={dayTasks.length > availableToday ? capacityStatusId : undefined}
+                  onClick={() => moveTasksToToday(dayTasks)}
+                  title={dayTasks.length > availableToday
+                    ? `Needs ${dayTasks.length} open ${dayTasks.length === 1 ? 'slot' : 'slots'}; ${availableToday} available`
+                    : 'Move all to Today'}
                 >
                   Move all → Today
                 </button>
@@ -200,13 +256,17 @@ export function DayView({
                   onToggle={() => onToggleTask(task.id)}
                   onDelete={() => onDeleteTask(task.id)}
                   onTogglePriority={() => onTogglePriority(task.id)}
-                  canTogglePriority={!priorityFull || task.priority}
-                  onMoveTo={() => onMoveTask(task.id, todayIdx)}
-                  onEditTask={onEditTask}
+                    onSetLabel={label => onSetLabel(task.id, label)}
+                    canTogglePriority={!sourcePriorityFull || task.priority === true}
+                    onMoveTo={() => moveTasksToToday([task])}
+                    canMoveTo={availableToday > 0}
+                    moveToDescriptionId={availableToday === 0 ? capacityStatusId : undefined}
+                    onEditTask={onEditTask}
                 />
               ))}
             </div>
-          ))}
+            )
+          })}
         </section>
       )}
 
@@ -258,7 +318,7 @@ export function DayView({
         </div>
 
         {/* Regular tasks — droppable */}
-        <DroppableZone id={`day-${todayIdx}`} className="dv-today-body">
+        <DroppableZone id={`day-${todayIdx}`} className="dv-today-body" disabled={todayFull}>
           <div className="day-tasks" style={{ flex: 'none', minHeight: 48 }}>
             {todayRegular.length === 0 && (
               <p className="day-empty">{todayTasks.length === 0 ? 'No tasks yet' : ''}</p>
@@ -276,10 +336,15 @@ export function DayView({
               />
             ))}
           </div>
-          <AddTask 
+          <AddTask
             onAdd={(text, label) => onAddTask(todayIdx, text, label)} 
-            disabled={todayFull}
-            placeholder={todayFull ? `Day is full (max ${settings.maxTasksPerDay})` : "Add a task..."}
+            dayLabel="Today"
+            disabled={todayFull || taskLimitReached}
+            disabledReason={taskLimitReached
+              ? `Planner is full (max ${MAX_TOTAL_TASKS} tasks)`
+              : todayFull
+                ? `Day is full (max ${settings.maxTasksPerDay})`
+                : undefined}
           />
         </DroppableZone>
       </section>
@@ -306,6 +371,7 @@ export function DayView({
               onEditTask={onEditTask}
               onAddTask={onAddTask}
               settings={settings}
+              taskLimitReached={taskLimitReached}
             />
           ))}
         </section>

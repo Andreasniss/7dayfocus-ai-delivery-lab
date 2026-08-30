@@ -1,4 +1,4 @@
-import { describe, it, expect } from 'vitest'
+import { afterEach, describe, it, expect, vi } from 'vitest'
 import {
   getWeekStart,
   fromISO,
@@ -108,9 +108,17 @@ describe('formatWeekRange', () => {
     // Apr 28 – May 4
     expect(formatWeekRange('2025-04-28')).toBe('Apr 28 – May 4, 2025')
   })
+
+  it('includes both years when the period crosses New Year', () => {
+    expect(formatWeekRange('2025-12-29')).toBe('Dec 29, 2025 – Jan 4, 2026')
+  })
 })
 
 describe('isWeekInPast', () => {
+  afterEach(() => {
+    vi.useRealTimers()
+  })
+
   it('returns true for a week that ended long ago', () => {
     expect(isWeekInPast('2020-01-06')).toBe(true)
   })
@@ -119,5 +127,12 @@ describe('isWeekInPast', () => {
     // Far future week
     expect(isWeekInPast('2099-01-01')).toBe(false)
   })
-})
 
+  it('uses the configured planning-period length', () => {
+    vi.useFakeTimers()
+    vi.setSystemTime(new Date(2025, 3, 12, 0, 0))
+
+    expect(isWeekInPast('2025-04-07', 5)).toBe(true)
+    expect(isWeekInPast('2025-04-07', 7)).toBe(false)
+  })
+})

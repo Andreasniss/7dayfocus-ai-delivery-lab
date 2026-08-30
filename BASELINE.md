@@ -8,6 +8,12 @@ P01 is a private committed-baseline candidate, not an accepted public release. T
 
 The automated evidence does not establish manual visual quality, production readiness, security certification, adoption, reliability, or scale.
 
+## P02 candidate status
+
+P02 started with the owner's direction before the pending P01 manual visual-QA and final-acceptance gates were closed. That sequencing does not convert either pending P01 gate into completed evidence.
+
+The private `p02/domain-hardening` candidate is tracked in [GitHub issue #2](https://github.com/Andreasniss/7dayfocus-ai-delivery-lab/issues/2). It proposes a pure domain boundary, UUID v4 identifiers, versioned and validated browser persistence, bounded P01 migration, explicit storage recovery, a strict version-2 portable format with version-1 migration, and expanded adversarial tests. These are candidate changes until the pull request is reviewed and accepted; they are not a public release or production claim.
+
 ## In scope
 
 - A build-generated static React client.
@@ -56,9 +62,9 @@ Recorded on August 30, 2026 for the candidate tree and private root commit:
 
 See [`docs/P01-DISCLOSURE-REVIEW.md`](docs/P01-DISCLOSURE-REVIEW.md) for commands, results, and limits.
 
-## Known limitations reserved for P02
+## P01 limitations and P02 disposition
 
-P01 preserves a deliberately small planner baseline. These known defects are not hidden completion claims:
+P01 preserves a deliberately small planner baseline. The following were disclosed P01 limitations. The current P02 candidate addresses the first seven; complete browser-level drag-and-drop coverage remains outside the current automated evidence:
 
 - task and rollover identifiers use `Math.random()` rather than a collision-resistant generator;
 - persisted and imported JSON is not fully validated against a versioned runtime schema or migration policy;
@@ -67,9 +73,9 @@ P01 preserves a deliberately small planner baseline. These known defects are not
 - domain actions do not consistently reject blank text, out-of-range day indexes, or unknown rollover identifiers;
 - import validation assumes a seven-day mapping and does not fully enforce configured week length;
 - capacity and completed-task semantics need an explicit decision record; and
-- persistence, rollover, drag-and-drop, import/export, and recovery behavior do not yet have complete end-to-end coverage.
+- persistence, rollover, drag-and-drop, import/export, and recovery behavior do not yet have complete end-to-end coverage. P02 adds direct domain/storage coverage and application-level persistence, migration, import, and recovery tests, but does not claim exhaustive drag-and-drop or browser coverage.
 
-P02 must stabilize these behaviors before applied-AI work begins.
+Applied-AI feature work remains gated on P02 review and owner acceptance.
 
 ## Change control
 

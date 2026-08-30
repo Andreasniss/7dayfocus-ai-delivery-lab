@@ -14,7 +14,7 @@
   --border-strong: #454c5b;
   --text: #f5f7fb;
   --muted: #9ba3b4;
-  --faint: #6f7788;
+  --faint: #919aad;
   --accent: #84a7ff;
   --accent-soft: rgba(132, 167, 255, 0.12);
   --success: #54d39a;
@@ -138,6 +138,23 @@ button:focus-visible, input:focus-visible {
   border-radius: 999px;
   color: var(--success);
   font-size: 12px;
+}
+
+.storage-alert {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 12px 20px;
+  border-bottom: 1px solid rgba(255, 127, 135, 0.42);
+  background: rgba(255, 127, 135, 0.1);
+  color: var(--danger);
+  font-size: 13px;
+}
+
+.storage-alert .btn {
+  flex: 0 0 auto;
+  color: var(--text);
 }
 
 .week-view {
@@ -285,10 +302,11 @@ button:focus-visible, input:focus-visible {
 
 .task-item--overlay {
   width: 250px;
+  pointer-events: none;
   box-shadow: 0 14px 40px rgba(0, 0, 0, 0.4);
 }
 
-.task-checkbox, .task-priority, .task-delete, .task-move-to, .review-close {
+.task-drag-handle, .task-checkbox, .task-priority, .task-delete, .task-edit, .task-move-to, .review-close {
   display: inline-grid;
   place-items: center;
   flex: 0 0 auto;
@@ -299,6 +317,14 @@ button:focus-visible, input:focus-visible {
   background: transparent;
   color: var(--faint);
   cursor: pointer;
+}
+
+.task-drag-handle {
+  cursor: grab;
+}
+
+.task-drag-handle:active {
+  cursor: grabbing;
 }
 
 .task-checkbox {
@@ -345,6 +371,16 @@ button:focus-visible, input:focus-visible {
   flex: 1;
 }
 
+.task-item--editing {
+  flex-wrap: wrap;
+}
+
+.task-edit-error {
+  flex: 1 0 100%;
+  color: var(--danger);
+  font-size: 12px;
+}
+
 .task-category-chip, .add-task-category {
   border: 1px solid var(--border);
   border-radius: 999px;
@@ -369,7 +405,7 @@ button:focus-visible, input:focus-visible {
   border-top: 1px solid var(--border);
 }
 
-.add-task--disabled {
+.add-task--disabled > :not(.add-task-disabled-reason) {
   opacity: 0.55;
 }
 
@@ -400,6 +436,12 @@ button:focus-visible, input:focus-visible {
 .add-task-btn:disabled {
   cursor: not-allowed;
   opacity: 0.5;
+}
+
+.add-task-disabled-reason {
+  margin: 0;
+  color: var(--muted);
+  font-size: 12px;
 }
 
 .week-view--day {
@@ -453,6 +495,11 @@ button:focus-visible, input:focus-visible {
 .dv-move-all {
   min-height: 28px;
   padding: 4px 8px;
+}
+
+.dv-rescue-btn:disabled, .dv-move-all:disabled, .task-move-to:disabled {
+  cursor: not-allowed;
+  opacity: 0.5;
 }
 
 .dv-upcoming-day + .dv-upcoming-day {
@@ -530,6 +577,22 @@ button:focus-visible, input:focus-visible {
 .review-title {
   margin: 0 0 8px;
   font-size: 20px;
+}
+
+.review-date-error {
+  margin: 6px 0 0;
+  color: var(--danger);
+  font-size: 12px;
+}
+
+.review-selection-error {
+  flex: 1;
+  margin: 0 8px 0 0;
+}
+
+.review-btn-confirm:disabled {
+  cursor: not-allowed;
+  opacity: 0.5;
 }
 
 .review-subtitle, .review-date-label, .review-stat-label, .review-task-day {
@@ -618,6 +681,12 @@ button:focus-visible, input:focus-visible {
   }
 
   .week-view {
+    padding: 12px;
+  }
+
+  .storage-alert {
+    align-items: flex-start;
+    flex-direction: column;
     padding: 12px;
   }
 }

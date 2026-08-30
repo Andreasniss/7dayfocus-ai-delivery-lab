@@ -1,4 +1,5 @@
 import { useDroppable } from '@dnd-kit/core'
+import { MAX_TOTAL_TASKS } from '../domain/weekState'
 import type { Task, AppSettings } from '../types'
 import { TaskItem } from './TaskItem'
 import { AddTask } from './AddTask'
@@ -15,6 +16,7 @@ interface Props {
   onSetLabel: (id: string, label?: Task['label']) => void
   onEditTask: (id: string, text: string) => void
   settings: AppSettings
+  taskLimitReached?: boolean
 }
 
 export function DayColumn({
@@ -28,14 +30,14 @@ export function DayColumn({
   onSetLabel,
   onEditTask,
   settings,
+  taskLimitReached = false,
 }: Props) {
   const date = dayDate(weekStart, dayIndex)
   const label = formatDayLabel(date)
   const isToday = isSameDay(date, new Date())
-  const isWeekend = dayIndex >= 5
+  const isWeekend = date.getDay() === 0 || date.getDay() === 6
 
   const droppableId = `day-${dayIndex}`
-  const { setNodeRef, isOver } = useDroppable({ id: droppableId })
 
   const priorityTasks = tasks.filter(t => t.priority)
   const regularTasks = tasks.filter(t => !t.priority)
@@ -43,6 +45,7 @@ export function DayColumn({
   const isOverLimit = tasks.length > settings.maxTasksPerDay
   const isOverPriority = priorityTasks.length > settings.maxPriority
   const dayFull = tasks.length >= settings.maxTasksPerDay
+  const { setNodeRef, isOver } = useDroppable({ id: droppableId, disabled: dayFull })
 
   const done = tasks.filter(t => t.completed).length
   const total = tasks.length
@@ -127,10 +130,15 @@ export function DayColumn({
         ))}
       </div>
 
-      <AddTask 
+      <AddTask
         onAdd={onAddTask} 
-        disabled={dayFull}
-        placeholder={dayFull ? `Day is full (max ${settings.maxTasksPerDay})` : "Add a task..."}
+        dayLabel={`${label.name} ${label.month} ${label.num}`}
+        disabled={dayFull || taskLimitReached}
+        disabledReason={taskLimitReached
+          ? `Planner is full (max ${MAX_TOTAL_TASKS} tasks)`
+          : dayFull
+            ? `Day is full (max ${settings.maxTasksPerDay})`
+            : undefined}
       />
     </div>
   )

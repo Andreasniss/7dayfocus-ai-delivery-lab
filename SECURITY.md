@@ -1,10 +1,10 @@
 # Security Policy
 
-## P01 security posture
+## Current private-prototype posture
 
-P01 is a local-only, synthetic-data prototype baseline, not a production service. Its selected first architecture is a static React client. P01 does not include accounts, a hosted API, remote model calls, production persistence, telemetry, or a claim of production-grade security.
+The project is a local-only, synthetic-data prototype, not a production service. Its current architecture is a static React client. P02 does not include accounts, a hosted API, remote model calls, production persistence, telemetry, or a claim of production-grade security.
 
-Do not use P01 with secrets, confidential information, personal data, or production records.
+Do not use the current project with secrets, confidential information, personal data, or production records.
 
 ## Supported versions
 
@@ -19,7 +19,7 @@ Please report suspected vulnerabilities privately:
 
 Include the affected revision, impact, reproduction steps, and any safe proof of concept. Do not include live credentials, personal data, or confidential records. Please avoid opening a public issue until the report has been triaged.
 
-Ordinary bugs that do not have security or privacy impact may be filed in the public issue tracker.
+Ordinary bugs that do not have security or privacy impact may be filed in the repository issue tracker. The repository is currently private; this wording does not imply a public tracker.
 
 ## Baseline controls
 
@@ -30,11 +30,17 @@ Ordinary bugs that do not have security or privacy impact may be filed in the pu
 - Treat generated content and imported files as untrusted input.
 - Report only checks that were actually run; documentation is not evidence that a control works.
 
-## Current data-handling limits
+## Current data handling and limits
 
-P01 stores planner state as unencrypted JSON in browser `localStorage` and allows local JSON import/export. It does not provide access control, encrypted storage, schema-version migration, a retention policy, secure deletion, or recovery from every malformed or unavailable-storage condition. Browser profiles, extensions, local users, exported files, and device backups may be able to access the data.
+P02 stores planner state as unencrypted JSON in browser `localStorage` and allows local JSON import/export. The candidate validates a versioned current envelope, migrates the supported P01 key with regenerated IDs, limits imported files to 8 MiB, and exposes unreadable-data replacement and failed-save retry paths. These controls reduce silent failure; they do not provide confidentiality, access control, encrypted storage, a retention policy, secure deletion, backup, cross-device recovery, or production durability. Browser profiles, extensions, local users, exported files, and device backups may be able to access the data.
 
-Use only non-sensitive fictional data in this pre-release baseline. P02 is expected to add stricter runtime validation and user-visible failure handling; that future work is not a current control.
+Use only non-sensitive fictional data in this private pre-release project. Malformed or unsupported stored data is preserved until the user explicitly confirms replacement, but browser storage and exported files remain user-controlled local artifacts.
+
+The local persistence adapter does not coordinate concurrent tabs. Two open tabs can each hold stale state, and a later write can replace a newer write from the other tab. Treat the current app as single-tab; cross-tab conflict detection is not implemented.
+
+## AI-assisted repository controls
+
+`AGENTS.md`, `CLAUDE.md`, and `REVIEW.md` provide instructions and review conventions; prompt text is not a security boundary. P02 does not yet commit Claude Code permissions, sandbox settings, hooks, specialized agents, or reusable skills. Those controls are deferred to P03 and must not be claimed from documentation alone.
 
 ## Requirements for a later FastAPI companion
 
