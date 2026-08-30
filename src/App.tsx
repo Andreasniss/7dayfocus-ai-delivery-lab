@@ -224,6 +224,21 @@ export default function App() {
           )}
         </main>
 
+        <footer className="portfolio-attribution">
+          <span>Built by </span>
+          <a href="https://github.com/Andreasniss" target="_blank" rel="noreferrer">
+            Andreas Nissen
+          </a>
+          <span aria-hidden="true"> · </span>
+          <a
+            href="https://github.com/Andreasniss/7dayfocus-ai-delivery-lab"
+            target="_blank"
+            rel="noreferrer"
+          >
+            Source
+          </a>
+        </footer>
+
         <DragOverlay dropAnimation={{ duration: 180, easing: 'ease' }}>
           {activeTask ? <TaskDragPreview task={activeTask} /> : null}
         </DragOverlay>

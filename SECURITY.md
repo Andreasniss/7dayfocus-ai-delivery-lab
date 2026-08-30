@@ -32,7 +32,7 @@ Ordinary bugs that do not have security or privacy impact may be filed in the re
 
 ## Current data handling and limits
 
-P02 stores planner state as unencrypted JSON in browser `localStorage` and allows local JSON import/export. The candidate validates a versioned current envelope, migrates the supported P01 key with regenerated IDs, limits imported files to 8 MiB, and exposes unreadable-data replacement and failed-save retry paths. These controls reduce silent failure; they do not provide confidentiality, access control, encrypted storage, a retention policy, secure deletion, backup, cross-device recovery, or production durability. Browser profiles, extensions, local users, exported files, and device backups may be able to access the data.
+P02 stores planner state as unencrypted JSON in browser `localStorage` and allows local JSON import/export. The implementation validates a versioned current envelope, migrates the supported P01 key with regenerated IDs, limits imported files to 8 MiB, and exposes unreadable-data replacement and failed-save retry paths. These controls reduce silent failure; they do not provide confidentiality, access control, encrypted storage, a retention policy, secure deletion, backup, cross-device recovery, or production durability. Browser profiles, extensions, local users, exported files, and device backups may be able to access the data.
 
 Use only non-sensitive fictional data in this private pre-release project. Malformed or unsupported stored data is preserved until the user explicitly confirms replacement, but browser storage and exported files remain user-controlled local artifacts.
 

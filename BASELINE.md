@@ -2,17 +2,17 @@
 
 ## Status and claim boundary
 
-P01 is a private committed-baseline candidate, not an accepted public release. The permitted summary claim for this revision is:
+P01 is the historical clean-room baseline, not a production release. The permitted summary claim for that revision is:
 
 > P01 implements and locally verifies a static React weekly planner with empty initial state, browser-local persistence, no provider integration, and a documented option for a separately started local FastAPI companion in a later milestone.
 
 The automated evidence does not establish manual visual quality, production readiness, security certification, adoption, reliability, or scale.
 
-## P02 candidate status
+## P02 disposition
 
 P02 started with the owner's direction before the pending P01 manual visual-QA and final-acceptance gates were closed. That sequencing does not convert either pending P01 gate into completed evidence.
 
-The private `p02/domain-hardening` candidate is tracked in [GitHub issue #2](https://github.com/Andreasniss/7dayfocus-ai-delivery-lab/issues/2). It proposes a pure domain boundary, UUID v4 identifiers, versioned and validated browser persistence, bounded P01 migration, explicit storage recovery, a strict version-2 portable format with version-1 migration, and expanded adversarial tests. These are candidate changes until the pull request is reviewed and accepted; they are not a public release or production claim.
+P02 was reviewed, owner-accepted, and merged through [pull request #3](https://github.com/Andreasniss/7dayfocus-ai-delivery-lab/pull/3) as commit `16c04f6`. It adds a pure domain boundary, UUID v4 identifiers, versioned and validated browser persistence, bounded P01 migration, explicit storage recovery, a strict version-2 portable format with version-1 migration, and expanded adversarial tests. These delivered changes are not a production-readiness, certification, adoption, reliability, or scale claim.
 
 ## In scope
 
@@ -64,7 +64,7 @@ See [`docs/P01-DISCLOSURE-REVIEW.md`](docs/P01-DISCLOSURE-REVIEW.md) for command
 
 ## P01 limitations and P02 disposition
 
-P01 preserves a deliberately small planner baseline. The following were disclosed P01 limitations. The current P02 candidate addresses the first seven; complete browser-level drag-and-drop coverage remains outside the current automated evidence:
+P01 preserves a deliberately small planner baseline. The following were disclosed P01 limitations. Merged P02 addresses the first seven; complete browser-level drag-and-drop coverage remains outside the current automated evidence:
 
 - task and rollover identifiers use `Math.random()` rather than a collision-resistant generator;
 - persisted and imported JSON is not fully validated against a versioned runtime schema or migration policy;
@@ -75,7 +75,7 @@ P01 preserves a deliberately small planner baseline. The following were disclose
 - capacity and completed-task semantics need an explicit decision record; and
 - persistence, rollover, drag-and-drop, import/export, and recovery behavior do not yet have complete end-to-end coverage. P02 adds direct domain/storage coverage and application-level persistence, migration, import, and recovery tests, but does not claim exhaustive drag-and-drop or browser coverage.
 
-Applied-AI feature work remains gated on P02 review and owner acceptance.
+Any applied-AI feature remains a separate scoped change with its own intent, trust boundary, tests, and owner acceptance.
 
 ## Change control
 

@@ -1,6 +1,6 @@
 # ADR 0002: Pure Domain Boundary and Versioned Local Persistence
 
-- **Status:** Proposed for P02 acceptance
+- **Status:** Accepted
 - **Date:** 2026-08-30
 - **Decision owner:** Andreas
 - **Decision scope:** planner domain transitions, portable import, and browser-local persistence
@@ -109,4 +109,4 @@ Create or revise an ADR before adding a backend, remote/shared persistence, sens
 
 ## Independence and process provenance
 
-This decision is part of an independent private project. Its lifecycle record is derived from selected public Anthropic guidance and adapted with project-specific conventions. It does not indicate Anthropic affiliation, endorsement, approval, certification, or compliance.
+This decision is part of an independent portfolio project. Its lifecycle record is derived from selected public Anthropic guidance and adapted with project-specific conventions. It does not indicate Anthropic affiliation, endorsement, approval, certification, or compliance.

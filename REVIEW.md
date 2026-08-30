@@ -6,7 +6,7 @@ This file defines the repository's review convention. It is informed by Anthropi
 
 Review the candidate change against its applicable intent and specification, including their recorded acceptance status. Prefer concrete, reproducible findings over stylistic preference. A reviewer should be able to identify the affected behavior, the evidence, and the smallest safe correction.
 
-P02 is the disclosed transition exception: implementation began before the intent and specification were captured or accepted. Review therefore checks the current candidate against those draft contracts before Andreas records his disposition in the pull request; it must not imply that pre-implementation approval occurred.
+P02 remains the disclosed transition exception: implementation began before the intent and specification were captured or accepted. Changes from P03 onward require recorded acceptance of intent, specification, and plan before implementation.
 
 ## Severity
 
@@ -20,7 +20,7 @@ P02 is the disclosed transition exception: implementation began before the inten
 ## Required review passes
 
 1. **Intent and scope**
-   - Does the diff solve the stated P02 problem without adding a model call, backend, telemetry, authentication, remote persistence, or unrelated feature work?
+   - Does the diff solve the accepted change intent without adding a model call, backend, telemetry, authentication, remote persistence, or unrelated feature work?
    - Are user-visible and data-lifecycle changes represented in the specification?
 
 2. **Domain correctness**

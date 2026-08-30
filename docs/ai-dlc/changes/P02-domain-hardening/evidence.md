@@ -2,7 +2,7 @@
 
 - **Owner:** Andreas
 - **Record opened:** 2026-08-30
-- **Status:** Private pull request #3 is open; its portable-v2 review finding is fixed in a verified follow-up commit, with re-review and owner acceptance pending
+- **Status:** Completed and owner-accepted; pull request #3 merged as `16c04f6`
 - **Authoritative live status:** [GitHub pull request #3](https://github.com/Andreasniss/7dayfocus-ai-delivery-lab/pull/3) for the candidate diff, findings, and approval; [GitHub issue #2](https://github.com/Andreasniss/7dayfocus-ai-delivery-lab/issues/2) for backlog scope and status
 
 This record contains observed checks only. P02 implementation began before the AI-assisted lifecycle packet was added; neither this file nor its date is evidence that intent/spec/plan approval preceded the first code change.
@@ -11,13 +11,13 @@ This record contains observed checks only. P02 implementation began before the A
 
 | Field | Value |
 | --- | --- |
-| Repository visibility | Private, rechecked through the authenticated repository connection on 2026-08-30 |
+| Repository visibility during P02 | Private, rechecked through the authenticated repository connection on 2026-08-30 |
 | Local branch | `p02/domain-hardening` |
 | Remote base | Exact merged private `main` revision `50721115a392fb96db0bb90c774d351945b86827` |
 | Pull request | [#3: P02: harden planner domain and local persistence](https://github.com/Andreasniss/7dayfocus-ai-delivery-lab/pull/3) |
 | Candidate commit | The pull request records the current head after each publication; this file cannot self-reference its containing follow-up commit |
 | GitHub issue | [#2: P02: Harden planner domain and local persistence](https://github.com/Andreasniss/7dayfocus-ai-delivery-lab/issues/2) |
-| Owner acceptance | Pending |
+| Owner acceptance | Recorded before merge |
 
 The local branch is a development worktree and is not claimed to reproduce the exact remote commit ancestry. The authenticated connection confirmed that the repository remained private, the intended base commit existed, and pull request #3 was created from that base. The pull request records the remote commit identity and later review findings.
 
@@ -54,7 +54,7 @@ The local branch is a development worktree and is not claimed to reproduce the e
 
 ## Review findings
 
-Independent code, security/privacy, lifecycle-claims, and accessibility review were run before the first PR head. GitHub's automated review then identified the portable-v2 finding below. It is fixed in a follow-up commit with focused, full, and clean-copy verification; pull-request re-review remains pending. Findings stay visible here even after correction.
+Independent code, security/privacy, lifecycle-claims, and accessibility review were run before the first PR head. GitHub's automated review then identified the portable-v2 finding below. It was fixed in a follow-up commit with focused, full, and clean-copy verification; follow-up review found no major issues and the thread was resolved. Findings stay visible here after correction.
 
 | Severity | Finding | Disposition | Evidence |
 | --- | --- | --- | --- |
@@ -74,17 +74,17 @@ Independent code, security/privacy, lifecycle-claims, and accessibility review w
 
 ## Acceptance gates
 
-- [x] The post-review worktree matches the current draft intent and specification; Andreas's disposition is still pending.
+- [x] The post-review worktree matches the accepted intent and specification.
 - [x] Publish the portable-v2 fix to pull request #3.
-- [ ] Confirm pull-request re-review reports no remaining P0–P2 findings.
+- [x] Confirm pull-request re-review reports no remaining P0–P2 findings.
 - [x] `npm run verify` passes with 171 tests on the post-review worktree and isolated clean copy.
 - [x] Storage recovery and no-silent-overwrite behavior are demonstrated by tests.
 - [x] Manual rendered-browser QA is precisely disclosed as pending because the available browser could not access the local preview.
 - [x] Remote base, initial candidate commit, pull request, and repository privacy are recorded; the follow-up head will be recorded by the pull request after publication.
-- [ ] Andreas records final P02 acceptance.
+- [x] Andreas records final P02 acceptance.
 
 ## Claim boundary
 
-The current evidence supports that lint, typecheck, 171 automated tests in 10 files, a production build, and a clean-copy locked install and verification run passed after the portable-v2 review fix. Earlier online and cache-backed offline npm audits, targeted worktree scans, and the HTTP preview smoke check applied to the first PR candidate, whose dependency graph and runtime boundary are unchanged by this parser/test/documentation follow-up. It does not support claims of completed or owner-accepted P02 delivery, rendered visual quality, production readiness, security certification, accessibility conformance, Anthropic approval/compliance, public availability, adoption, reliability, or scale.
+The evidence supports that P02 was owner-accepted after lint, typecheck, 171 automated tests in 10 files, a production build, and a clean-copy locked install and verification run passed after the portable-v2 review fix. Earlier online and cache-backed offline npm audits, targeted worktree scans, and the HTTP preview smoke check applied to the first PR candidate, whose dependency graph and runtime boundary were unchanged by the parser/test/documentation follow-up. It does not support claims of rendered visual quality, production readiness, security certification, accessibility conformance, Anthropic approval/compliance, adoption, reliability, or scale.
 
 Do not add raw transcripts, prompt histories, or private/hidden reasoning here. Record reproducible commands, concise inputs, results, findings, limitations, links, and human approvals.
