@@ -2,7 +2,7 @@
 
 ## Status and claim boundary
 
-P01 is an acceptance candidate, not a public release. The permitted summary claim for this revision is:
+P01 is a private committed-baseline candidate, not an accepted public release. The permitted summary claim for this revision is:
 
 > P01 implements and locally verifies a static React weekly planner with empty initial state, browser-local persistence, no provider integration, and a documented option for a separately started local FastAPI companion in a later milestone.
 
@@ -35,7 +35,7 @@ The automated evidence does not establish manual visual quality, production read
 
 ## P01 completion evidence
 
-Recorded on August 30, 2026 for this candidate tree:
+Recorded on August 30, 2026 for the candidate tree and private root commit:
 
 - [x] `LICENSE` contains the Apache License 2.0 text.
 - [x] Repository documentation links resolve within the candidate tree.
@@ -44,8 +44,15 @@ Recorded on August 30, 2026 for this candidate tree:
 - [x] Application source contains no external endpoint, analytics, telemetry, model-provider SDK, or model-provider request path. The generated Vite bundle includes its standard same-origin module-preload helper.
 - [x] Gitleaks 8.30.1, TruffleHog 3.97.1 with `--no-verification`, targeted content searches, `npm audit`, and package-license inventory were run and recorded.
 - [x] No image or screenshot file is present, so there is no image metadata to retain or strip in P01.
-- [ ] Manual browser and visual QA has not been recorded for this candidate.
-- [ ] Human owner acceptance and creation of the fresh private repository remain pending.
+- [x] The owner authorized creation of the new repository and its continued private visibility.
+- [x] The private, non-fork repository began with parentless root commit `5f1e0566e237fb63fce4cc38bbfd25b6def64648`, whose tree `f65e72bf57b9a2b11c0fbc4b46348854f68b5e27` contains the 37 reviewed files.
+- [x] Remote/local Git-blob comparison matched 37 of 37 files in the initial root tree.
+- [x] The predecessor was rechecked as private and unchanged at `b2ef5dd80bcc443a06a8f9b7723c75d59ca99001`.
+- [x] An equivalent parentless local reconstruction with the same tree passed history-aware Gitleaks and TruffleHog scans.
+- [ ] Manual browser and visual QA has not been recorded.
+- [ ] Final owner acceptance of P01 has not been recorded.
+
+**Verification constraints:** An authenticated fresh clone of the private repository was not available from the executor. History scans therefore ran against an equivalent local reconstruction with the same tree, not the exact remote commit object. No candidate-code verification completed in GitHub Actions because Actions was unavailable under an account-level restriction. Neither a fresh-clone check nor hosted CI is claimed as passed.
 
 See [`docs/P01-DISCLOSURE-REVIEW.md`](docs/P01-DISCLOSURE-REVIEW.md) for commands, results, and limits.
 
@@ -70,4 +77,4 @@ A change that adds a server, remote access, server/shared persistence, sensitive
 
 ## License and non-affiliation
 
-The project is intended for release under Apache License 2.0. It is independent and is not affiliated with, sponsored by, or endorsed by Anthropic, OpenAI, or any other AI provider. Third-party marks belong to their respective owners.
+The project is licensed under Apache License 2.0. It is independent and is not affiliated with, sponsored by, or endorsed by Anthropic, OpenAI, or any other AI provider. Third-party marks belong to their respective owners.

@@ -1,8 +1,8 @@
 # P01 Disclosure and Verification Review
 
 - **Candidate date:** August 30, 2026
-- **Scope:** pre-commit clean-room candidate
-- **Status:** deterministic gates passed; manual visual QA, owner acceptance, fresh repository creation, and first-commit inspection remain pending
+- **Scope:** initial private root baseline and post-creation inspection
+- **Status:** private repository creation, root-history inspection, exact tree comparison, and local deterministic gates recorded; manual visual QA and final P01 acceptance remain pending
 
 This record reports checks actually run against the candidate tree. It is not a production-security assessment, penetration test, accessibility audit, visual review, or release approval.
 
@@ -16,7 +16,24 @@ The clean-room input was a maintainer-controlled private predecessor snapshot at
 - Existing private documentation, prompts, screenshots, icons, environment files, auth/cloud/native code, caches, logs, and build output were excluded.
 - App/store/type/style/configuration files identified as quarantine inputs were rewritten or regenerated before the candidate's first commit.
 
-The fresh-history and first-commit claims can be accepted only after the new private repository is created and inspected.
+The private repository was subsequently created and inspected as recorded below.
+
+## Private repository and history inspection
+
+| Check | Result |
+| --- | --- |
+| Repository metadata | Private, non-fork repository with default branch `main`. |
+| Initial root | Parentless commit `5f1e0566e237fb63fce4cc38bbfd25b6def64648`. |
+| Root tree | `f65e72bf57b9a2b11c0fbc4b46348854f68b5e27`, containing the 37 reviewed files. |
+| Content identity | Remote/local Git-blob comparison matched 37 of 37 files in the initial root tree. |
+| Predecessor preservation | Private and unchanged at `b2ef5dd80bcc443a06a8f9b7723c75d59ca99001`. |
+| History secret scans | Gitleaks and TruffleHog passed against an equivalent local parentless reconstruction with the same tree. |
+| Authenticated fresh clone | Not performed from the executor; no fresh-clone claim is made. |
+| GitHub Actions | No candidate-code verification completed because Actions was unavailable under an account-level restriction; hosted CI is not P01 verification evidence. |
+
+An authenticated fresh clone of the private remote was not available from the verification executor. Instead, the remote root, parent list, tree, and every Git blob were inspected through the authenticated repository connection. The same tree was reconstructed locally as an equivalent parentless one-commit repository for `git fsck` and history-aware secret scans. That local commit has a different object ID because its raw commit object was recreated locally; no claim of an exact remote clone is made.
+
+GitHub-hosted CI was unavailable for this revision because of an account-level Actions restriction. No CI claim is made; the evidence below is from isolated local runs. No portfolio application code ran in the unsuccessful bootstrap workflow attempts.
 
 ## Executable verification
 
@@ -28,6 +45,7 @@ The fresh-history and first-commit claims can be accepted only after the new pri
 | Dependency audit | `npm audit --audit-level=low` | 0 vulnerabilities in the full locked graph. |
 | Static output | `npm run build` | Produced HTML, CSS, and JavaScript assets; no application manifest or service worker. |
 | Local preview smoke | Vite preview on `127.0.0.1`, then HTTP checks for `/` and both generated assets | HTML, CSS, and JavaScript paths each returned HTTP 200 with the expected content type. No visual-browser claim is made. |
+| Root-history integrity | `git fsck --full --strict`, root/parent/file-count inspection on an equivalent local reconstruction | Passed: one parentless commit, the matching remote tree, and 37 reviewed files. |
 
 Automated tests cover planner domain behavior, task components, dates, import parsing, and one application smoke flow. They do not establish pixel-level correctness, complete accessibility, or all browser interactions.
 
@@ -37,6 +55,7 @@ Automated tests cover planner domain behavior, task components, dates, import pa
 | --- | --- | --- |
 | Secret scan | Gitleaks 8.30.1, `gitleaks dir . --redact --no-banner` against the 37 candidate files | 0 findings after one generic-key false positive was removed by renaming a non-secret constant. |
 | Secret scan, second engine | TruffleHog 3.97.1, `trufflehog filesystem --no-verification --json .` against the 37 candidate files | 0 unverified findings. No network verification was used. |
+| Secret scan, Git history | Gitleaks `git --all` and TruffleHog `git` with `--no-verification` against an equivalent parentless local reconstruction of the remote tree | 0 findings across the one-commit history. |
 | Excluded-source references | Targeted source/import/name searches | 0 application references to predecessor auth, cloud, Tauri, native, private-document, or screenshot paths. |
 | Email and machine-local paths | Targeted email and machine-path searches | 0 findings in the candidate project. |
 | Runtime network paths | Source and built-output searches for external endpoints, telemetry, analytics, and model-provider code | 0 application paths. Vite's generated bundle contains its standard same-origin module-preload helper and React error-reference URLs. |
@@ -64,16 +83,20 @@ The installed candidate graph reported these package-license identifiers:
 
 The CC-BY-4.0 entry is `caniuse-lite`, a development-time transitive dependency. No package with a missing or unknown license identifier was reported. Package counts describe the installed graph on the candidate date and may change after a lockfile update.
 
-## Pending human gates
+## Completed repository gates
 
-Before P01 is accepted:
+1. Created a blank private, non-fork repository.
+2. Established a parentless initial root from the reviewed 37-file tree.
+3. Inspected the root commit, tree, file list, and author metadata.
+4. Confirmed exact remote/local blob identity for all 37 files in the initial root tree.
+5. Rechecked the private predecessor at its pinned commit.
+6. Ran history scanners against an equivalent local reconstruction.
 
-1. Review this documentation and the known P02 limitations.
-2. Approve ADR 0001 and the clean-room source boundary.
-3. Create a new private repository as a blank, non-fork project.
-4. Initialize fresh history only from the reviewed candidate tree.
-5. Inspect repository-local author metadata and the exact first-commit file list.
-6. Rerun the deterministic checks against that committed tree.
-7. Record manual browser/visual QA separately when it can be performed.
+## Pending gates
+
+1. Review and approve this updated disclosure record, ADR 0001, and the known P02 limitations.
+2. Record manual browser and visual QA.
+3. Explicitly record final owner acceptance of P01.
+4. Treat authenticated-clone and hosted-CI verification as disclosed limitations unless they are later rerun successfully.
 
 The repository must remain private after P01. Public release is gated on the later applied-AI feature, evaluation, security, external-review, and `v0.1.0` requirements.

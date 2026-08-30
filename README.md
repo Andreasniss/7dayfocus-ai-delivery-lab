@@ -2,7 +2,7 @@
 
 `7dayfocus-ai-delivery-lab` is an independent portfolio reference project for making AI-assisted software delivery inspectable: scope, decisions, evidence, and limits.
 
-> **Status:** P01 acceptance candidate. The project is being prepared in a private clean-room workflow and is not yet a public release or a production service.
+> **Status:** Private P01 committed-baseline candidate. The clean-room baseline is committed to a private, non-fork repository. Manual browser/visual QA and final P01 acceptance remain pending. This is not a public release or production service.
 
 ## What works in P01
 
