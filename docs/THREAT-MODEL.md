@@ -25,7 +25,7 @@
 | Model creates unauthorized changes | Output schema permits only existing-task move/priority proposals; independent parser rejects extra fields | Semantic quality can still be poor |
 | Partial or stale application | Snapshot fingerprint, complete preflight, and one atomic reducer action | Another tab remains last-write-wins in browser storage |
 | Capacity violation | Deterministic simulation checks task and priority limits before approval and inside reducer | Existing accepted over-capacity legacy state remains possible |
-| Denial of service or cost amplification | Request-size limit, timeout, single in-flight UI request, bounded tasks, bounded output | Provider rate limits and billing remain user-owned |
+| Denial of service or cost amplification | Request and provider-response size limits, timeout, locked single in-flight UI request, bounded tasks, bounded output | Provider rate limits and billing remain user-owned |
 
 ## Explicit non-claims
 

@@ -70,6 +70,22 @@ describe('PlanAssistant', () => {
     fetchSpy.mockRestore()
   })
 
+  it('clears a typed key when the provider changes or the panel closes', async () => {
+    const user = userEvent.setup()
+    render(<PlanAssistant state={state()} onApply={vi.fn()} />)
+
+    await user.click(screen.getByRole('button', { name: 'Open assistant' }))
+    await user.selectOptions(screen.getByLabelText('Provider'), 'openai')
+    await user.type(screen.getByLabelText('API key'), 'not-a-real-provider-key')
+    await user.selectOptions(screen.getByLabelText('Provider'), 'anthropic')
+    expect(screen.getByLabelText('API key')).toHaveValue('')
+
+    await user.type(screen.getByLabelText('API key'), 'another-not-real-provider-key')
+    await user.click(screen.getByRole('button', { name: 'Close assistant' }))
+    await user.click(screen.getByRole('button', { name: 'Open assistant' }))
+    expect(screen.getByLabelText('API key')).toHaveValue('')
+  })
+
   it('blocks approval when the planner changes after generation', async () => {
     const user = userEvent.setup()
     const onApply = vi.fn()

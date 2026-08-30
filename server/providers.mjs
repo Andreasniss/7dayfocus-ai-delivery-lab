@@ -10,6 +10,7 @@ const ENDPOINTS = {
   openai: 'https://api.openai.com/v1/responses',
   openrouter: 'https://openrouter.ai/api/v1/chat/completions',
 }
+const MAX_PROVIDER_RESPONSE_BYTES = 256 * 1024
 
 function providerHeaders(request) {
   if (request.provider === 'anthropic') {
@@ -92,6 +93,45 @@ function boundedProviderError(status) {
   return 'The provider could not generate a proposal.'
 }
 
+async function readBoundedJson(response) {
+  const declaredLength = Number(response.headers.get('content-length'))
+  if (Number.isFinite(declaredLength) && declaredLength > MAX_PROVIDER_RESPONSE_BYTES) {
+    throw new Error('The provider returned an oversized response.')
+  }
+  if (!response.body) throw new Error('The provider returned an unreadable response.')
+
+  const reader = response.body.getReader()
+  const chunks = []
+  let size = 0
+  try {
+    while (true) {
+      const { done, value } = await reader.read()
+      if (done) break
+      size += value.byteLength
+      if (size > MAX_PROVIDER_RESPONSE_BYTES) {
+        await reader.cancel()
+        throw new Error('The provider returned an oversized response.')
+      }
+      chunks.push(value)
+    }
+  } finally {
+    reader.releaseLock()
+  }
+
+  try {
+    const bytes = new Uint8Array(size)
+    let offset = 0
+    for (const chunk of chunks) {
+      bytes.set(chunk, offset)
+      offset += chunk.byteLength
+    }
+    return JSON.parse(new TextDecoder().decode(bytes))
+  } catch (error) {
+    if (error instanceof Error && error.message === 'The provider returned an oversized response.') throw error
+    throw new Error('The provider returned an unreadable response.')
+  }
+}
+
 export async function requestProviderPlan(request, options = {}) {
   const fetchImplementation = options.fetchImplementation ?? fetch
   const response = await fetchImplementation(ENDPOINTS[request.provider], {
@@ -107,12 +147,7 @@ export async function requestProviderPlan(request, options = {}) {
     throw error
   }
 
-  let payload
-  try {
-    payload = await response.json()
-  } catch {
-    throw new Error('The provider returned an unreadable response.')
-  }
+  const payload = await readBoundedJson(response)
   const text = extractText(request.provider, payload)
   if (!text) throw new Error('The provider returned no structured proposal.')
   try {

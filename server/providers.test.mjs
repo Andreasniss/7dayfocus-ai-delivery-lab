@@ -70,7 +70,18 @@ describe('request validation', () => {
     ['arbitrary model text', { ...input('openai'), model: 'https://evil.invalid' }],
     ['short key', { ...input('openai'), apiKey: 'short' }],
     ['oversized instruction', { ...input('openai'), instruction: 'x'.repeat(1001) }],
+    ['impossible week date', { ...input('openai'), state: { ...input('openai').state, weekStart: '2026-02-30' } }],
+    ['invalid home view', { ...input('openai'), state: { ...input('openai').state, settings: { ...input('openai').state.settings, homeView: 'agenda' } } }],
+    ['non-boolean priority', { ...input('openai'), state: { ...input('openai').state, tasks: [{ ...input('openai').state.tasks[0], priority: 'false' }] } }],
   ])('rejects %s', (_name, value) => {
     expect(() => parsePlanRequest(value)).toThrow()
+  })
+})
+
+describe('provider response boundary', () => {
+  it('rejects an oversized response without parsing or exposing its body', async () => {
+    await expect(requestProviderPlan(input('openai'), {
+      fetchImplementation: async () => new Response('x'.repeat(256 * 1024 + 1), { status: 200 }),
+    })).rejects.toThrow('oversized response')
   })
 })

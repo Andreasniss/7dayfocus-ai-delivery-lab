@@ -53,13 +53,21 @@ export function PlanAssistant({ state, onApply }: PlanAssistantProps) {
   const stale = candidate !== null && candidate.revision !== currentRevision
 
   function selectProvider(next: PlanProvider) {
+    if (busy) return
     setProvider(next)
+    setApiKey('')
     setCandidate(null)
     setMessage(null)
     if (next !== 'fixture') setModel(DEFAULT_MODELS[next])
   }
 
+  function toggleOpen() {
+    if (open) setApiKey('')
+    setOpen(current => !current)
+  }
+
   async function generate() {
+    if (busy) return
     if (provider !== 'fixture' && !apiKey.trim()) {
       setMessage(`Enter an ${PROVIDER_LABELS[provider]} API key for this request.`)
       return
@@ -125,7 +133,7 @@ export function PlanAssistant({ state, onApply }: PlanAssistantProps) {
           <h2 id="plan-assistant-title">Plan my week</h2>
           <p>Generate a proposal first. Nothing changes until you review and approve every move.</p>
         </div>
-        <button className="btn" type="button" onClick={() => setOpen(current => !current)} aria-expanded={open}>
+        <button className="btn" type="button" onClick={toggleOpen} aria-expanded={open} disabled={busy}>
           {open ? 'Close assistant' : 'Open assistant'}
         </button>
       </div>
@@ -135,7 +143,7 @@ export function PlanAssistant({ state, onApply }: PlanAssistantProps) {
           <div className="plan-assistant__controls">
             <label>
               Provider
-              <select value={provider} onChange={event => selectProvider(event.target.value as PlanProvider)}>
+              <select value={provider} onChange={event => selectProvider(event.target.value as PlanProvider)} disabled={busy}>
                 {Object.entries(PROVIDER_LABELS).map(([value, label]) => (
                   <option key={value} value={value}>{label}</option>
                 ))}
@@ -145,7 +153,7 @@ export function PlanAssistant({ state, onApply }: PlanAssistantProps) {
               <>
                 <label>
                   Model ID
-                  <input value={model} onChange={event => setModel(event.target.value)} maxLength={120} />
+                  <input value={model} onChange={event => setModel(event.target.value)} maxLength={120} disabled={busy} />
                 </label>
                 <label>
                   API key
@@ -157,6 +165,7 @@ export function PlanAssistant({ state, onApply }: PlanAssistantProps) {
                     spellCheck={false}
                     maxLength={500}
                     placeholder="Used for this request only"
+                    disabled={busy}
                   />
                 </label>
               </>
@@ -168,6 +177,7 @@ export function PlanAssistant({ state, onApply }: PlanAssistantProps) {
                 onChange={event => setInstruction(event.target.value)}
                 maxLength={1000}
                 rows={3}
+                disabled={busy}
               />
             </label>
           </div>

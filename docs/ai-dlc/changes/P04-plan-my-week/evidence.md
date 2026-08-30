@@ -13,7 +13,7 @@ Only observed candidate results belong below. Live-provider behavior is unverifi
 | --- | --- |
 | Lint | Passed with zero warnings |
 | Type checking | Passed |
-| Automated tests | 235 passed across 15 files |
+| Automated tests | 241 passed across 15 files |
 | Deterministic proposal evals | 24 named cases passed |
 | Production build | Passed |
 | Clean-copy reproduction | `npm ci`, verification, and audit passed in an isolated copy |

@@ -61,6 +61,17 @@ describe('local gateway', () => {
     expect(providerRequest).not.toHaveBeenCalled()
   })
 
+  it('rejects an unexpected loopback port before provider execution', async () => {
+    const { providerRequest, url } = await start()
+    const response = await fetch(`${url}/api/plan`, {
+      method: 'POST',
+      headers: { 'content-type': 'application/json', origin: 'http://127.0.0.1:9999' },
+      body: JSON.stringify(requestBody()),
+    })
+    expect(response.status).toBe(403)
+    expect(providerRequest).not.toHaveBeenCalled()
+  })
+
   it('rejects oversized requests before provider execution', async () => {
     const { providerRequest, url } = await start()
     const response = await fetch(`${url}/api/plan`, {

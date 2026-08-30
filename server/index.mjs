@@ -32,11 +32,15 @@ function isLoopbackHost(host = '') {
   return name === '127.0.0.1' || name === 'localhost'
 }
 
-function isAllowedOrigin(origin) {
+function isAllowedOrigin(origin, host) {
   if (!origin) return true
   try {
     const url = new URL(origin)
-    return url.protocol === 'http:' && (url.hostname === '127.0.0.1' || url.hostname === 'localhost')
+    const hostPort = new URL(`http://${host}`).port || '80'
+    const originPort = url.port || '80'
+    return url.protocol === 'http:'
+      && (url.hostname === '127.0.0.1' || url.hostname === 'localhost')
+      && (originPort === hostPort || originPort === '5173')
   } catch {
     return false
   }
@@ -85,7 +89,7 @@ export function createAppServer(options = {}) {
   const providerRequest = options.providerRequest ?? requestProviderPlan
   return createServer(async (request, response) => {
     const requestId = randomUUID()
-    if (!isLoopbackHost(request.headers.host) || !isAllowedOrigin(request.headers.origin)) {
+    if (!isLoopbackHost(request.headers.host) || !isAllowedOrigin(request.headers.origin, request.headers.host)) {
       sendJson(response, 403, { error: { code: 'forbidden', message: 'Only loopback same-origin requests are allowed.', requestId } })
       return
     }

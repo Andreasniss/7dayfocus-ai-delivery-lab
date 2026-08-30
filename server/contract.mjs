@@ -37,6 +37,16 @@ function isRecord(value) {
   return typeof value === 'object' && value !== null && !Array.isArray(value)
 }
 
+function isIsoDate(value) {
+  if (typeof value !== 'string' || !/^\d{4}-\d{2}-\d{2}$/.test(value)) return false
+  const [year, month, day] = value.split('-').map(Number)
+  const date = new Date(Date.UTC(year, month - 1, day))
+  return year >= 1000
+    && date.getUTCFullYear() === year
+    && date.getUTCMonth() === month - 1
+    && date.getUTCDate() === day
+}
+
 function parseSettings(raw) {
   if (!isRecord(raw)) throw new Error('state.settings must be an object')
   const keys = ['maxPriority', 'maxTasksPerDay', 'weekStartDay', 'weekLength']
@@ -44,25 +54,28 @@ function parseSettings(raw) {
     if (!Number.isInteger(raw[key])) throw new Error(`state.settings.${key} must be an integer`)
   }
   if (raw.weekLength < 1 || raw.weekLength > 7) throw new Error('state.settings.weekLength is invalid')
+  if (raw.weekStartDay < 0 || raw.weekStartDay > 6) throw new Error('state.settings.weekStartDay is invalid')
   if (raw.maxTasksPerDay < 1 || raw.maxTasksPerDay > 15) throw new Error('state.settings.maxTasksPerDay is invalid')
   if (raw.maxPriority < 1 || raw.maxPriority > 5 || raw.maxPriority > raw.maxTasksPerDay) {
     throw new Error('state.settings.maxPriority is invalid')
   }
+  if (raw.homeView !== 'day' && raw.homeView !== 'week') throw new Error('state.settings.homeView is invalid')
   return {
     maxPriority: raw.maxPriority,
     maxTasksPerDay: raw.maxTasksPerDay,
     weekStartDay: raw.weekStartDay,
     weekLength: raw.weekLength,
-    homeView: raw.homeView === 'week' ? 'week' : 'day',
+    homeView: raw.homeView,
   }
 }
 
 function parseState(raw) {
-  if (!isRecord(raw) || typeof raw.weekStart !== 'string' || !/^\d{4}-\d{2}-\d{2}$/.test(raw.weekStart)) {
+  if (!isRecord(raw) || !isIsoDate(raw.weekStart)) {
     throw new Error('state.weekStart is invalid')
   }
   if (!Array.isArray(raw.tasks) || raw.tasks.length > 105) throw new Error('state.tasks is invalid')
   const settings = parseSettings(raw.settings)
+  const seenIds = new Set()
   const tasks = raw.tasks.map((task, index) => {
     if (!isRecord(task) || !UUID_V4_PATTERN.test(task.id) || typeof task.text !== 'string') {
       throw new Error(`state.tasks[${index}] is invalid`)
@@ -70,7 +83,14 @@ function parseState(raw) {
     if (!Number.isInteger(task.dayIndex) || task.dayIndex < 0 || task.dayIndex >= settings.weekLength) {
       throw new Error(`state.tasks[${index}].dayIndex is invalid`)
     }
-    if (typeof task.completed !== 'boolean' || task.text.length < 1 || task.text.length > 1000) {
+    if (seenIds.has(task.id)) throw new Error(`state.tasks[${index}].id is duplicated`)
+    seenIds.add(task.id)
+    if (
+      typeof task.completed !== 'boolean'
+      || !task.text.trim()
+      || task.text.length > 1000
+      || (task.priority !== undefined && typeof task.priority !== 'boolean')
+    ) {
       throw new Error(`state.tasks[${index}] is invalid`)
     }
     if (task.label !== undefined && task.label !== 'Work' && task.label !== 'Life') {
