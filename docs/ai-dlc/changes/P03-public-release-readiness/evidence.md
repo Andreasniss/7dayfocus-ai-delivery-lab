@@ -11,7 +11,8 @@
 | --- | --- |
 | Base | Merged P02 commit `16c04f6c5727dbe00ae0d665be67886c72600a8b` |
 | Branch | `p03/public-release-readiness` |
-| Pull request | Pending |
+| Pull request | [Draft PR #5](https://github.com/Andreasniss/7dayfocus-ai-delivery-lab/pull/5) |
+| Initial head | `bd8664fb8f6fe846717a6daadae97b2296a7f3d4` |
 | Visibility | Private; changing visibility is outside P03 implementation scope |
 
 ## Observed evidence
@@ -29,8 +30,10 @@
 | Package license metadata | 199 locked package entries had license metadata; observed set: 0BSD, Apache-2.0, BSD-2-Clause, BSD-3-Clause, CC-BY-4.0, ISC, MIT | Metadata inventory is not legal advice |
 | Candidate credential/disclosure patterns | No targeted credential, secret-assignment, private-key, private-host, oversized-file, or non-dependency symlink finding | Targeted patterns are not dedicated secret scanners |
 | Local HTTP smoke | Vite served the expected title and module entry point | HTTP source check only; not rendered QA |
+| GitHub Actions run 33336900632 | Workflow concluded `failure` before GitHub exposed any job steps; the job-log endpoint returned `BlobNotFound` | The hosted result is a failed gate with no diagnostic evidence, not an implementation pass or a diagnosed code failure |
+| Pull-request review request | `@codex review` posted on draft PR #5 | Review response remains pending |
 
-Hosted CI and pull-request review remain pending until the candidate is published to the private branch.
+The candidate is published only to the private P03 branch. Hosted CI is currently failed without step-level diagnostics, and pull-request review remains pending.
 
 ## Open gate
 

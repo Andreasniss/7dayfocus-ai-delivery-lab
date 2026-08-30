@@ -15,7 +15,8 @@
 - [x] Run focused tests, full verification, and clean-copy verification.
 - [x] Review dependencies, licenses, disclosures, and all remote commit diffs.
 - [x] Attempt desktop/mobile capture and record the exact browser-access blocker.
-- [ ] Open and review the private pull request.
+- [x] Open private draft pull request #5.
+- [ ] Complete review of the current pull-request head.
 - [ ] Merge only if the public-project clean-merge gates pass.
 - [ ] Keep visibility private until a separate explicit owner instruction.
 
