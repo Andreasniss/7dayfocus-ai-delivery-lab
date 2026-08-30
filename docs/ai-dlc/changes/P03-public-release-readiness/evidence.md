@@ -34,6 +34,8 @@
 | Pull-request review request | `@codex review` posted on draft PR #5; the first two review rounds are recorded below | A clean review of the final head is still required |
 | Codex review of `bd8664f` | Two P2 findings: visual disclosure could be mistaken for a passed gate, and current security text depended on private visibility | Both were corrected in `08db6bf` and submitted for re-review |
 | Codex re-review of `08db6bf` | One P2 finding: the lifecycle guide still described P03's pull-request template and hosted workflow as deferred | Corrected in the next candidate revision and requires another current-head review |
+| Verification after all review fixes | On 2026-08-30, `git diff --check` and `npm run verify` passed on the candidate tree containing the review fixes and this evidence entry: lint, typecheck, 172 tests in 10 files, and production build passed | Local gate; does not replace hosted CI or rendered QA |
+| Clean-copy verification after all review fixes | On 2026-08-30, 133 locked packages installed with `npm ci`; lint, typecheck, the same 172 tests, and production build passed | Temporary clean source copy; not an authenticated remote clone |
 
 At the time of this evidence update, the candidate was published only to the private P03 branch. Hosted CI had failed without step-level diagnostics, and pull-request review remained pending.
 
