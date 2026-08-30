@@ -33,6 +33,19 @@ describe('P01 local planner smoke flow', () => {
     })
   })
 
+  it('links the public portfolio attribution to the creator and verified source', () => {
+    render(<App />)
+
+    expect(screen.getByRole('link', { name: 'Andreas Nissen' })).toHaveAttribute(
+      'href',
+      'https://github.com/Andreasniss',
+    )
+    expect(screen.getByRole('link', { name: 'Source' })).toHaveAttribute(
+      'href',
+      'https://github.com/Andreasniss/7dayfocus-ai-delivery-lab',
+    )
+  })
+
   it('does not overwrite unreadable storage without explicit confirmation', async () => {
     const user = userEvent.setup()
     const unreadable = '{not-json'

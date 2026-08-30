@@ -4,9 +4,9 @@ These instructions apply to every file in this repository. Human owner: **Andrea
 
 ## Purpose and current boundary
 
-This private repository is an inspectable reference project for AI-assisted software delivery. It is not a production service, a public release, or evidence of affiliation with an AI provider.
+This repository is an inspectable portfolio reference for AI-assisted software delivery. It is not a production service or evidence of affiliation with an AI provider or employer.
 
-P02 stabilizes the planner domain and browser persistence before any applied-AI feature begins. Do not add a model call, API key, backend, account system, telemetry, remote persistence, or real customer or employer data in P02.
+P02 stabilized the planner domain and browser persistence. P03 prepares a truthful public-release candidate without changing visibility. Do not add a model call, API key, backend, account system, telemetry, remote persistence, or real customer or employer data in P03.
 
 ## Source of truth
 
@@ -41,7 +41,7 @@ npm run verify
 
 `npm run verify` is the local merge gate. GitHub-hosted CI is not available evidence unless a workflow actually runs successfully and its result is linked in the pull request.
 
-## P02 correctness rules
+## Domain and persistence rules
 
 - Treat imported and stored JSON as untrusted input.
 - Validate the storage version and the complete runtime shape before use.

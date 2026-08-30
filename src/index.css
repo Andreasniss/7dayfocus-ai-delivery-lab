@@ -663,6 +663,23 @@ button:focus-visible, input:focus-visible {
   text-decoration: line-through;
 }
 
+.portfolio-attribution {
+  padding: 8px 20px 20px;
+  color: var(--faint);
+  font-size: 0.78rem;
+  text-align: center;
+}
+
+.portfolio-attribution a {
+  color: var(--muted);
+  text-underline-offset: 3px;
+}
+
+.portfolio-attribution a:hover,
+.portfolio-attribution a:focus-visible {
+  color: var(--text);
+}
+
 @media (max-width: 900px) {
   .header {
     grid-template-columns: 1fr;

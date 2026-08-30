@@ -1,6 +1,6 @@
 # Provenance
 
-This record explains the origin of the P01 baseline and current P02 candidate without publishing private prompts, predecessor history, credentials, or operational data.
+This record explains the origin of the P01 baseline and accepted P02 implementation without publishing private prompts, predecessor history, credentials, or operational data.
 
 ## Clean-room source boundary
 
@@ -22,21 +22,21 @@ The path-level source comparison and final disclosure checks are summarized in [
 
 - Andreas Nissen owns the product intent, scope, architecture decisions, expert review, disclosure decisions, and release acceptance.
 - The predecessor planner was developed under Andreas's direction with Claude Code assistance.
-- OpenAI Codex assisted with the P01 clean-room extraction, local-only refactor, documentation, test addition, and verification. Its output was treated as proposed work and subjected to deterministic checks and owner authorization for private repository creation. Manual visual QA and final P01 acceptance remain pending.
+- OpenAI Codex assisted with the P01 clean-room extraction, local-only refactor, documentation, test addition, and verification. Its output was treated as proposed work and subjected to deterministic checks and owner authorization for repository creation. Manual P01 visual QA remains historical pending evidence rather than a claim of completion.
 
 AI assistance does not establish correctness. Claims in this repository are limited to evidence that was actually run or reviewed. The project does not imply that Claude, Anthropic, OpenAI, or another provider powers a P01 feature.
 
-## P02 candidate provenance
+## P02 provenance
 
 P02 work was authored in this fresh private repository and was not imported from the predecessor's excluded prompts, private documentation, or Git history.
 
-- Andreas directed the P02 scope, private-repository boundary, and portfolio strategy and retains approval over data replacement, risk acceptance, merge, and publication.
-- OpenAI Codex assisted with the domain/persistence implementation, tests, documentation, official-source review, and local verification. Its output remains a pull-request proposal until Andreas reviews it.
+- Andreas directed the P02 scope, repository boundary, and portfolio strategy and retained approval over data replacement, risk acceptance, merge, and publication.
+- OpenAI Codex assisted with the domain/persistence implementation, tests, documentation, official-source review, and local verification. Andreas accepted P02 and merged pull request #3 as commit `16c04f6`.
 - The lifecycle packet cites Anthropic's public AI-native SDLC and Claude Code documentation. The repository structure also contains project-specific, provider-neutral conventions that Anthropic does not prescribe.
 - The lifecycle packet was added after P02 coding began. It records that sequencing explicitly and is not evidence of pre-code intent/specification approval.
-- GitHub issue #2 and the eventual private pull request are authoritative for live status, findings, and owner disposition.
+- GitHub issue #2 and merged pull request #3 are the authoritative records for scope, findings, and owner disposition.
 
-No raw chat transcript, prompt history, hidden reasoning, private chain-of-thought, provider credential, or confidential operational data is part of the P02 candidate. References to Anthropic and OpenAI identify public guidance or assisting tools; they do not indicate affiliation, endorsement, certification, approval, or product integration.
+No raw chat transcript, prompt history, hidden reasoning, private chain-of-thought, provider credential, or confidential operational data is part of P02. References to Anthropic and OpenAI identify public guidance or assisting tools; they do not indicate affiliation, endorsement, certification, approval, or product integration.
 
 ## Data and asset boundary
 

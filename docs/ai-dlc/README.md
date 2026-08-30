@@ -46,25 +46,33 @@ For a new change, the target sequence is:
 6. Use the GitHub pull request to record the diff, reviewer findings, responses, and final human approval.
 7. Turn material incidents or escaped defects into a new evidence/learning record rather than erasing them from history.
 
-P02 is the disclosed transition exception: coding began before steps 1–3 were formalized or accepted. The packet was added when the gap was identified, and the change should not be accepted until the artifacts, implementation, tests, and review agree and Andreas records his disposition in the pull request.
+P02 is the disclosed transition exception: coding began before steps 1–3 were formalized or accepted. Its packet was added when the gap was identified, reconciled with the implementation and review, and accepted by Andreas before merge. P03 follows the intended pre-implementation acceptance sequence.
 
 ## Current and deferred controls
 
-P02 adds only the minimum documentation layer and the domain/persistence hardening it describes. P03 is expected to consider, on its own merits:
+P02 added the minimum documentation layer and the domain/persistence hardening it describes. P03 adds:
+
+- a pull-request template that keeps verification, review, visual, and human gates distinct;
+- a GitHub Actions workflow that runs the locked `npm run verify` gate on pull requests and `main` pushes; and
+- reviewer-first release documentation, visible attribution, and an explicit publication boundary.
+
+The workflow's presence is not proof that hosted CI passed. P03 evidence records each observed run result separately.
+
+Later changes may consider, on their own merits:
 
 - scoped `.claude/rules/` files;
 - `.claude/settings.json` permissions;
 - deterministic hooks;
 - dedicated verifier and adversarial-review agents;
-- reusable skills;
-- evaluation cases, pull-request templates, and hosted CI when the platform permits it.
+- reusable skills; and
+- evaluation cases and additional hosted enforcement when the platform permits it.
 
-No P03 control is claimed as implemented by the existence of this document.
+No control is claimed as effective merely because its configuration or documentation exists.
 
 ## Privacy, evidence, and ownership
 
 - Human owner and final approver: **Andreas**.
-- This repository remains private until Andreas explicitly approves publication.
+- Repository visibility and publication remain human-controlled decisions and require Andreas's explicit approval.
 - Do not commit raw chat transcripts, prompt histories, hidden reasoning, private chain-of-thought, credentials, personal data, customer data, or employer-confidential material.
 - Preserve concise decisions, input/output contracts, diffs, test cases, reproducible commands, tool results, findings, limitations, and approvals.
 - Before a pull request exists, the GitHub issue is the authoritative live scope/status record. Once opened, the pull request is authoritative for the candidate diff, findings, responses, and approval; the linked issue remains the backlog scope record. Markdown files are committed change records and may lag live discussion until updated in the candidate diff.

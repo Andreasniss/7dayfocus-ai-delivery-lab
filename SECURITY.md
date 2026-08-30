@@ -1,6 +1,6 @@
 # Security Policy
 
-## Current private-prototype posture
+## Current architecture and trust boundary
 
 The project is a local-only, synthetic-data prototype, not a production service. Its current architecture is a static React client. P02 does not include accounts, a hosted API, remote model calls, production persistence, telemetry, or a claim of production-grade security.
 
@@ -19,7 +19,7 @@ Please report suspected vulnerabilities privately:
 
 Include the affected revision, impact, reproduction steps, and any safe proof of concept. Do not include live credentials, personal data, or confidential records. Please avoid opening a public issue until the report has been triaged.
 
-Ordinary bugs that do not have security or privacy impact may be filed in the repository issue tracker. The repository is currently private; this wording does not imply a public tracker.
+Ordinary bugs that do not have security or privacy impact may be filed in the repository issue tracker when it is available.
 
 ## Baseline controls
 
@@ -32,15 +32,15 @@ Ordinary bugs that do not have security or privacy impact may be filed in the re
 
 ## Current data handling and limits
 
-P02 stores planner state as unencrypted JSON in browser `localStorage` and allows local JSON import/export. The candidate validates a versioned current envelope, migrates the supported P01 key with regenerated IDs, limits imported files to 8 MiB, and exposes unreadable-data replacement and failed-save retry paths. These controls reduce silent failure; they do not provide confidentiality, access control, encrypted storage, a retention policy, secure deletion, backup, cross-device recovery, or production durability. Browser profiles, extensions, local users, exported files, and device backups may be able to access the data.
+P02 stores planner state as unencrypted JSON in browser `localStorage` and allows local JSON import/export. The implementation validates a versioned current envelope, migrates the supported P01 key with regenerated IDs, limits imported files to 8 MiB, and exposes unreadable-data replacement and failed-save retry paths. These controls reduce silent failure; they do not provide confidentiality, access control, encrypted storage, a retention policy, secure deletion, backup, cross-device recovery, or production durability. Browser profiles, extensions, local users, exported files, and device backups may be able to access the data.
 
-Use only non-sensitive fictional data in this private pre-release project. Malformed or unsupported stored data is preserved until the user explicitly confirms replacement, but browser storage and exported files remain user-controlled local artifacts.
+Use only non-sensitive fictional data in this portfolio reference project. Malformed or unsupported stored data is preserved until the user explicitly confirms replacement, but browser storage and exported files remain user-controlled local artifacts.
 
 The local persistence adapter does not coordinate concurrent tabs. Two open tabs can each hold stale state, and a later write can replace a newer write from the other tab. Treat the current app as single-tab; cross-tab conflict detection is not implemented.
 
 ## AI-assisted repository controls
 
-`AGENTS.md`, `CLAUDE.md`, and `REVIEW.md` provide instructions and review conventions; prompt text is not a security boundary. P02 does not yet commit Claude Code permissions, sandbox settings, hooks, specialized agents, or reusable skills. Those controls are deferred to P03 and must not be claimed from documentation alone.
+`AGENTS.md`, `CLAUDE.md`, and `REVIEW.md` provide instructions and review conventions; prompt text is not a security boundary. The repository does not commit Claude Code permissions, sandbox settings, hooks, specialized agents, or reusable skills. Any such controls require a later gated change and must not be claimed from documentation alone.
 
 ## Requirements for a later FastAPI companion
 
