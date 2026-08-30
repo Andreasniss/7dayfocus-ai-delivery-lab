@@ -50,16 +50,24 @@ P02 is the disclosed transition exception: coding began before steps 1–3 were 
 
 ## Current and deferred controls
 
-P02 added the minimum documentation layer and the domain/persistence hardening it describes. Later changes may consider, on their own merits:
+P02 added the minimum documentation layer and the domain/persistence hardening it describes. P03 adds:
+
+- a pull-request template that keeps verification, review, visual, and human gates distinct;
+- a GitHub Actions workflow that runs the locked `npm run verify` gate on pull requests and `main` pushes; and
+- reviewer-first release documentation, visible attribution, and an explicit publication boundary.
+
+The workflow's presence is not proof that hosted CI passed. P03 evidence records each observed run result separately.
+
+Later changes may consider, on their own merits:
 
 - scoped `.claude/rules/` files;
 - `.claude/settings.json` permissions;
 - deterministic hooks;
 - dedicated verifier and adversarial-review agents;
-- reusable skills;
-- evaluation cases, pull-request templates, and hosted CI when the platform permits it.
+- reusable skills; and
+- evaluation cases and additional hosted enforcement when the platform permits it.
 
-No P03 control is claimed as implemented by the existence of this document.
+No control is claimed as effective merely because its configuration or documentation exists.
 
 ## Privacy, evidence, and ownership
 
