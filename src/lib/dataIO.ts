@@ -31,7 +31,7 @@ export function createExportPayload(state: WeekState): Record<string, unknown> {
       version: isStrictPortableWeekState(state) ? '2' : '1',
       exported: new Date().toISOString().slice(0, 10),
       dayIndex: 'Offset from weekStart: 0=weekStart, 1=the following day, up to weekLength-1',
-      fields: 'text (required), dayIndex (required integer within weekLength), completed (bool), priority (bool), label (optional "Work" or "Life"), settings (optional object with maxPriority, maxTasksPerDay, weekStartDay, weekLength, homeView)',
+      fields: 'text (required), dayIndex (required integer within weekLength), completed (required bool), priority (bool), label (optional "Work" or "Life"), settings (optional object with maxPriority, maxTasksPerDay, weekStartDay, weekLength, homeView)',
     },
     weekStart: state.weekStart,
     tasks: state.tasks.map(({ id: _id, ...rest }) => rest), // id regenerated on import

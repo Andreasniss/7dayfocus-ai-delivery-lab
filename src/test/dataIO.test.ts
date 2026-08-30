@@ -85,6 +85,15 @@ describe('dataIO import/export', () => {
     }).tasks).toEqual([])
   })
 
+  it('requires a boolean completion state for every version-two task', () => {
+    expect(() => parseImport({
+      _meta: { app: '7DayFocus', version: '2' },
+      weekStart: '2026-04-14',
+      tasks: [{ text: 'Missing completion state', dayIndex: 0 }],
+      settings: validSettings,
+    })).toThrow('completed must be a boolean')
+  })
+
   it.each([
     ['a future version', { version: '3' }],
     ['a numeric version', { version: 1 }],
@@ -115,7 +124,7 @@ describe('dataIO import/export', () => {
     ['an impossible date', { weekStart: '2026-02-30', tasks: [], settings: validSettings }],
     ['a numeric-string day index', { weekStart: '2026-04-14', tasks: [{ text: 'Task', dayIndex: '0' }], settings: validSettings }],
     ['a non-boolean completed value', { weekStart: '2026-04-14', tasks: [{ text: 'Task', dayIndex: 0, completed: 'false' }], settings: validSettings }],
-    ['an unknown label', { weekStart: '2026-04-14', tasks: [{ text: 'Task', dayIndex: 0, label: 'Personal' }], settings: validSettings }],
+    ['an unknown label', { weekStart: '2026-04-14', tasks: [{ text: 'Task', dayIndex: 0, completed: false, label: 'Personal' }], settings: validSettings }],
     ['overlong task text', { weekStart: '2026-04-14', tasks: [{ text: 'x'.repeat(201), dayIndex: 0 }], settings: validSettings }],
     ['a task outside the configured period', { weekStart: '2026-04-14', tasks: [{ text: 'Task', dayIndex: 5 }], settings: { ...validSettings, weekLength: 5 } }],
   ])('rejects portable data with %s', (_description, raw) => {
@@ -123,7 +132,7 @@ describe('dataIO import/export', () => {
   })
 
   it('rejects imports that exceed configured task capacity', () => {
-    const tasks = Array.from({ length: 6 }, (_, index) => ({ text: `Task ${index}`, dayIndex: 0 }))
+    const tasks = Array.from({ length: 6 }, (_, index) => ({ text: `Task ${index}`, dayIndex: 0, completed: false }))
     expect(() => parseImport({
       _meta: { version: '2' },
       weekStart: '2026-04-14',
@@ -195,7 +204,7 @@ describe('dataIO import/export', () => {
     const strictState = parseImport({
       _meta: { version: '2' },
       weekStart: '2026-04-14',
-      tasks: [{ text: 'Strict task', dayIndex: 0 }],
+      tasks: [{ text: 'Strict task', dayIndex: 0, completed: false }],
       settings: validSettings,
     })
 

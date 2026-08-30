@@ -399,9 +399,9 @@ describe('week-state parsers', () => {
       weekStart: '2026-08-24',
       settings: { ...SETTINGS, maxPriority: 1, maxTasksPerDay: 2 },
       tasks: [
-        { text: 'One', dayIndex: 0 },
-        { text: 'Two', dayIndex: 0 },
-        { text: 'Three', dayIndex: 0 },
+        { text: 'One', dayIndex: 0, completed: false },
+        { text: 'Two', dayIndex: 0, completed: false },
+        { text: 'Three', dayIndex: 0, completed: false },
       ],
     }
 
@@ -416,8 +416,8 @@ describe('week-state parsers', () => {
       weekStart: '2026-08-24',
       settings: { ...SETTINGS, maxPriority: 1 },
       tasks: [
-        { text: 'One', dayIndex: 0, priority: true },
-        { text: 'Two', dayIndex: 0, priority: true },
+        { text: 'One', dayIndex: 0, completed: false, priority: true },
+        { text: 'Two', dayIndex: 0, completed: false, priority: true },
       ],
     }
 
@@ -440,12 +440,12 @@ describe('week-state parsers', () => {
 
     expect(() => parsePortableWeekState({
       ...base,
-      tasks: [{ text: 'Wrong label', dayIndex: 0, label: 'Personal' }],
+      tasks: [{ text: 'Wrong label', dayIndex: 0, completed: false, label: 'Personal' }],
     }, sequentialIds(UUIDS[0]))).toThrow(/label/i)
 
     expect(() => parsePortableWeekState({
       ...base,
-      tasks: [{ text: 'Outside week', dayIndex: 5 }],
+      tasks: [{ text: 'Outside week', dayIndex: 5, completed: false }],
     }, sequentialIds(UUIDS[0]))).toThrow(/configured week/i)
   })
 })

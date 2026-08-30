@@ -48,7 +48,7 @@
 ### 6. Review and verify
 
 - [x] Review the candidate with every pass in `REVIEW.md`.
-- [x] Resolve or explicitly record all findings; final re-reviews reported no remaining P0–P2 findings.
+- [x] Resolve or explicitly record all findings; the post-open PR finding is fixed in a verified follow-up commit and awaits re-review.
 - [x] Run `npm run lint`.
 - [x] Run `npm run typecheck` on the worktree state recorded in `evidence.md`.
 - [x] Run `npm run test`.
@@ -59,9 +59,9 @@
 
 ### 7. Pull request and owner gate
 
-- [ ] Create the remote P02 branch from exact merged private `main` revision `50721115a392fb96db0bb90c774d351945b86827`.
-- [ ] Open a private pull request linking the change packet and ADR 0002.
-- [ ] Treat GitHub review findings and status as authoritative.
+- [x] Create the remote P02 branch from exact merged private `main` revision `50721115a392fb96db0bb90c774d351945b86827`.
+- [x] Open private pull request #3 linking the change packet and ADR 0002.
+- [x] Treat GitHub review findings and status as authoritative; address the portable-v2 completion-field finding in a follow-up commit.
 - [ ] Record Andreas's approval or requested changes.
 - [ ] Keep applied-AI work and public release gated until P02 is accepted.
 

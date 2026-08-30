@@ -330,7 +330,7 @@ export function parsePortableWeekState(raw: unknown, createId: IdFactory = creat
     legacySettings: false,
     maxTaskCount: MAX_TOTAL_TASKS,
     maxTextLength: MAX_TASK_TEXT_LENGTH,
-    requireCompleted: false,
+    requireCompleted: true,
   })
 }
 
