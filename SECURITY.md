@@ -2,9 +2,9 @@
 
 ## Current architecture and trust boundary
 
-The project is a local-only, synthetic-data prototype, not a production service. Its current architecture is a static React client. P02 does not include accounts, a hosted API, remote model calls, production persistence, telemetry, or a claim of production-grade security.
+The project is a local-only, synthetic-data prototype, not a production service. Its P04 architecture is a React client plus an explicitly started Node gateway bound to `127.0.0.1`. Fixture mode makes no external request. Live mode sends the current planner snapshot and instruction to the user-selected Anthropic, OpenAI, or OpenRouter API.
 
-Do not use the current project with secrets, confidential information, personal data, or production records.
+Do not put secrets into task text or use the project with confidential information, personal data, or production records. Provider API keys belong only in the password field for one active request.
 
 ## Supported versions
 
@@ -23,7 +23,7 @@ Ordinary bugs that do not have security or privacy impact may be filed in the re
 
 ## Baseline controls
 
-- Keep all P01 fixtures synthetic and all P01 workflows local.
+- Keep all fixtures synthetic and all planner content non-sensitive.
 - Do not place tokens, passwords, private URLs, or credentials in source, browser bundles, screenshots, logs, or issues.
 - Pin or lock dependencies where the selected toolchain supports it, review dependency changes, and retain license notices.
 - Avoid remote fonts, analytics, trackers, and runtime CDN dependencies in the baseline.
@@ -38,22 +38,34 @@ Use only non-sensitive fictional data in this portfolio reference project. Malfo
 
 The local persistence adapter does not coordinate concurrent tabs. Two open tabs can each hold stale state, and a later write can replace a newer write from the other tab. Treat the current app as single-tab; cross-tab conflict detection is not implemented.
 
+## Provider credentials and outbound requests
+
+- The browser keeps a provider key in React state only until the live request finishes, then clears the field.
+- The key is sent in the JSON body of a same-origin loopback request. It is never written to `localStorage`, `sessionStorage`, cookies, URLs, files, exports, analytics, or repository configuration.
+- The gateway maps a closed provider enum to three fixed HTTPS endpoints. A user cannot configure an arbitrary base URL.
+- The gateway does not log request bodies, keys, prompts, provider responses, or upstream response bodies. User-facing errors are bounded and credential-free.
+- The gateway applies host/origin, method, content-type, request-size, schema, and timeout checks. It binds only to IPv4 loopback.
+- Provider structured-output enforcement is not trusted as an application security boundary. Every proposal is parsed and validated again before display and approval.
+
+Browser extensions, local malware, a compromised local process, provider infrastructure, DNS/TLS compromise, and operating-system inspection remain outside this prototype's protection boundary. Live requests are subject to the selected provider's billing, retention, abuse-monitoring, and data-processing policies.
+
+## Model-output and approval controls
+
+- Model output may reference only existing incomplete task IDs and may propose only a day move, a priority state, or both.
+- The parser rejects extra fields, malformed IDs, duplicates, unknown/completed tasks, no-op changes, and out-of-week indexes.
+- A deterministic final-state simulation rejects task-capacity or priority-capacity violations.
+- The UI shows every before/after change. Generation never mutates planner state.
+- Approval compares the full planner revision again and dispatches one atomic reducer action. Stale or invalid proposals produce no partial mutation.
+
+Semantic planning quality remains probabilistic. Schema validity and deterministic invariant checks do not establish that a proposed plan is useful.
+
 ## AI-assisted repository controls
 
 `AGENTS.md`, `CLAUDE.md`, and `REVIEW.md` provide instructions and review conventions; prompt text is not a security boundary. The repository does not commit Claude Code permissions, sandbox settings, hooks, specialized agents, or reusable skills. Any such controls require a later gated change and must not be claimed from documentation alone.
 
-## Requirements for a later FastAPI companion
+## Local gateway boundary
 
-The FastAPI companion described in ADR 0001 is a future option, not a P01 feature. If introduced, it must at minimum:
-
-- be installed and started explicitly, with the static client remaining useful without it;
-- bind to `127.0.0.1` by default and clearly warn before any non-loopback exposure;
-- use a narrow allowlist for browser origins and reject unexpected methods and content types;
-- validate inputs, constrain file paths and payload sizes, and avoid executing user-supplied code;
-- redact secrets and sensitive content from logs and errors; and
-- keep any provider credential outside the browser bundle and repository, with outbound calls disabled until the user deliberately configures them.
-
-Adding remote access, authentication, external AI calls, or persistent real data requires a new threat review and updated documentation. A loopback binding reduces exposure; it does not make the companion production-safe.
+ADR 0004 supersedes ADR 0001's optional FastAPI direction with a smaller Node gateway. The built static client remains usable in fixture mode without live provider access. Adding non-loopback access, authentication, a hosted proxy, provider-key persistence, external tools, autonomous execution, or shared/remote application data requires a new threat review and explicit owner approval. A loopback binding reduces exposure; it does not make the gateway production-safe.
 
 ## Independence
 

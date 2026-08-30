@@ -6,7 +6,7 @@ These instructions apply to every file in this repository. Human owner: **Andrea
 
 This repository is an inspectable portfolio reference for AI-assisted software delivery. It is not a production service or evidence of affiliation with an AI provider or employer.
 
-P02 stabilized the planner domain and browser persistence. P03 prepares a truthful public-release candidate without changing visibility. Do not add a model call, API key, backend, account system, telemetry, remote persistence, or real customer or employer data in P03.
+P02 stabilized the planner domain and browser persistence. P03 prepared a truthful public-release candidate without changing visibility. P04 adds the accepted local BYOK proposal workflow in issue #6. Do not add accounts, telemetry, remote persistence, hosted credentials, real customer or employer data, or model-driven mutations beyond the P04 contract.
 
 ## Source of truth
 
@@ -53,6 +53,16 @@ npm run verify
 - Apply the 200-character and 105-task planning limits to new actions and the strict portable format; do not silently truncate a recoverable legacy value.
 - All tasks, including completed tasks, count toward daily capacity.
 - Moving a task to a different day resets its completion and priority state.
+
+## P04 provider and approval rules
+
+- Bind the gateway to loopback and map the provider enum to fixed HTTPS origins; never accept an arbitrary base URL.
+- Never persist, log, echo, export, or commit an API key, prompt transcript, or provider response.
+- Treat provider responses as untrusted even when structured outputs are enabled.
+- Models may propose only moves and priority changes for existing incomplete tasks.
+- Validate the complete proposal against the current snapshot and capacity rules before showing or applying it.
+- Require one explicit human approval and apply through one atomic domain action; reject stale proposals without mutation.
+- Keep fixture mode credential-free and free of external network requests.
 
 ## Review and evidence
 

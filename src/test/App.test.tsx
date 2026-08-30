@@ -6,6 +6,14 @@ import { LEGACY_STORAGE_KEY, STORAGE_KEY } from '../lib/storage'
 import { getWeekStart } from '../utils/dates'
 
 describe('P01 local planner smoke flow', () => {
+  function firstAddTaskInput() {
+    return screen.getAllByPlaceholderText('Add a task…')[0]!
+  }
+
+  function firstAddTaskButton() {
+    return screen.getAllByRole('button', { name: /^Add task/ })[0]!
+  }
+
   beforeEach(() => {
     localStorage.clear()
   })
@@ -19,8 +27,8 @@ describe('P01 local planner smoke flow', () => {
     const user = userEvent.setup()
     render(<App />)
 
-    await user.type(screen.getByPlaceholderText('Add a task…'), 'Review the planner baseline')
-    await user.click(screen.getByRole('button', { name: /^Add task/ }))
+    await user.type(firstAddTaskInput(), 'Review the planner baseline')
+    await user.click(firstAddTaskButton())
 
     expect(screen.getByText('Review the planner baseline')).toBeInTheDocument()
     await waitFor(() => {
@@ -97,8 +105,8 @@ describe('P01 local planner smoke flow', () => {
       throw new Error('Storage unavailable')
     })
 
-    await user.type(screen.getByPlaceholderText('Add a task…'), 'Keep the save visible')
-    await user.click(screen.getByRole('button', { name: /^Add task/ }))
+    await user.type(firstAddTaskInput(), 'Keep the save visible')
+    await user.click(firstAddTaskButton())
 
     expect(await screen.findByRole('alert')).toHaveTextContent('Changes are not saved')
     expect(screen.getByRole('button', { name: 'Retry save' })).toBeInTheDocument()
@@ -177,8 +185,8 @@ describe('P01 local planner smoke flow', () => {
   it('describes completed tasks truthfully during rollover', async () => {
     const user = userEvent.setup()
     render(<App />)
-    await user.type(screen.getByPlaceholderText('Add a task…'), 'Completed work')
-    await user.click(screen.getByRole('button', { name: /^Add task/ }))
+    await user.type(firstAddTaskInput(), 'Completed work')
+    await user.click(firstAddTaskButton())
     await user.click(screen.getByRole('button', { name: 'Mark complete: Completed work' }))
     await user.click(screen.getByRole('button', { name: 'Next week' }))
 
@@ -221,8 +229,8 @@ describe('P01 local planner smoke flow', () => {
   it('announces keyboard drags and renders an aria-hidden noninteractive preview', async () => {
     const user = userEvent.setup()
     render(<App />)
-    await user.type(screen.getByPlaceholderText('Add a task…'), 'Keyboard movable')
-    await user.click(screen.getByRole('button', { name: /^Add task/ }))
+    await user.type(firstAddTaskInput(), 'Keyboard movable')
+    await user.click(firstAddTaskButton())
 
     screen.getByRole('button', { name: 'Move task: Keyboard movable' }).focus()
     await user.keyboard('[Space]')
@@ -297,8 +305,8 @@ describe('P01 local planner smoke flow', () => {
     vi.stubGlobal('alert', alert)
     render(<App />)
 
-    await user.type(screen.getByPlaceholderText('Add a task…'), 'Keep current work')
-    await user.click(screen.getByRole('button', { name: /^Add task/ }))
+    await user.type(firstAddTaskInput(), 'Keep current work')
+    await user.click(firstAddTaskButton())
     const invalid = new File([JSON.stringify({
       _meta: { version: '2' },
       weekStart: getWeekStart(new Date()),

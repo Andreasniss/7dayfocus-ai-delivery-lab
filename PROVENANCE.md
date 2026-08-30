@@ -38,6 +38,29 @@ P02 work was authored in this fresh private repository and was not imported from
 
 No raw chat transcript, prompt history, hidden reasoning, private chain-of-thought, provider credential, or confidential operational data is part of P02. References to Anthropic and OpenAI identify public guidance or assisting tools; they do not indicate affiliation, endorsement, certification, approval, or product integration.
 
+## P04 provenance
+
+P04 was developed in this fresh repository from Andreas's direction to add a
+human-approved weekly planning assistant with user-supplied Anthropic, OpenAI,
+or OpenRouter credentials.
+
+- Andreas selected the product goal, provider scope, bring-your-own-key model,
+  human-approval boundary, and continued private visibility.
+- OpenAI Codex assisted with official-provider documentation review, lifecycle
+  artifacts, architecture, implementation, tests, deterministic evaluations,
+  threat modeling, and local verification.
+- No real provider credential or sensitive planner data was supplied, stored,
+  logged, committed, or used during implementation and verification.
+- The credential-free fixture and mocked provider responses are synthetic.
+  They verify the local contract and adapters, not live-provider quality or
+  availability.
+- GitHub issue #6 and the P04 pull request are the authoritative records for
+  scope, findings, and owner disposition.
+
+References to Anthropic, OpenAI, and OpenRouter identify supported user-selected
+API destinations and public documentation. They do not indicate affiliation,
+endorsement, certification, approval, or provider review.
+
 ## Data and asset boundary
 
 - The application starts with empty local state; automated tests use fictional task text.

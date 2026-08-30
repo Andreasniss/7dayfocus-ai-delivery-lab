@@ -14,6 +14,7 @@ import {
 import { DayColumn } from './components/DayColumn'
 import { DayView } from './components/DayView'
 import { Header } from './components/Header'
+import { PlanAssistant } from './components/PlanAssistant'
 import { WeekReview } from './components/WeekReview'
 import { MAX_TOTAL_TASKS } from './domain/weekState'
 import { useWeekStore } from './hooks/useWeekStore'
@@ -184,6 +185,11 @@ export default function App() {
             const file = event.target.files?.[0]
             if (file) void handleImport(file)
           }}
+        />
+
+        <PlanAssistant
+          state={state}
+          onApply={(revision, proposal) => dispatch({ type: 'APPLY_PLAN_PROPOSAL', revision, proposal })}
         />
 
         <main className={effectiveViewMode === 'day' ? 'week-view week-view--day' : 'week-view'}>
