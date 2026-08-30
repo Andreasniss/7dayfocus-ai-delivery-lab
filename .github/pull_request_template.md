@@ -16,7 +16,8 @@
 - [ ] `npm run verify` passed
 - [ ] Clean-copy verification passed when required
 - [ ] Dependency, license, secret, and disclosure checks passed when applicable
-- [ ] Rendered desktop/mobile behavior was checked, or the exact limitation is disclosed
+- [ ] Rendered desktop behavior was captured and inspected when required
+- [ ] Rendered mobile behavior was captured and inspected when required
 
 ## Review and limits
 
@@ -28,4 +29,5 @@
 ## Human gates
 
 - [ ] Intent, user-facing behavior, and material risk are accepted
+- [ ] Any owner waiver for an incomplete visual gate is recorded as a separate decision
 - [ ] Visibility, publication, release, or consequential external action has separate explicit approval when applicable

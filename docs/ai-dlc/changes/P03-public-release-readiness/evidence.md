@@ -3,7 +3,7 @@
 - **Owner:** Andreas
 - **Opened:** 2026-08-30
 - **Live scope:** [GitHub issue #4](https://github.com/Andreasniss/7dayfocus-ai-delivery-lab/issues/4)
-- **Status:** Evidence collection in progress; repository visibility remains private
+- **Status on 2026-08-30:** Evidence collection in progress; repository visibility was private
 
 ## Candidate identity
 
@@ -33,7 +33,7 @@
 | GitHub Actions run 33336900632 | Workflow concluded `failure` before GitHub exposed any job steps; the job-log endpoint returned `BlobNotFound` | The hosted result is a failed gate with no diagnostic evidence, not an implementation pass or a diagnosed code failure |
 | Pull-request review request | `@codex review` posted on draft PR #5 | Review response remains pending |
 
-The candidate is published only to the private P03 branch. Hosted CI is currently failed without step-level diagnostics, and pull-request review remains pending.
+At the time of this evidence update, the candidate was published only to the private P03 branch. Hosted CI had failed without step-level diagnostics, and pull-request review remained pending.
 
 ## Open gate
 
