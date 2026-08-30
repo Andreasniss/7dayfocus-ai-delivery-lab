@@ -46,10 +46,11 @@ UUID and date creation occur outside the reducer. Stored and imported JSON is tr
 ## Guided reviewer path
 
 1. Read [`docs/ai-dlc/README.md`](docs/ai-dlc/README.md) for the lifecycle and source boundary.
-2. Inspect [`docs/ai-dlc/changes/P02-domain-hardening/`](docs/ai-dlc/changes/P02-domain-hardening/) for the accepted change packet and evidence.
-3. Read [`docs/adr/0002-domain-and-persistence-invariants.md`](docs/adr/0002-domain-and-persistence-invariants.md) for the core engineering decisions.
-4. Inspect [`src/domain/weekState.ts`](src/domain/weekState.ts) and its adversarial tests in [`src/test/domainWeekState.test.ts`](src/test/domainWeekState.test.ts).
-5. Review [`SECURITY.md`](SECURITY.md), [`PROVENANCE.md`](PROVENANCE.md), and [`REVIEW.md`](REVIEW.md) for the limits, ownership, and review contract.
+2. Open the [`P03 release-readiness evidence`](docs/ai-dlc/changes/P03-public-release-readiness/evidence.md) for the current 172-test gate, hosted-CI result, visual-QA blocker, and review history.
+3. Inspect [`docs/ai-dlc/changes/P02-domain-hardening/`](docs/ai-dlc/changes/P02-domain-hardening/) for the accepted engineering change packet and evidence.
+4. Read [`docs/adr/0002-domain-and-persistence-invariants.md`](docs/adr/0002-domain-and-persistence-invariants.md) for the core engineering decisions.
+5. Inspect [`src/domain/weekState.ts`](src/domain/weekState.ts) and its adversarial tests in [`src/test/domainWeekState.test.ts`](src/test/domainWeekState.test.ts).
+6. Review [`SECURITY.md`](SECURITY.md), [`PROVENANCE.md`](PROVENANCE.md), and [`REVIEW.md`](REVIEW.md) for the limits, ownership, and review contract.
 
 ## Current product boundary
 
