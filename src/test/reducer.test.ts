@@ -285,7 +285,7 @@ describe('TOGGLE_PRIORITY', () => {
 })
 
 describe('START_NEW_WEEK', () => {
-  it('resets to current week start', () => {
+  it('advances from the stored week start', () => {
     const { result } = getHook()
     act(() => {
       result.current.dispatch({ type: 'ADD_TASK', dayIndex: 0, text: 'Old task' })
@@ -302,17 +302,29 @@ describe('START_NEW_WEEK', () => {
     expect(result.current.state.tasks[0]!.text).toBe('Carry me')
   })
 
-  it('resets completed status on carried tasks', () => {
+  it('rejects rollover atomically when a selected task is completed', () => {
     const { result } = getHook()
     act(() => {
       result.current.dispatch({ type: 'ADD_TASK', dayIndex: 0, text: 'Done' })
+      result.current.dispatch({ type: 'ADD_TASK', dayIndex: 1, text: 'Still open' })
     })
-    const id = result.current.state.tasks[0]!.id
+    const completedId = result.current.state.tasks[0]!.id
+    const openId = result.current.state.tasks[1]!.id
     act(() => {
-      result.current.dispatch({ type: 'TOGGLE_TASK', id })
-      result.current.dispatch({ type: 'START_NEW_WEEK', carryOverIds: [id] })
+      result.current.dispatch({ type: 'TOGGLE_TASK', id: completedId })
     })
-    expect(result.current.state.tasks[0]!.completed).toBe(false)
+    const beforeRollover = result.current.state
+
+    act(() => {
+      result.current.dispatch({
+        type: 'START_NEW_WEEK',
+        carryOverIds: [completedId, openId],
+        newWeekStart: '2026-08-31',
+      })
+    })
+
+    expect(result.current.state).toBe(beforeRollover)
+    expect(result.current.state.tasks[0]!.completed).toBe(true)
   })
 
   it('gives carried tasks new IDs', () => {
@@ -345,4 +357,3 @@ describe('START_NEW_WEEK', () => {
     expect(result.current.state.weekStart).toBe(customDate)
   })
 })
-

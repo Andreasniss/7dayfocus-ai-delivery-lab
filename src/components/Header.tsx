@@ -29,7 +29,7 @@ export function Header({
         <button className="btn" onClick={onToggleView}>
           {viewMode === 'week' ? 'Day view' : 'Week view'}
         </button>
-        <button className={isWeekInPast(weekStart) ? 'btn btn--primary' : 'btn'} onClick={onNewWeek}>
+        <button className={isWeekInPast(weekStart, weekLength) ? 'btn btn--primary' : 'btn'} onClick={onNewWeek}>
           Next week
         </button>
       </div>

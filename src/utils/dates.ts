@@ -42,7 +42,7 @@ export function isSameDay(a: Date, b: Date): boolean {
 export function formatDayLabel(date: Date): { name: string; num: string; month: string } {
   const names = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat']
   const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
-  const dow = date.getDay() 
+  const dow = date.getDay()
   return {
     name: names[dow]!,
     num: String(date.getDate()),
@@ -58,17 +58,21 @@ export function formatWeekRange(weekStart: string, length: number = 7): string {
   const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
   const sm = months[start.getMonth()]!
   const em = months[end.getMonth()]!
-  const sameMonth = start.getMonth() === end.getMonth()
+  const sameYear = start.getFullYear() === end.getFullYear()
+  const sameMonth = sameYear && start.getMonth() === end.getMonth()
   if (sameMonth) {
     return `${sm} ${start.getDate()}–${end.getDate()}, ${end.getFullYear()}`
+  }
+  if (!sameYear) {
+    return `${sm} ${start.getDate()}, ${start.getFullYear()} – ${em} ${end.getDate()}, ${end.getFullYear()}`
   }
   return `${sm} ${start.getDate()} – ${em} ${end.getDate()}, ${end.getFullYear()}`
 }
 
-/** Returns true if the stored week is in the past (week has ended). */
-export function isWeekInPast(weekStart: string): boolean {
+/** Returns true if the configured planning period has ended. */
+export function isWeekInPast(weekStart: string, length: number = 7): boolean {
   const end = fromISO(weekStart)
-  end.setDate(end.getDate() + 7) // start of next week
+  end.setDate(end.getDate() + length) // start of the next planning period
   return new Date() >= end
 }
 
@@ -81,10 +85,9 @@ export function getTodayIndex(weekStart: string, length: number = 7): number {
   return -1
 }
 
-/** Returns the ISO date string for the Monday 7 days after the current weekStart. */
+/** Returns the ISO date string seven calendar days after the current weekStart. */
 export function getNextWeekStart(currentWeekStart: string): string {
   const d = fromISO(currentWeekStart)
   d.setDate(d.getDate() + 7)
   return toISO(d)
 }
-
