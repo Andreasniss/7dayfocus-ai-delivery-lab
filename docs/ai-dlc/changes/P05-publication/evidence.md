@@ -18,7 +18,7 @@ Only observed results belong below. Final command outputs, review state, merged 
 | Credential and disclosure scan | Targeted credential, private-key, secret-assignment, private-email, and machine-path patterns returned no candidate disclosure finding; unfinished-copy review returned only intentional UI/code terms and existing punctuation |
 | Website synchronization | The website content validator passed 33 pages, 7 articles, 14 references, 12 templates, attribution, metadata, CSS, and production configuration; Hugo 0.165.0 built 147 pages; the built-site validator passed 69 HTML pages, internal references, JSON-LD, sharing metadata, robots.txt, and machine discovery |
 | Rendered desktop and mobile QA | Not completed: the permitted cloud browser returned `ERR_BLOCKED_BY_CLIENT` for the executor-local Vite URL. DOM interaction, accessibility, footer, and approval-flow tests passed, but no rendered application screenshot or visual-conformance claim is made |
-| Pull-request review | Pending final candidate |
+| Pull-request review | Codex review of `59ad293` identified one P1 status-sequencing finding: the README called the project public while visibility and release gates were pending. The candidate now retains publication wording until those gates complete; current-head re-review is pending |
 | Public visibility and default-branch verification | Pending merge and publication |
 | Website deployment | Pending linked website pull request and production deployment |
 

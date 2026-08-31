@@ -18,6 +18,6 @@
 - Locked install and complete `npm run verify` gate.
 - Isolated clean-copy reproduction and dependency audit.
 - Targeted credential, private-data, path, unfinished-copy, and link review.
-- Desktop and mobile rendered review of the credential-free fixture path.
+- Attempt desktop and mobile rendered review of the credential-free fixture path. If the permitted review environment cannot reach the local preview, record the exact blocker, retain the automated interaction and accessibility evidence, and make no rendered-quality or accessibility-conformance claim.
 - Pull-request diff review with no unresolved P0 to P2 finding.
 - Default-branch, public visibility, README link, and website deployment verification.

@@ -4,7 +4,7 @@ A local-first weekly planner with a human-approved AI assistant: bring an Anthro
 
 [Built by Andreas Nissen](https://github.com/Andreasniss) · [andreasnissen.dev](https://andreasnissen.dev) · [Connect on LinkedIn](https://www.linkedin.com/in/andreasnissen) · [Source on GitHub](https://github.com/Andreasniss/7dayfocus-ai-delivery-lab) · Apache-2.0
 
-> **Portfolio status:** Public pre-1.0 reference lab. P02 hardened the domain and persistence boundary, P04 added the provider-flexible Plan My Week workflow, and P05 completed publication review. This is an independent reference project, not a production service or a claim of provider affiliation, adoption, reliability, or scale.
+> **Portfolio status:** Verified publication candidate. P02 hardened the domain and persistence boundary, P04 added the provider-flexible Plan My Week workflow, and P05 records the current publication gates and remaining limitations. This is an independent reference project, not a production service or a claim of provider affiliation, adoption, reliability, or scale.
 
 ## See the proof in 60 seconds
 
