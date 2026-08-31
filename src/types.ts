@@ -23,6 +23,30 @@ export interface WeekState {
   settings: AppSettings
 }
 
+export type PlanProvider = 'fixture' | 'anthropic' | 'openai' | 'openrouter'
+
+export interface PlanChange {
+  taskId: string
+  dayIndex?: number
+  priority?: boolean
+  reason: string
+}
+
+export interface PlanProposal {
+  summary: string
+  changes: PlanChange[]
+}
+
+export interface PlanDiff {
+  taskId: string
+  text: string
+  fromDayIndex: number
+  toDayIndex: number
+  fromPriority: boolean
+  toPriority: boolean
+  reason: string
+}
+
 /** Commands accepted by the React store. ID creation happens before reduction. */
 export type Action =
   | { type: 'ADD_TASK'; dayIndex: number; text: string; label?: TaskLabel }
@@ -34,6 +58,7 @@ export type Action =
   | { type: 'MOVE_TASK'; id: string; toDayIndex: number }
   | { type: 'START_NEW_WEEK'; carryOverIds: string[]; newWeekStart?: string }
   | { type: 'UPDATE_SETTINGS'; settings: AppSettings }
+  | { type: 'APPLY_PLAN_PROPOSAL'; revision: string; proposal: PlanProposal }
   | { type: 'LOAD'; state: WeekState }
 
 /** Side-effect-free actions accepted by the pure domain reducer. */
@@ -51,6 +76,7 @@ export type DomainAction =
       newWeekStart?: string
     }
   | { type: 'UPDATE_SETTINGS'; settings: AppSettings }
+  | { type: 'APPLY_PLAN_PROPOSAL'; revision: string; proposal: PlanProposal }
   | { type: 'LOAD'; state: WeekState }
 
 export interface StorageIssue {

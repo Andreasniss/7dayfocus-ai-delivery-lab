@@ -46,7 +46,7 @@ For a new change, the target sequence is:
 6. Use the GitHub pull request to record the diff, reviewer findings, responses, and final human approval.
 7. Turn material incidents or escaped defects into a new evidence/learning record rather than erasing them from history.
 
-P02 is the disclosed transition exception: coding began before steps 1–3 were formalized or accepted. Its packet was added when the gap was identified, reconciled with the implementation and review, and accepted by Andreas before merge. P03 follows the intended pre-implementation acceptance sequence.
+P02 is the disclosed transition exception: coding began before steps 1–3 were formalized or accepted. Its packet was added when the gap was identified, reconciled with the implementation and review, and accepted by Andreas before merge. P03 and P04 follow the intended pre-implementation acceptance sequence.
 
 ## Current and deferred controls
 
@@ -57,6 +57,16 @@ P02 added the minimum documentation layer and the domain/persistence hardening i
 - reviewer-first release documentation, visible attribution, and an explicit publication boundary.
 
 The workflow's presence is not proof that hosted CI passed. P03 evidence records each observed run result separately.
+
+P04 adds the first applied-model workflow under a separate accepted contract:
+
+- a loopback-only BYOK gateway for Anthropic, OpenAI, and OpenRouter;
+- deterministic fixture mode with no credential or external request;
+- provider-native structured outputs plus independent proposal validation;
+- a complete visible diff and explicit approval before one atomic planner transition; and
+- named deterministic eval cases that measure the application contract separately from live-model quality.
+
+P04 does not claim live-provider verification without observed credentialed runs. The gateway and key handling are documented controls, not a production security assurance.
 
 Later changes may consider, on their own merits:
 

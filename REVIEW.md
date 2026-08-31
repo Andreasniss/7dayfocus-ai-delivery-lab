@@ -20,7 +20,7 @@ P02 remains the disclosed transition exception: implementation began before the 
 ## Required review passes
 
 1. **Intent and scope**
-   - Does the diff solve the accepted change intent without adding a model call, backend, telemetry, authentication, remote persistence, or unrelated feature work?
+   - Does the diff solve the accepted change intent without adding telemetry, authentication, remote persistence, hosted credentials, or unrelated feature work?
    - Are user-visible and data-lifecycle changes represented in the specification?
 
 2. **Domain correctness**
@@ -33,8 +33,15 @@ P02 remains the disclosed transition exception: implementation began before the 
    - Can a user observe and recover from read or write failure?
 
 4. **Security and privacy**
-   - Does the change avoid secrets, private data, raw transcripts, hidden reasoning, network calls, and accidental disclosure?
+   - Does the change keep credentials ephemeral, restrict outbound calls to accepted provider origins, avoid raw transcripts and hidden reasoning, and prevent accidental disclosure?
    - Are dependency, browser-storage, and trust-boundary changes disclosed?
+
+7. **Provider output and human control**
+   - Are request bodies bounded, provider-specific, and free of persistence or logging?
+   - Is every response independently parsed and validated rather than trusted because the provider accepted a schema?
+   - Can the model only propose accepted operations on existing incomplete tasks?
+   - Is the full proposal rejected atomically when stale, malformed, duplicated, unknown, or over capacity?
+   - Does exactly one explicit approval precede one atomic reducer action?
 
 5. **Tests and evidence**
    - Do tests exercise success, boundary, malformed-input, failure, and no-partial-update paths?

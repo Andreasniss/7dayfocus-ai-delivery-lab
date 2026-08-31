@@ -7,6 +7,7 @@ import type {
   WeekState,
 } from '../types'
 import { getNextWeekStart, getWeekStart } from '../utils/dates'
+import { createWeekRevision, validatePlanProposal } from './planProposal'
 
 export const DEFAULT_SETTINGS: AppSettings = {
   maxPriority: 2,
@@ -463,6 +464,14 @@ export function weekReducer(state: WeekState, action: DomainAction): WeekState {
         if (state.tasks.some(task => task.dayIndex >= settings.weekLength)) return state
         if (!capacityDoesNotWorsen(state.tasks, state.settings, settings)) return state
         return { ...state, settings }
+      } catch {
+        return state
+      }
+    }
+    case 'APPLY_PLAN_PROPOSAL': {
+      if (action.revision !== createWeekRevision(state)) return state
+      try {
+        return validatePlanProposal(state, action.proposal).nextState
       } catch {
         return state
       }
