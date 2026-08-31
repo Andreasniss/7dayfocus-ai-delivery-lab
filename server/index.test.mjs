@@ -83,6 +83,17 @@ describe('local gateway', () => {
     expect(providerRequest).not.toHaveBeenCalled()
   })
 
+  it('returns a client error for an invalid request before provider execution', async () => {
+    const { providerRequest, url } = await start()
+    const response = await fetch(`${url}/api/plan`, {
+      method: 'POST',
+      headers: { 'content-type': 'application/json', origin: url },
+      body: JSON.stringify({ ...requestBody(), apiKey: 'short' }),
+    })
+    expect(response.status).toBe(400)
+    expect(providerRequest).not.toHaveBeenCalled()
+  })
+
   it('returns bounded errors without provider bodies or credentials', async () => {
     const providerRequest = vi.fn(async () => {
       throw Object.assign(new Error('The provider rejected the API key or access.'), { status: 401 })

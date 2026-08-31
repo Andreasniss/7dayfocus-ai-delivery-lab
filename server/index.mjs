@@ -36,11 +36,10 @@ function isAllowedOrigin(origin, host) {
   if (!origin) return true
   try {
     const url = new URL(origin)
-    const hostPort = new URL(`http://${host}`).port || '80'
-    const originPort = url.port || '80'
-    return url.protocol === 'http:'
-      && (url.hostname === '127.0.0.1' || url.hostname === 'localhost')
-      && (originPort === hostPort || originPort === '5173')
+    const expected = new URL(`http://${host}`)
+    return url.protocol === expected.protocol
+      && url.hostname === expected.hostname
+      && (url.port || '80') === (expected.port || '80')
   } catch {
     return false
   }
@@ -100,7 +99,13 @@ export function createAppServer(options = {}) {
         return
       }
       try {
-        const parsed = parsePlanRequest(await readJsonBody(request))
+        const body = await readJsonBody(request)
+        let parsed
+        try {
+          parsed = parsePlanRequest(body)
+        } catch (error) {
+          throw Object.assign(new Error(error.message), { status: 400 })
+        }
         const proposal = await providerRequest(parsed)
         sendJson(response, 200, { proposal, provider: parsed.provider, model: parsed.model, requestId })
       } catch (error) {
