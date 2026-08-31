@@ -41,16 +41,27 @@ describe('P01 local planner smoke flow', () => {
     })
   })
 
-  it('links the public portfolio attribution to the creator and verified source', () => {
+  it('links the public portfolio attribution and displays the independence disclosure', () => {
     render(<App />)
 
     expect(screen.getByRole('link', { name: 'Andreas Nissen' })).toHaveAttribute(
       'href',
       'https://github.com/Andreasniss',
     )
-    expect(screen.getByRole('link', { name: 'Source' })).toHaveAttribute(
+    expect(screen.getByRole('link', { name: 'andreasnissen.dev' })).toHaveAttribute(
+      'href',
+      'https://andreasnissen.dev',
+    )
+    expect(screen.getByRole('link', { name: 'Connect on LinkedIn' })).toHaveAttribute(
+      'href',
+      'https://www.linkedin.com/in/andreasnissen',
+    )
+    expect(screen.getByRole('link', { name: 'Source on GitHub' })).toHaveAttribute(
       'href',
       'https://github.com/Andreasniss/7dayfocus-ai-delivery-lab',
+    )
+    expect(screen.getByText(/Personal demo project/)).toHaveTextContent(
+      'Views and opinions are my own. Not affiliated with or endorsed by my employer.',
     )
   })
 
