@@ -125,11 +125,22 @@ export function validatePlanProposal(state: WeekState, proposal: PlanProposal): 
   })
 
   for (let dayIndex = 0; dayIndex < state.settings.weekLength; dayIndex += 1) {
+    const beforeDayTasks = state.tasks.filter(task => task.dayIndex === dayIndex)
     const dayTasks = tasks.filter(task => task.dayIndex === dayIndex)
-    if (dayTasks.length > state.settings.maxTasksPerDay) {
+    const beforeTaskExcess = Math.max(0, beforeDayTasks.length - state.settings.maxTasksPerDay)
+    const afterTaskExcess = Math.max(0, dayTasks.length - state.settings.maxTasksPerDay)
+    if (afterTaskExcess > beforeTaskExcess) {
       throw new Error(`Proposal exceeds the task limit for day ${dayIndex}`)
     }
-    if (dayTasks.filter(task => task.priority).length > state.settings.maxPriority) {
+    const beforePriorityExcess = Math.max(
+      0,
+      beforeDayTasks.filter(task => task.priority).length - state.settings.maxPriority,
+    )
+    const afterPriorityExcess = Math.max(
+      0,
+      dayTasks.filter(task => task.priority).length - state.settings.maxPriority,
+    )
+    if (afterPriorityExcess > beforePriorityExcess) {
       throw new Error(`Proposal exceeds the priority limit for day ${dayIndex}`)
     }
   }

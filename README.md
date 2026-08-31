@@ -26,7 +26,7 @@ Fixture mode needs no provider account or API key and makes no external request.
 | Hands-on TypeScript/React engineering | Local planner UI, state boundary, import/export, and browser persistence |
 | Domain correctness | Pure deterministic reducer with task, week, capacity, priority, move, and rollover invariants |
 | Reliability and recovery | Versioned storage, bounded P01 migration, strict portable v2, non-destructive corrupt-data handling |
-| Evaluation discipline | 242 automated tests across success, boundary, malformed-input, recovery, capacity, accessibility, provider-adapter, and proposal-evaluation behavior |
+| Evaluation discipline | 244 automated tests across success, boundary, malformed-input, recovery, capacity, accessibility, provider-adapter, and proposal-evaluation behavior |
 | Applied model integration | Anthropic Messages, OpenAI Responses, and OpenRouter Chat Completions behind one proposal contract |
 | Human control | Structured proposal, independent invariant validation, complete diff, stale-state check, explicit approval, atomic application |
 | AI-assisted delivery | Accepted intent/specification/plan, ADRs, evidence ledger, severity-based review, and retained findings |

@@ -71,6 +71,21 @@ describe('plan proposal validation and application', () => {
     expect(result.nextState.tasks.filter(candidate => candidate.dayIndex === 1)).toHaveLength(2)
   })
 
+  it('allows a proposal to reduce rather than worsen legacy capacity excess', () => {
+    const current = state([
+      task(IDS.a, 0),
+      task(IDS.b, 0),
+      task(IDS.c, 0),
+      task(IDS.d, 0),
+    ])
+    const result = validatePlanProposal(current, proposal([
+      { taskId: IDS.a, dayIndex: 1, reason: 'Reduce the overloaded day' },
+    ]))
+
+    expect(result.nextState.tasks.filter(candidate => candidate.dayIndex === 0)).toHaveLength(3)
+    expect(result.nextState.tasks.filter(candidate => candidate.dayIndex === 1)).toHaveLength(1)
+  })
+
   it('clears priority when moving unless explicitly restored', () => {
     const current = state([task(IDS.a, 0, { priority: true })])
     const result = validatePlanProposal(current, proposal([

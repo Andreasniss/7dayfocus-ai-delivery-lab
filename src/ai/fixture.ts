@@ -33,7 +33,11 @@ export function createFixtureProposal(state: WeekState): PlanProposal {
   }
 
   if (changes.length === 0) {
-    const task = active.find(candidate => !candidate.priority)
+    const task = active.find(candidate => (
+      !candidate.priority
+      && state.tasks.filter(other => other.dayIndex === candidate.dayIndex && other.priority).length
+        < state.settings.maxPriority
+    ))
     if (!task) throw new Error('The fixture found no safe planning change for this week.')
     changes.push({
       taskId: task.id,
