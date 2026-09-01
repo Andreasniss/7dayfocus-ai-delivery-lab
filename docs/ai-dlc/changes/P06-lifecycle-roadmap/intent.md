@@ -6,7 +6,7 @@
 
 ## Outcome
 
-Make the AI-assisted lifecycle internally consistent and replace an empty forward backlog with a dependency-aware roadmap that can guide the next credible portfolio and product increments.
+Make the AI-assisted lifecycle internally consistent, preserve the product-discovery conclusion that the standalone need has been superseded, and replace an empty forward backlog with an honest learning roadmap.
 
 ## Reviewer and proof
 
@@ -15,7 +15,7 @@ The primary reviewer is a senior applied-AI or platform engineer checking whethe
 - completed P02–P04 packets no longer present contradictory draft or in-progress status;
 - retrospective clarification is labeled and never presented as pre-implementation evidence;
 - the roadmap links to live, scoped GitHub issues;
-- the backlog covers hosted review, deployment/rollback, Maintain learning, product quality, and Android;
+- the backlog distinguishes the next optional Android learning goal from parked evidence and feature extensions;
 - the Android required outcome and optional Google Play time box are unambiguous; and
 - the repository still claims only an Anthropic-inspired adaptation.
 
@@ -25,7 +25,8 @@ The primary reviewer is a senior applied-AI or platform engineer checking whethe
 - Add missing P04 design choices, alternatives, and concerns as retrospective clarification.
 - Add `ROADMAP.md` and link it from the README and lifecycle guide.
 - Create P07–P11 backlog issues with intent, scope, requirements, evidence, dependencies, and human gates.
-- Make personal Android installation required and Google Play optional with a three-hour cap.
+- Record the earlier Tauri/Android proof, make personal Android installation the P11 success condition, and keep Google Play optional with a three-hour cap.
+- Explain why Claude/ChatGPT orchestration plus Todoist now supersedes the standalone product need.
 
 ## Out of scope
 
@@ -41,6 +42,7 @@ The primary reviewer is a senior applied-AI or platform engineer checking whethe
 - Do not backdate clarification or approvals.
 - Keep roadmap status synchronized with GitHub issues.
 - Keep future work distinct from implemented capabilities.
+- Do not present parked learning options as an active product strategy.
 
 ## Success signals
 
