@@ -12,8 +12,10 @@ Only observed results belong below. P06 changes documentation and backlog state;
 - P02–P04 status drift reconciled with existing merged and published records.
 - P04 design alternatives and concerns added as explicitly retrospective clarification.
 - `ROADMAP.md` added and linked from both lifecycle entry points.
-- Issues #13–#17 created as the active product backlog.
-- Issue #17 revised so personal-device installation is required and Google Play is optional with a three-hour cap.
+- Issues #13–#17 created, with P07–P10 marked as parked optional extensions and P11 retained as a personal learning goal.
+- Issue #17 revised so personal-device installation is the success condition and Google Play is optional with a three-hour cap.
+- The earlier private Tauri v2/Android proof was inspected; it records Android Studio/emulator setup, PWA support, tests, and Android build instructions, but no production launch.
+- The candidate README and roadmap record that Claude/ChatGPT orchestration plus Todoist has superseded the standalone-product need.
 
 ## Verification
 
@@ -30,5 +32,5 @@ Only observed results belong below. P06 changes documentation and backlog state;
 ## Limitations
 
 - P06 does not demonstrate hosted CI, live-provider behavior, rendered UI, deployment, rollback, production metrics, Android installation, or Google Play publication.
-- The Android architecture and reusable state of the older Android Studio experiment remain unknown until P11 discovery.
+- The earlier Tauri v2 Android foundation exists, but safe code reuse, current build compatibility, and device installation remain unverified until P11.
 - GitHub issue state may advance after this committed snapshot; live issues remain authoritative.
