@@ -27,8 +27,8 @@ Only observed results belong below. P06 changes documentation and backlog state;
 | Roadmap issue-link verification | Issues #12–#17 created and observed open on 2026-09-01 |
 | Markdown/diff review | `git diff --check origin/main...HEAD` passed; relative links in README, roadmap, lifecycle guide, and P06 packet resolved locally |
 | Current-head review | Pending on the final PR #18 head |
-| Application tests/build | Not rerun; no application, dependency, workflow, or runtime file changes |
-| Website synchronization | [Website PR #40](https://github.com/Andreasniss/personal-website/pull/40) opened; content validation and Hugo Extended 0.165.0 production build passed locally |
+| Application tests/build | Not rerun locally for P06; no application, dependency, workflow, or runtime file changes. GitHub Actions Verify run [#24](https://github.com/Andreasniss/7dayfocus-ai-delivery-lab/actions/runs/33477129238) completed successfully on candidate head `6bb4b58` |
+| Website synchronization | [Website PR #40](https://github.com/Andreasniss/personal-website/pull/40) opened; content validation and Hugo Extended 0.165.0 production build passed locally, and hosted workflow run [#103](https://github.com/Andreasniss/personal-website/actions/runs/33477086787) completed successfully on its candidate head |
 | Private predecessor correction | `Andreasniss/Todo-app` README updated on `main` as `92f11eb` and re-read; store availability overstatement removed |
 | Vault record | `Efforts/7DayFocus-To-Do-App.md` archived and updated as `70ab179`; modified/status/content re-read from `main` |
 
