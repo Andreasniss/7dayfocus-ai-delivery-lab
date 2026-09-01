@@ -6,7 +6,7 @@ A local-first weekly planner with a human-approved AI assistant: bring an Anthro
 
 > **Portfolio status:** Public pre-1.0 reference lab. P02 hardened the domain and persistence boundary, P04 added the provider-flexible Plan My Week workflow, and P05 completed publication review. This is an independent reference project, not a production service or a claim of provider affiliation, adoption, reliability, or scale.
 
-> **Documented evidence snapshot, 1 September 2026:** the current repository records 244 automated tests and 24 deterministic evaluation cases. Hosted CI is not claimed because a successful current workflow run is not available. See the [case study](https://andreasnissen.dev/projects/7dayfocus-ai-delivery-lab/), [context and control article](https://andreasnissen.dev/writing/context-and-control/), and [AI-built work review article](https://andreasnissen.dev/writing/reviewing-ai-built-public-work/).
+> **Documented evidence snapshot, 1 September 2026:** the current repository records 244 automated tests and 24 deterministic evaluation cases. GitHub Actions Verify run [#24](https://github.com/Andreasniss/7dayfocus-ai-delivery-lab/actions/runs/33477129238) passed on the P06 pull-request head. See the [case study](https://andreasnissen.dev/projects/7dayfocus-ai-delivery-lab/), [context and control article](https://andreasnissen.dev/writing/context-and-control/), and [AI-built work review article](https://andreasnissen.dev/writing/reviewing-ai-built-public-work/).
 
 ## See the proof in 60 seconds
 
