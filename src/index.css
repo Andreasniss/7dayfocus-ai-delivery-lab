@@ -813,10 +813,23 @@ button:focus-visible, input:focus-visible, select:focus-visible, textarea:focus-
 }
 
 .portfolio-attribution {
+  display: grid;
+  gap: 6px;
   padding: 8px 20px 20px;
   color: var(--faint);
   font-size: 0.78rem;
   text-align: center;
+}
+
+.portfolio-attribution__links {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 4px;
+}
+
+.portfolio-attribution p {
+  margin: 0;
 }
 
 .portfolio-attribution a {

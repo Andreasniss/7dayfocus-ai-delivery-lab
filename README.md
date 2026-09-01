@@ -2,9 +2,9 @@
 
 A local-first weekly planner with a human-approved AI assistant: bring an Anthropic, OpenAI, or OpenRouter key, review a bounded proposal, and explicitly approve every change.
 
-[Built by Andreas Nissen](https://github.com/Andreasniss) · [Source repository](https://github.com/Andreasniss/7dayfocus-ai-delivery-lab) · Apache-2.0
+[Built by Andreas Nissen](https://github.com/Andreasniss) · [andreasnissen.dev](https://andreasnissen.dev) · [Connect on LinkedIn](https://www.linkedin.com/in/andreasnissen) · [Source on GitHub](https://github.com/Andreasniss/7dayfocus-ai-delivery-lab) · Apache-2.0
 
-> **Portfolio status:** P02 domain and persistence hardening is merged and owner-accepted. P04 adds the provider-flexible Plan My Week workflow under a separate lifecycle, threat model, eval suite, and human-approval boundary. This is an independent reference project, not a production service or a claim of provider affiliation, adoption, reliability, or scale.
+> **Portfolio status:** Verified publication candidate. P02 hardened the domain and persistence boundary, P04 added the provider-flexible Plan My Week workflow, and P05 records the current publication gates and remaining limitations. This is an independent reference project, not a production service or a claim of provider affiliation, adoption, reliability, or scale.
 
 > **Documented evidence snapshot, 31 August 2026:** the current repository records 244 automated tests and 24 deterministic evaluation cases. Hosted CI is not claimed because a successful current workflow run is not available. See the [case study](https://andreasnissen.dev/projects/7dayfocus-ai-delivery-lab/), [context and control article](https://andreasnissen.dev/writing/context-and-control/), and [AI-built work review article](https://andreasnissen.dev/writing/reviewing-ai-built-public-work/).
 
@@ -20,6 +20,27 @@ npm run dev
 Open the Vite URL, add two fictional tasks to one day, open **Plan my week**, keep **Fixture demo**, and generate a proposal. Review the complete diff and select **Approve all changes**. Expected result: no task changes during generation; one validated move or priority change is applied only after approval.
 
 Fixture mode needs no provider account or API key and makes no external request. Live mode requires the local gateway started by `npm run dev`, a user-owned provider key, and non-sensitive fictional planner data.
+
+## The Anthropic method this repository demonstrates
+
+Anthropic's [AI-native SDLC playbook](https://claude.com/blog/the-ai-native-sdlc-playbook) keeps the familiar Plan, Design, Build, Test, Deploy, and Maintain responsibilities, then changes how work moves between them. Each stage produces a committed artifact that the next stage can read: `intent.md`, `spec.md`, `plan.md`, the code diff and tests, pull-request findings, and an incident record that can start the loop again. Humans correct and accept the artifacts that require product, architecture, risk, or release judgment.
+
+This repository makes that handoff visible without claiming to reproduce Anthropic's internal process:
+
+| Handoff | Repository evidence | Human gate |
+| --- | --- | --- |
+| Problem to design | [`intent.md`](docs/ai-dlc/changes/P04-plan-my-week/intent.md) becomes [`spec.md`](docs/ai-dlc/changes/P04-plan-my-week/spec.md) | Andreas accepts the outcome, constraints, and user-visible contract |
+| Design to implementation | [`plan.md`](docs/ai-dlc/changes/P04-plan-my-week/plan.md) names the sequence and verification | Andreas accepts the implementation boundary before code changes |
+| Implementation to review | Code, tests, evals, ADRs, and [`evidence.md`](docs/ai-dlc/changes/P04-plan-my-week/evidence.md) form the reviewable candidate | The pull request records findings, fixes, and merge approval |
+| Learning to next change | Escaped defects and new requirements become a new issue and artifact packet | A human decides whether the evidence justifies another change |
+
+The project adapts the pattern with provider-neutral `AGENTS.md`, `REVIEW.md`, severity levels, per-change folders, and a concise evidence ledger. Those are project conventions, not requirements stated by Anthropic. The [lifecycle guide](docs/ai-dlc/README.md) separates source guidance from local choices and records the P02 transition exception honestly.
+
+## Related: the more comprehensive AWS AI-DLC method
+
+AWS's [AI-Driven Development Life Cycle](https://aws.amazon.com/blogs/devops/ai-driven-development-life-cycle/) and the open-source [AI-DLC Workflows](https://awslabs.github.io/aidlc-workflows/guide/00-introduction/) go further as an enterprise delivery framework. They organize work across Inception, Construction, and Operations, use Units and Bolts to decompose and sequence implementation, calibrate workflow depth to scope and risk, and maintain explicit state, audit, and evidence across a larger lifecycle.
+
+The two methods solve related problems at different levels. Anthropic offers a lightweight, committed-artifact handshake that is easy to inspect in one repository. AWS offers a broader governance and orchestration model for complex delivery. This lab intentionally implements the smaller Anthropic-inspired chain and links the AWS method as the next step when a project needs deeper decomposition, traceability, or enterprise controls. The companion article, [Three AI-Native Software Delivery Methods Compared](https://andreasnissen.dev/writing/ai-native-software-delivery-methods/), also places OpenAI's harness-engineering approach beside both.
 
 ## What this demonstrates
 
@@ -57,7 +78,7 @@ UUID and date creation occur outside the reducer. Stored, imported, and model-ge
 3. Inspect [`src/domain/planProposal.ts`](src/domain/planProposal.ts), [`server/providers.mjs`](server/providers.mjs), and the [24 deterministic eval cases](evals/README.md).
 4. Read [`ADR 0004`](docs/adr/0004-local-byok-proposal-gateway.md) and the [`threat model`](docs/THREAT-MODEL.md).
 5. Inspect [`docs/ai-dlc/changes/P02-domain-hardening/`](docs/ai-dlc/changes/P02-domain-hardening/) and [`ADR 0002`](docs/adr/0002-domain-and-persistence-invariants.md) for the underlying planner invariants.
-6. Review [`SECURITY.md`](SECURITY.md), [`PROVENANCE.md`](PROVENANCE.md), and [`REVIEW.md`](REVIEW.md) for limits, ownership, and review gates.
+6. Review the [`P05 publication record`](docs/ai-dlc/changes/P05-publication/), [`SECURITY.md`](SECURITY.md), [`PROVENANCE.md`](PROVENANCE.md), and [`REVIEW.md`](REVIEW.md) for release evidence, limits, ownership, and review gates.
 
 ## Current product boundary
 

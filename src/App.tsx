@@ -231,18 +231,31 @@ export default function App() {
         </main>
 
         <footer className="portfolio-attribution">
-          <span>Built by </span>
-          <a href="https://github.com/Andreasniss" target="_blank" rel="noreferrer">
-            Andreas Nissen
-          </a>
-          <span aria-hidden="true"> · </span>
-          <a
-            href="https://github.com/Andreasniss/7dayfocus-ai-delivery-lab"
-            target="_blank"
-            rel="noreferrer"
-          >
-            Source
-          </a>
+          <div className="portfolio-attribution__links">
+            <span>Built by </span>
+            <a href="https://github.com/Andreasniss" target="_blank" rel="noreferrer">
+              Andreas Nissen
+            </a>
+            <span aria-hidden="true"> · </span>
+            <a href="https://andreasnissen.dev" target="_blank" rel="noreferrer">
+              andreasnissen.dev
+            </a>
+            <span aria-hidden="true"> · </span>
+            <a href="https://www.linkedin.com/in/andreasnissen" target="_blank" rel="noreferrer">
+              Connect on LinkedIn
+            </a>
+            <span aria-hidden="true"> · </span>
+            <a
+              href="https://github.com/Andreasniss/7dayfocus-ai-delivery-lab"
+              target="_blank"
+              rel="noreferrer"
+            >
+              Source on GitHub
+            </a>
+          </div>
+          <p>
+            Personal demo project. Views and opinions are my own. Not affiliated with or endorsed by my employer.
+          </p>
         </footer>
 
         <DragOverlay dropAnimation={{ duration: 180, easing: 'ease' }}>

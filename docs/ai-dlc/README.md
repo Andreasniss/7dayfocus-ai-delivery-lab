@@ -48,6 +48,16 @@ For a new change, the target sequence is:
 
 P02 is the disclosed transition exception: coding began before steps 1–3 were formalized or accepted. Its packet was added when the gap was identified, reconciled with the implementation and review, and accepted by Andreas before merge. P03 and P04 follow the intended pre-implementation acceptance sequence.
 
+P05 was initiated by Andreas's explicit publication goal on 2026-08-31. The issue and accepted packet define the documentation, evidence, website synchronization, and visibility gates before publication work is merged.
+
+## How this relates to AWS AI-DLC
+
+This repository uses the smallest useful Anthropic-inspired artifact handshake. It does not implement the full AWS AI-Driven Development Life Cycle.
+
+AWS AI-DLC is the more comprehensive method when delivery needs structured discovery, decomposition, risk-calibrated workflow depth, and lifecycle governance across a larger system. Its public method groups work into Inception, Construction, and Operations; decomposes the solution into independently implementable Units; sequences Construction through Bolts, starting with a walking skeleton; and keeps explicit workflow state, audit history, and evidence.
+
+The methods can be combined without duplicating ceremonies: use AWS AI-DLC to select lifecycle depth, Units, Bolts, and governance, then use a compact `intent.md` to `spec.md` to `plan.md` handshake inside a Unit when that continuity helps. This lab stays deliberately smaller so a reviewer can inspect the complete chain in one repository.
+
 ## Current and deferred controls
 
 P02 added the minimum documentation layer and the domain/persistence hardening it describes. P03 adds:
@@ -89,7 +99,7 @@ No control is claimed as effective merely because its configuration or documenta
 
 ## Official sources
 
-Reviewed on 2026-08-30. These pages may evolve; the repository records the project conventions adopted from the guidance rather than treating the linked text as a fixed certification standard.
+Reviewed on 2026-08-31. These pages may evolve; the repository records the project conventions adopted from the guidance rather than treating the linked text as a fixed certification standard.
 
 - [The AI-native software development lifecycle playbook](https://claude.com/blog/the-ai-native-sdlc-playbook)
 - [How Anthropic secures its AI-native software development lifecycle](https://claude.com/blog/how-anthropic-secures-its-ai-native-software-development-lifecycle)
@@ -97,6 +107,10 @@ Reviewed on 2026-08-30. These pages may evolve; the repository records the proje
 - [Claude Code: Code review](https://code.claude.com/docs/en/code-review)
 - [Claude Code: Settings](https://code.claude.com/docs/en/settings)
 - [Claude Code: Hooks](https://code.claude.com/docs/en/hooks)
+- [AWS: AI-Driven Development Life Cycle](https://aws.amazon.com/blogs/devops/ai-driven-development-life-cycle/)
+- [AWS Labs AI-DLC Workflows: Introduction](https://awslabs.github.io/aidlc-workflows/guide/00-introduction/)
+- [AWS Labs AI-DLC Workflows: Phases and stages](https://awslabs.github.io/aidlc-workflows/guide/04-phases-and-stages/)
+- [AWS Labs AI-DLC Workflows: Scopes and depth](https://awslabs.github.io/aidlc-workflows/guide/05-scopes-and-depth/)
 
 ## Independence
 
