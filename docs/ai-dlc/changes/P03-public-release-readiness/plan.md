@@ -17,7 +17,7 @@
 - [x] Attempt desktop/mobile capture and record the exact browser-access blocker.
 - [x] Open private draft pull request #5.
 - [x] Complete review of the current pull-request head.
-- [x] Merge after the public-project clean-merge gates and owner waiver were recorded.
+- [x] Merge privately after the applicable P03 clean-merge gates passed; the later rendered-QA waiver governed P05 publication, not the P03 merge.
 - [x] Keep visibility private until Andreas explicitly authorized publication; publication was later completed through P05.
 
 ## Closeout clarification
