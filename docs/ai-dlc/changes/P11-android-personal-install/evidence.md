@@ -41,6 +41,7 @@ Rejected carry-over:
 - The production bundle built successfully with 49 transformed modules and a 289.24 kB JavaScript artifact before gzip.
 - `npm audit --omit=dev` reported zero known runtime dependency vulnerabilities.
 - `git diff --check` and the credential/private-key signature scan passed.
+- Hosted Verify [run #35](https://github.com/Andreasniss/7dayfocus-ai-delivery-lab/actions/runs/33483496032) passed on behavior head `44423b99756550f9558395c45bbb4c51fa0acc45` after the fail-closed request guard and 249th test were added.
 - `tauri info --verbose` recognized Tauri CLI 2.11.4, the React/Vite project, CSP, development URL, and frontend distribution path.
 - `tauri icon src-tauri/app-icon.svg` generated the Android and bundle variants successfully; the 256 px render was visually checked for legibility. Generated variants remain reproducible output and are not committed.
 - `tauri android init --ci` stopped before modifying the generated Android project because `cargo` is unavailable. The observed error was `failed to run command cargo metadata ... No such file or directory`.
@@ -51,4 +52,4 @@ Rejected carry-over:
 - Android project generation and APK build require Andreas's PC with Rust and Android SDK
 - physical-device installation and test
 - signing and optional Play Console spike
-- current-head pull-request review and merge
+- final documentation-head verification, pull-request review, and merge after the PC/device evidence is appended
