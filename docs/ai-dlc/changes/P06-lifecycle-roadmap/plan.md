@@ -2,7 +2,7 @@
 
 - **Owner:** Andreas
 - **Accepted:** 2026-09-01
-- **Status:** In progress
+- **Status:** Completed and owner-accepted; pull request #18 squash-merged as `a54be76`
 
 ## Files and order
 
@@ -41,8 +41,8 @@
 - [x] Record the product-discovery conclusion in the candidate README and roadmap.
 - [x] Synchronize and verify the website case study and private project note.
 - [x] Verify candidate documentation and complete diff.
-- [x] Open pull request #18; current-head review remains pending.
-- [ ] Merge and verify `main`.
+- [x] Open pull request #18 and complete exact-head review after all P2 findings were fixed and resolved.
+- [x] Squash-merge pull request #18 as `a54be76`; issue #12 closed automatically and changed files were re-read from `main`.
 
 ## Stop conditions
 
