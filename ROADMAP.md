@@ -1,42 +1,42 @@
-# 7DayFocus Roadmap
+# 7DayFocus Learning Roadmap
 
-This roadmap turns the repository's forward work into explicit outcomes and GitHub issues. Open issues are the authoritative live backlog; change packets and pull requests carry accepted contracts, implementation evidence, findings, and disposition.
+This roadmap records possible learning and portfolio extensions. It is not a standalone-product strategy. GitHub issues are the authoritative live backlog; change packets and pull requests carry accepted contracts, observed evidence, findings, and disposition.
 
-Roadmap entries are planned work, not delivered-product claims.
+## Product-discovery conclusion
 
-## Product direction
+7DayFocus began as a real response to a missing personal workflow and as a vehicle for learning cross-platform mobile development and AI-assisted delivery. The prototype proved the bounded-assistant design and the repository now preserves the Anthropic-inspired artifact chain.
 
-Build a trustworthy local-first weekly planner that demonstrates bounded AI assistance, explicit human approval, evidence-led delivery, and useful mobile operation. The shortest reviewer path remains deterministic and credential-free. The Android goal is first to install and use the app on Andreas's own phone; Google Play is optional and time-boxed.
+The product need later changed. Andreas now uses Claude and ChatGPT as context-rich orchestrators, with Todoist as the task system of record and visual interface through its connector and CLI. This architecture has more context and less duplicate product surface than a separate AI planner. Standalone development is therefore not an active goal.
 
-## Ordered backlog
+## Current sequence
 
-| Order | Change | Outcome | Status and dependency |
+| Order | Change | Outcome | Disposition |
 | --- | --- | --- | --- |
-| 1 | [P06 · Lifecycle integrity](https://github.com/Andreasniss/7dayfocus-ai-delivery-lab/issues/12) | Reconcile completed packets, establish this roadmap, and seed executable work | In progress |
-| 2 | [P07 · Hosted reviewer demo/PWA](https://github.com/Andreasniss/7dayfocus-ai-delivery-lab/issues/13) | Bookmarkable fixture path, installability, reset, and rendered mobile/desktop proof | Open after P06 |
-| 3 | [P08 · Delivery and rollback](https://github.com/Andreasniss/7dayfocus-ai-delivery-lab/issues/14) | Green hosted CI, traceable deployment, release evidence, and exercised rollback | Open; coordinate with P07 |
-| 4 | [P09 · Maintain loop](https://github.com/Andreasniss/7dayfocus-ai-delivery-lab/issues/15) | Versioned operational control band, diagnosis, new intent, incident record, and regression eval | Open after P07–P08 |
-| 5 | [P10 · Planning quality](https://github.com/Andreasniss/7dayfocus-ai-delivery-lab/issues/16) | Effort, availability, fixed commitments, explanations, alternatives, and 30–50-case evaluation | Open after P06; hosted evidence benefits from P07–P08 |
-| 6 | [P11 · Android personal install](https://github.com/Andreasniss/7dayfocus-ai-delivery-lab/issues/17) | Install and test a current Android build on Andreas's phone | Open after P06; P07 may provide the fastest base |
+| 1 | [P06 · Lifecycle integrity and reflection](https://github.com/Andreasniss/7dayfocus-ai-delivery-lab/issues/12) | Reconcile evidence, capture the product-discovery conclusion, and establish the learning backlog | In progress |
+| 2 | [P11 · Android personal install](https://github.com/Andreasniss/7dayfocus-ai-delivery-lab/issues/17) | Reuse the earlier Tauri/Android proof where useful, install a current build on Andreas's phone, and record a device test | Optional learning goal after P06; Google Play spike capped at three hours |
+| Parked | [P07 · Hosted reviewer demo/PWA](https://github.com/Andreasniss/7dayfocus-ai-delivery-lab/issues/13) | Bookmarkable fixture path and rendered mobile/desktop proof | Proceed only for clear portfolio value |
+| Parked | [P08 · Delivery and rollback](https://github.com/Andreasniss/7dayfocus-ai-delivery-lab/issues/14) | Green hosted CI, traceable deployment, and exercised rollback | Proceed only to deepen Deploy evidence |
+| Parked | [P09 · Maintain loop](https://github.com/Andreasniss/7dayfocus-ai-delivery-lab/issues/15) | Operational control band, diagnosis, incident record, and regression eval | Proceed only to demonstrate Maintain learning |
+| Parked | [P10 · Planning quality](https://github.com/Andreasniss/7dayfocus-ai-delivery-lab/issues/16) | Richer constraints and 30–50-case model evaluation | Proceed only if the product problem becomes relevant again |
 
-P07 and P10 may proceed in either order after P06 when capacity favors product depth over hosting. P08 should be designed with P07. P09 needs an observable hosted or delivery surface. P11 discovery can start after P06 without waiting for every web milestone.
+## Parked feature candidates
 
-## Feature backlog
-
-P10 owns the current product candidates:
+P10 retains the product ideas so the learning is not lost:
 
 - task duration or effort;
 - fixed commitments and available planning windows;
 - energy/focus preferences;
 - proposal explanations and alternatives;
 - read-only calendar/ICS import after privacy review; and
-- 30–50 realistic and adversarial evaluation cases, with dated live-provider results only when actually observed.
+- 30–50 realistic and adversarial evaluation cases, with dated live-provider results only when observed.
 
-Every feature must retain deterministic validation, a complete proposal diff, stale-state rejection, explicit approval, and atomic application. Autonomous deletion, completion, background mutation, or sensitive-data handling remains out of scope unless a later accepted packet changes that boundary.
+These are not promised features. If resumed, every feature must retain deterministic validation, a complete proposal diff, stale-state rejection, explicit approval, and atomic application. Autonomous deletion, completion, background mutation, or sensitive-data handling remains out of scope unless a later accepted packet changes that boundary.
 
 ## Android and Google Play boundary
 
-P11 succeeds when a current build is installed and tested on Andreas's personal Android phone. The implementation starts with an architecture decision and inventory of the older Android Studio experiment.
+The earlier private proof of concept contains a React and Tauri v2 Android project, Android Studio/emulator setup, PWA support, tests, and Android build instructions. It was tested and prepared for distribution but not launched to production.
+
+P11 succeeds when a current build is installed and tested on Andreas's personal Android phone. This is a learning and completion goal, not a revival of the standalone-product strategy.
 
 After device success, Google Play work is an optional launch spike capped at **three hours**. Stop at the cap or earlier when account testing gates, identity, policy, privacy, security, or engineering work cannot be completed safely inside the remaining budget. Record the exact gate and reusable artifacts. A stopped Play attempt does not invalidate the personal-device outcome.
 
@@ -44,7 +44,7 @@ No store publication, testing-track availability, API compatibility, privacy dis
 
 ## Backlog quality contract
 
-Each change must define:
+Each resumed change must define:
 
 1. intent, reviewer, outcome, scope, constraints, and proof;
 2. product and design requirements, alternatives, concerns, and human gates;
@@ -52,4 +52,4 @@ Each change must define:
 4. observed evidence, findings, residual limitations, and owner disposition; and
 5. synchronized README, repository, live demo, and portfolio claims when behavior changes.
 
-Material incidents and escaped defects become a new issue, intent artifact, and regression evaluation rather than disappearing from history.
+A sound outcome may be to stop. Product discovery that removes the need for a feature must be preserved as clearly as implementation evidence.
