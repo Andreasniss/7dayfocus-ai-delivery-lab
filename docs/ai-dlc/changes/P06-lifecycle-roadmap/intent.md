@@ -16,7 +16,7 @@ The primary reviewer is a senior applied-AI or platform engineer checking whethe
 - retrospective clarification is labeled and never presented as pre-implementation evidence;
 - the roadmap links to live, scoped GitHub issues;
 - the backlog distinguishes the next optional Android learning goal from parked evidence and feature extensions;
-- the Android required outcome and optional Google Play time box are unambiguous; and
+- the optional Android learning goal, its personal-device success condition, and the optional Google Play time box are unambiguous; and
 - the repository still claims only an Anthropic-inspired adaptation.
 
 ## In scope
