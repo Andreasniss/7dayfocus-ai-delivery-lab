@@ -80,9 +80,17 @@ UUID and date creation occur outside the reducer. Stored, imported, and model-ge
 5. Inspect [`docs/ai-dlc/changes/P02-domain-hardening/`](docs/ai-dlc/changes/P02-domain-hardening/) and [`ADR 0002`](docs/adr/0002-domain-and-persistence-invariants.md) for the underlying planner invariants.
 6. Review the [`P05 publication record`](docs/ai-dlc/changes/P05-publication/), [`SECURITY.md`](SECURITY.md), [`PROVENANCE.md`](PROVENANCE.md), and [`REVIEW.md`](REVIEW.md) for release evidence, limits, ownership, and review gates.
 
-## Roadmap and active backlog
+## What changed after the prototype
 
-The versioned [`ROADMAP.md`](ROADMAP.md) and open [GitHub issues](https://github.com/Andreasniss/7dayfocus-ai-delivery-lab/issues) are the authoritative forward plan. P06 reconciles lifecycle evidence; P07–P10 add a hosted fixture/PWA path, reliable deployment and rollback, an inspectable Maintain loop, and deeper planning/evaluation. P11 makes a personal Android installation the required mobile outcome and time-boxes any Google Play launch attempt to three hours. Roadmap entries are planned work, not delivered claims.
+The original product need was real: I wanted a focused seven-day planner and a concrete way to learn cross-platform development, AI-assisted delivery, model integration, evaluations, and human approval. An earlier private React and Tauri v2 proof of concept reached Android Studio and emulator testing and was prepared for distribution, but it was never launched as a production app.
+
+The surrounding platform then improved faster than the standalone product. In my current personal workflow, Claude and ChatGPT provide the context-rich orchestration layer. Todoist provides the task system of record and visual interface through its connector and CLI. That combination is more useful than a separate AI planner because the orchestrator can reason across broader context while Todoist already handles durable task storage and everyday interaction.
+
+Stopping standalone-product development is therefore a product-discovery result, not an incomplete launch disguised as success. The repository remains valuable as an inspectable learning lab for the Anthropic-inspired artifact chain, bounded model proposals, deterministic evaluation, threat modeling, and explicit human control.
+
+## Roadmap and optional backlog
+
+The versioned [`ROADMAP.md`](ROADMAP.md) and open [GitHub issues](https://github.com/Andreasniss/7dayfocus-ai-delivery-lab/issues) record possible learning and portfolio extensions, not a commitment to revive the standalone product. P11 preserves one personally meaningful goal: install and test the Android build on Andreas's phone. Any Google Play attempt is optional and capped at three hours. P07–P10 proceed only when they add specific learning or inspectable evidence.
 
 ## Current product boundary
 
