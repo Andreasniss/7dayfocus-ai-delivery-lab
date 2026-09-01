@@ -80,6 +80,10 @@ UUID and date creation occur outside the reducer. Stored, imported, and model-ge
 5. Inspect [`docs/ai-dlc/changes/P02-domain-hardening/`](docs/ai-dlc/changes/P02-domain-hardening/) and [`ADR 0002`](docs/adr/0002-domain-and-persistence-invariants.md) for the underlying planner invariants.
 6. Review the [`P05 publication record`](docs/ai-dlc/changes/P05-publication/), [`SECURITY.md`](SECURITY.md), [`PROVENANCE.md`](PROVENANCE.md), and [`REVIEW.md`](REVIEW.md) for release evidence, limits, ownership, and review gates.
 
+## Roadmap and active backlog
+
+The versioned [`ROADMAP.md`](ROADMAP.md) and open [GitHub issues](https://github.com/Andreasniss/7dayfocus-ai-delivery-lab/issues) are the authoritative forward plan. P06 reconciles lifecycle evidence; P07–P10 add a hosted fixture/PWA path, reliable deployment and rollback, an inspectable Maintain loop, and deeper planning/evaluation. P11 makes a personal Android installation the required mobile outcome and time-boxes any Google Play launch attempt to three hours. Roadmap entries are planned work, not delivered claims.
+
 ## Current product boundary
 
 The planner supports creating, editing, completing, prioritizing, labeling, moving, deleting, reviewing, carrying over, importing, and exporting tasks. State is stored as plaintext JSON in the current browser profile.
