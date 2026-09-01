@@ -34,6 +34,6 @@ Only observed results belong below. P06 changes documentation and backlog state;
 
 ## Limitations
 
-- P06 does not demonstrate hosted CI, live-provider behavior, rendered UI, deployment, rollback, production metrics, Android installation, or Google Play publication.
+- P06 has successful hosted Verify evidence. It does not demonstrate live-provider behavior, rendered UI, application deployment, rollback, production metrics, Android installation, or Google Play publication.
 - The earlier Tauri v2 Android foundation exists, but safe code reuse, current build compatibility, and device installation remain unverified until P11.
 - GitHub issue state may advance after this committed snapshot; live issues remain authoritative.
