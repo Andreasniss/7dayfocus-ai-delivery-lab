@@ -5,7 +5,7 @@
 - **Live scope:** [GitHub issue #12](https://github.com/Andreasniss/7dayfocus-ai-delivery-lab/issues/12)
 - **Status:** Pull request candidate; [PR #18](https://github.com/Andreasniss/7dayfocus-ai-delivery-lab/pull/18) open
 
-Only observed results belong below. P06 changes documentation and backlog state; it does not add or re-verify application behavior.
+Only observed results belong below. P06 changes documentation and backlog state; it does not change application behavior. Hosted Verify reruns the unchanged application's lint, typecheck, automated tests, deterministic evals, and production build; P06 did not rerun those application gates locally.
 
 ## Candidate changes
 
