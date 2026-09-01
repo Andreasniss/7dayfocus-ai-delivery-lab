@@ -8,7 +8,7 @@ Do not put secrets into task text or use the project with confidential informati
 
 ## Supported versions
 
-There is no supported public release yet. After publication, security fixes will target the latest revision on the default branch while the project remains pre-1.0. Old commits, forks, screenshots, and unpublished builds will not be supported versions. This policy does not provide a response-time or remediation SLA.
+This is a public pre-1.0 reference project. Security fixes target the latest revision on the default branch. Old commits, forks, screenshots, and unpublished builds are not supported versions. This policy does not provide a response-time or remediation SLA.
 
 ## Reporting a vulnerability
 
