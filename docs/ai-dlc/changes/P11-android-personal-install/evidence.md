@@ -34,11 +34,11 @@ Rejected carry-over:
 
 ## Observed results
 
-- Targeted mobile-boundary and integration tests: 22 passed across `runtime.test.ts`, `PlanAssistant.test.tsx`, and `App.test.tsx`.
+- Targeted mobile-boundary and integration tests: 23 passed across `runtime.test.ts`, `PlanAssistant.test.tsx`, and `App.test.tsx`.
 - TypeScript type checking passed.
 - Oxlint passed with warnings denied.
-- Locked install and the complete web verification gate passed: 17 test files and 248 tests, including 24 deterministic evaluation cases, followed by the production Vite build.
-- The production bundle built successfully with 49 transformed modules and a 289.15 kB JavaScript artifact before gzip.
+- Locked install and the complete web verification gate passed: 17 test files and 249 tests, including 24 deterministic evaluation cases, followed by the production Vite build.
+- The production bundle built successfully with 49 transformed modules and a 289.24 kB JavaScript artifact before gzip.
 - `npm audit --omit=dev` reported zero known runtime dependency vulnerabilities.
 - `git diff --check` and the credential/private-key signature scan passed.
 - `tauri info --verbose` recognized Tauri CLI 2.11.4, the React/Vite project, CSP, development URL, and frontend distribution path.

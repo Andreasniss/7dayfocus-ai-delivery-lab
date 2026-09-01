@@ -69,6 +69,10 @@ export function PlanAssistant({ state, onApply, liveProvidersEnabled = false }: 
 
   async function generate() {
     if (busy) return
+    if (!liveProvidersEnabled && provider !== 'fixture') {
+      setMessage('Live providers are unavailable in Android install mode.')
+      return
+    }
     if (provider !== 'fixture' && !apiKey.trim()) {
       setMessage(`Enter an ${PROVIDER_LABELS[provider]} API key for this request.`)
       return

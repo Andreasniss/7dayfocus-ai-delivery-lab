@@ -6,7 +6,7 @@ A local-first weekly planner with a human-approved AI assistant: bring an Anthro
 
 > **Portfolio status:** Public pre-1.0 reference lab. P02 hardened the domain and persistence boundary, P04 added the provider-flexible Plan My Week workflow, P05 completed publication review, and P11 is preparing a fixture-only Android install path. This is an independent reference project, not a production service or a claim of provider affiliation, adoption, reliability, or scale.
 
-> **Documented evidence snapshot, 1 September 2026:** the current P11 candidate records 248 automated tests and 24 deterministic evaluation cases. Hosted verification and Android-device evidence remain open until they run on the exact candidate revision. See the [case study](https://andreasnissen.dev/projects/7dayfocus-ai-delivery-lab/), [context and control article](https://andreasnissen.dev/writing/context-and-control/), and [AI-built work review article](https://andreasnissen.dev/writing/reviewing-ai-built-public-work/).
+> **Documented evidence snapshot, 1 September 2026:** the current P11 candidate records 249 automated tests and 24 deterministic evaluation cases. Hosted verification and Android-device evidence remain open until they run on the exact candidate revision. See the [case study](https://andreasnissen.dev/projects/7dayfocus-ai-delivery-lab/), [context and control article](https://andreasnissen.dev/writing/context-and-control/), and [AI-built work review article](https://andreasnissen.dev/writing/reviewing-ai-built-public-work/).
 
 ## See the proof in 60 seconds
 
@@ -55,7 +55,7 @@ The two methods solve related problems at different levels. Anthropic offers a l
 | Hands-on TypeScript/React engineering | Local planner UI, state boundary, import/export, and browser persistence |
 | Domain correctness | Pure deterministic reducer with task, week, capacity, priority, move, and rollover invariants |
 | Reliability and recovery | Versioned storage, bounded P01 migration, strict portable v2, non-destructive corrupt-data handling |
-| Evaluation discipline | 248 automated tests across success, boundary, malformed-input, recovery, capacity, accessibility, mobile-runtime, provider-adapter, and proposal-evaluation behavior |
+| Evaluation discipline | 249 automated tests across success, boundary, malformed-input, recovery, capacity, accessibility, mobile-runtime, provider-adapter, and proposal-evaluation behavior |
 | Applied model integration | Anthropic Messages, OpenAI Responses, and OpenRouter Chat Completions behind one proposal contract |
 | Human control | Structured proposal, independent invariant validation, complete diff, stale-state check, explicit approval, atomic application |
 | AI-assisted delivery | Accepted intent/specification/plan, ADRs, evidence ledger, severity-based review, and retained findings |

@@ -59,6 +59,21 @@ describe('PlanAssistant', () => {
     expect(screen.queryByLabelText('API key')).not.toBeInTheDocument()
   })
 
+  it('blocks a live request if packaged mode is enabled after provider selection', async () => {
+    const user = userEvent.setup()
+    const fetchSpy = vi.spyOn(globalThis, 'fetch')
+    const view = render(<PlanAssistant state={state()} onApply={vi.fn()} liveProvidersEnabled />)
+
+    await user.click(screen.getByRole('button', { name: 'Open assistant' }))
+    await user.selectOptions(screen.getByLabelText('Provider'), 'openai')
+    view.rerender(<PlanAssistant state={state()} onApply={vi.fn()} liveProvidersEnabled={false} />)
+    await user.click(screen.getByRole('button', { name: 'Generate proposal' }))
+
+    expect(screen.getByText('Live providers are unavailable in Android install mode.')).toBeInTheDocument()
+    expect(fetchSpy).not.toHaveBeenCalled()
+    fetchSpy.mockRestore()
+  })
+
   it('sends a live key only in the active request and renders a validated proposal', async () => {
     const user = userEvent.setup()
     const fetchSpy = vi.spyOn(globalThis, 'fetch').mockResolvedValue(new Response(JSON.stringify({
