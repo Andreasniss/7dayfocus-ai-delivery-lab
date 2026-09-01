@@ -9,3 +9,10 @@ coverage/
 .DS_Store
 .idea/
 .vscode/
+src-tauri/target/
+src-tauri/icons/
+src-tauri/gen/android/.gradle/
+src-tauri/gen/android/local.properties
+src-tauri/gen/android/keystore.properties
+*.jks
+*.keystore

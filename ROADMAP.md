@@ -13,7 +13,7 @@ The product need later changed. Andreas now uses Claude and ChatGPT as context-r
 | Order | Change | Outcome | Disposition |
 | --- | --- | --- | --- |
 | 1 | [P06 · Lifecycle integrity and reflection](https://github.com/Andreasniss/7dayfocus-ai-delivery-lab/issues/12) | Reconcile evidence, capture the product-discovery conclusion, and establish the learning backlog | Completed 2026-09-01 through PR #18 |
-| 2 | [P11 · Android personal install](https://github.com/Andreasniss/7dayfocus-ai-delivery-lab/issues/17) | Reuse the earlier Tauri/Android proof where useful, install a current build on Andreas's phone, and record a device test | Optional learning goal after P06; Google Play spike capped at three hours |
+| 2 | [P11 · Android personal install](https://github.com/Andreasniss/7dayfocus-ai-delivery-lab/issues/17) | Reuse the earlier Tauri/Android proof where useful, install a current build on Andreas's phone, and record a device test | In progress; fixture-only Tauri source and PC runbook prepared, device build/test open; Google Play spike capped at three hours |
 | Parked | [P07 · Hosted reviewer demo/PWA](https://github.com/Andreasniss/7dayfocus-ai-delivery-lab/issues/13) | Bookmarkable fixture path and rendered mobile/desktop proof | Proceed only for clear portfolio value |
 | Parked | [P08 · Delivery and rollback](https://github.com/Andreasniss/7dayfocus-ai-delivery-lab/issues/14) | Green hosted CI, traceable deployment, and exercised rollback | Proceed only to deepen Deploy evidence |
 | Parked | [P09 · Maintain loop](https://github.com/Andreasniss/7dayfocus-ai-delivery-lab/issues/15) | Operational control band, diagnosis, incident record, and regression eval | Proceed only to demonstrate Maintain learning |
