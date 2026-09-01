@@ -65,4 +65,4 @@
 - Search the changed set for stale `Draft`, `In progress`, and unchecked completion markers that contradict final state.
 - Verify all roadmap issue links resolve and remain open except P06 after merge.
 - Review the complete current-head diff.
-- Do not claim application tests as rerun because P06 changes documentation and backlog only.
+- Do not claim application gates were rerun locally because P06 changes documentation and backlog only. Record the hosted `npm run verify` rerun separately when its exact candidate result is observed.
