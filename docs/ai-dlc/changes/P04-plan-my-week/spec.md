@@ -43,3 +43,34 @@
 3. At least 20 deterministic eval cases cover valid and adversarial weekly-planning scenarios.
 4. Full and clean-copy verification, dependency audit, secret scan, disclosure review, and current-head review must pass before merge.
 5. Live-provider correctness is not claimed without observed credentialed runs.
+
+
+## Design clarification recorded by P06
+
+The following retrospective clarification was added on 2026-09-01 after P04 merged. It describes the accepted implementation and trade-offs; it is not evidence that these words preceded implementation.
+
+### Selected design
+
+- Keep model access behind a loopback same-origin gateway so browser code never selects an arbitrary destination.
+- Normalize every provider response into one bounded proposal contract and validate it independently of provider schema enforcement.
+- Keep deterministic fixture mode as the public reviewer and automated-evaluation path.
+- Apply an approved proposal through one atomic domain action rather than sequential UI mutations.
+- Treat provider keys as request-scoped secrets and planner content as user-selected outbound data.
+
+### Alternatives not selected
+
+| Alternative | Reason not selected |
+| --- | --- |
+| Direct browser-to-provider requests | Inconsistent browser support and a weaker origin/credential boundary |
+| Hosted credential proxy | Would add authentication, remote secret handling, abuse protection, telemetry, and production operations outside P04 |
+| Provider-specific proposal shapes | Would weaken cross-provider comparison and duplicate validation/application logic |
+| Automatic or partial application | Conflicts with the complete-diff and explicit-approval control contract |
+| Free-form model text parsed heuristically | Provides weaker structural guarantees and poorer adversarial testability |
+
+### Areas of concern and policy boundaries
+
+- Live-provider retention, billing, model availability, and behavior remain provider-controlled and unverified here.
+- A compromised browser, extension, operating system, or local process remains outside the key-protection boundary.
+- Planner content sent in live mode must remain non-sensitive and fictional.
+- Concurrent tabs are last-write-wins.
+- No Anthropic, OpenAI, OpenRouter, AWS, employer, or certification endorsement is implied.

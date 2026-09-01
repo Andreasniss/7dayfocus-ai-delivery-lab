@@ -3,7 +3,7 @@
 - **Owner:** Andreas
 - **Opened:** 2026-08-30
 - **Live scope:** [GitHub issue #4](https://github.com/Andreasniss/7dayfocus-ai-delivery-lab/issues/4)
-- **Status on 2026-08-30:** Evidence collection in progress; repository visibility was private
+- **Status:** Completed and owner-accepted; pull request #5 merged, with publication later completed through P05
 
 ## Candidate identity
 
@@ -13,7 +13,7 @@
 | Branch | `p03/public-release-readiness` |
 | Pull request | [Draft PR #5](https://github.com/Andreasniss/7dayfocus-ai-delivery-lab/pull/5) |
 | Initial head | `bd8664fb8f6fe846717a6daadae97b2296a7f3d4` |
-| Visibility | Private; changing visibility is outside P03 implementation scope |
+| Visibility during P03 | Private; publication was a separate P05 owner decision |
 
 ## Observed evidence
 
@@ -38,8 +38,15 @@
 | Clean-copy verification after all review fixes | On 2026-08-30, 133 locked packages installed with `npm ci`; lint, typecheck, the same 172 tests, and production build passed on that same candidate tree | Temporary clean source copy; not an authenticated remote clone |
 | Codex review of `7724c7f` | One P2 finding: the README reviewer path linked only the accepted P02 packet, not the current P03 release evidence | Corrected by linking the P03 evidence directly from the guided reviewer path |
 
-At the time of this evidence update, the candidate was published only to the private P03 branch. Hosted CI had failed without step-level diagnostics, and pull-request review remained pending.
+At the time of the original candidate evidence update, the change existed only on the private P03 branch. Hosted CI had failed without step-level diagnostics, and pull-request review remained pending. The closeout below records the later disposition without rewriting those observed conditions.
 
-## Open gate
+## Accepted publication limitation
 
-Rendered desktop and mobile QA remains blocked because the permitted cloud browser cannot reach the executor-local Vite preview. Publication is not recommended until this is resolved or Andreas explicitly accepts that limitation after reviewing another valid visual artifact.
+Rendered desktop and mobile QA remained blocked because the permitted cloud browser could not reach the executor-local Vite preview. Andreas explicitly waived that unavailable gate before publication; DOM interaction, accessibility assertions, local/isolated verification, and the exact limitation remained disclosed.
+
+## Closeout
+
+- Pull request #5 was reviewed and merged.
+- P05 subsequently completed public visibility, website synchronization, and live-page verification.
+- The failed hosted Actions run and unavailable rendered UI review remain limitations, not passed gates.
+- P06 reconciled this closeout on 2026-09-01 from the merged and published records.

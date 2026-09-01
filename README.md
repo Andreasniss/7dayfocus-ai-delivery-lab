@@ -6,7 +6,7 @@ A local-first weekly planner with a human-approved AI assistant: bring an Anthro
 
 > **Portfolio status:** Public pre-1.0 reference lab. P02 hardened the domain and persistence boundary, P04 added the provider-flexible Plan My Week workflow, and P05 completed publication review. This is an independent reference project, not a production service or a claim of provider affiliation, adoption, reliability, or scale.
 
-> **Documented evidence snapshot, 1 September 2026:** the current repository records 244 automated tests and 24 deterministic evaluation cases. Hosted CI is not claimed because a successful current workflow run is not available. See the [case study](https://andreasnissen.dev/projects/7dayfocus-ai-delivery-lab/), [context and control article](https://andreasnissen.dev/writing/context-and-control/), and [AI-built work review article](https://andreasnissen.dev/writing/reviewing-ai-built-public-work/).
+> **Documented evidence snapshot, 1 September 2026:** the current repository records 244 automated tests and 24 deterministic evaluation cases. The [P06 pull request](https://github.com/Andreasniss/7dayfocus-ai-delivery-lab/pull/18) carries successful hosted Verify evidence. See the [case study](https://andreasnissen.dev/projects/7dayfocus-ai-delivery-lab/), [context and control article](https://andreasnissen.dev/writing/context-and-control/), and [AI-built work review article](https://andreasnissen.dev/writing/reviewing-ai-built-public-work/).
 
 ## See the proof in 60 seconds
 
@@ -79,6 +79,18 @@ UUID and date creation occur outside the reducer. Stored, imported, and model-ge
 4. Read [`ADR 0004`](docs/adr/0004-local-byok-proposal-gateway.md) and the [`threat model`](docs/THREAT-MODEL.md).
 5. Inspect [`docs/ai-dlc/changes/P02-domain-hardening/`](docs/ai-dlc/changes/P02-domain-hardening/) and [`ADR 0002`](docs/adr/0002-domain-and-persistence-invariants.md) for the underlying planner invariants.
 6. Review the [`P05 publication record`](docs/ai-dlc/changes/P05-publication/), [`SECURITY.md`](SECURITY.md), [`PROVENANCE.md`](PROVENANCE.md), and [`REVIEW.md`](REVIEW.md) for release evidence, limits, ownership, and review gates.
+
+## What changed after the prototype
+
+The original product need was real: I wanted a focused seven-day planner and a concrete way to learn cross-platform development, AI-assisted delivery, model integration, evaluations, and human approval. An earlier private React and Tauri v2 proof of concept reached Android Studio and emulator testing and was prepared for distribution, but it was never launched as a production app.
+
+The surrounding platform then improved faster than the standalone product. In my current personal workflow, Claude and ChatGPT provide the context-rich orchestration layer. Todoist provides the task system of record and visual interface through its connector and CLI. That combination is more useful than a separate AI planner because the orchestrator can reason across broader context while Todoist already handles durable task storage and everyday interaction.
+
+Stopping standalone-product development is therefore a product-discovery result, not an incomplete launch disguised as success. The repository remains valuable as an inspectable learning lab for the Anthropic-inspired artifact chain, bounded model proposals, deterministic evaluation, threat modeling, and explicit human control.
+
+## Roadmap and optional backlog
+
+The versioned [`ROADMAP.md`](ROADMAP.md) and open [GitHub issues](https://github.com/Andreasniss/7dayfocus-ai-delivery-lab/issues) record possible learning and portfolio extensions, not a commitment to revive the standalone product. P11 preserves one personally meaningful goal: install and test the Android build on Andreas's phone. Any Google Play attempt is optional and capped at three hours. P07–P10 proceed only when they add specific learning or inspectable evidence.
 
 ## Current product boundary
 

@@ -2,7 +2,7 @@
 
 - **Owner:** Andreas
 - **Captured:** 2026-08-30
-- **Status:** Draft for owner acceptance in the GitHub pull request
+- **Status:** Accepted during P02 review; pull request #3 merged as `16c04f6`
 - **Adoption note:** P02 implementation began before this lifecycle packet was created. This is a truthful mid-change capture, not a backdated pre-implementation approval.
 
 ## Problem
@@ -23,6 +23,8 @@ P02 should make planner behavior deterministic, testable, and explicit before ap
 - adversarial tests for boundary, malformed-input, failure, and atomicity paths.
 
 The resulting evidence should let a reviewer inspect what the app accepts, rejects, migrates, preserves, and reports without relying on a demo narrative.
+
+> **P06 closeout clarification, 2026-09-01:** This status line was reconciled after merge. It records the acceptance already evidenced by the P02 plan, evidence, issue, and pull request; it does not imply that this intent preceded the initial P02 implementation.
 
 ## User value
 

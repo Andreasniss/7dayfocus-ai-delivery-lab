@@ -2,10 +2,12 @@
 
 - **Owner:** Andreas
 - **Captured:** 2026-08-30
-- **Status:** Draft contract for review in the GitHub pull request
+- **Status:** Accepted during P02 review; pull request #3 merged as `16c04f6`
 - **Depends on:** `intent.md`, ADR 0001, and proposed ADR 0002
 
-This specification was written after P02 implementation had begun. Acceptance must be based on the final pull-request diff and tests, not on an implied pre-code approval.
+This specification was written after P02 implementation had begun. Acceptance was based on the final pull-request diff and tests, not on an implied pre-code approval.
+
+> **P06 closeout clarification, 2026-09-01:** The completed status was reconciled after merge from the existing P02 plan, evidence, issue, and pull request. The disclosed sequence exception remains unchanged.
 
 ## Domain boundary
 
