@@ -4,9 +4,9 @@ A local-first weekly planner with a human-approved AI assistant: bring an Anthro
 
 [Built by Andreas Nissen](https://github.com/Andreasniss) · [andreasnissen.dev](https://andreasnissen.dev) · [Connect on LinkedIn](https://www.linkedin.com/in/andreasnissen) · [Source on GitHub](https://github.com/Andreasniss/7dayfocus-ai-delivery-lab) · Apache-2.0
 
-> **Portfolio status:** Verified publication candidate. P02 hardened the domain and persistence boundary, P04 added the provider-flexible Plan My Week workflow, and P05 records the current publication gates and remaining limitations. This is an independent reference project, not a production service or a claim of provider affiliation, adoption, reliability, or scale.
+> **Portfolio status:** Public pre-1.0 reference lab. P02 hardened the domain and persistence boundary, P04 added the provider-flexible Plan My Week workflow, and P05 completed publication review. This is an independent reference project, not a production service or a claim of provider affiliation, adoption, reliability, or scale.
 
-> **Documented evidence snapshot, 31 August 2026:** the current repository records 244 automated tests and 24 deterministic evaluation cases. Hosted CI is not claimed because a successful current workflow run is not available. See the [case study](https://andreasnissen.dev/projects/7dayfocus-ai-delivery-lab/), [context and control article](https://andreasnissen.dev/writing/context-and-control/), and [AI-built work review article](https://andreasnissen.dev/writing/reviewing-ai-built-public-work/).
+> **Documented evidence snapshot, 1 September 2026:** the current repository records 244 automated tests and 24 deterministic evaluation cases. Hosted CI is not claimed because a successful current workflow run is not available. See the [case study](https://andreasnissen.dev/projects/7dayfocus-ai-delivery-lab/), [context and control article](https://andreasnissen.dev/writing/context-and-control/), and [AI-built work review article](https://andreasnissen.dev/writing/reviewing-ai-built-public-work/).
 
 ## See the proof in 60 seconds
 
