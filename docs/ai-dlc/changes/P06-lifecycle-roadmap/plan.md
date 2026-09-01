@@ -39,9 +39,9 @@
 - [x] Add and link the roadmap.
 - [x] Reframe P07–P10 as parked learning extensions.
 - [x] Record the product-discovery conclusion in the candidate README and roadmap.
-- [ ] Synchronize and verify the website case study and private project note.
-- [ ] Verify candidate documentation and complete diff.
-- [ ] Open and review the pull request.
+- [x] Synchronize and verify the website case study and private project note.
+- [x] Verify candidate documentation and complete diff.
+- [x] Open pull request #18; current-head review remains pending.
 - [ ] Merge and verify `main`.
 
 ## Stop conditions
