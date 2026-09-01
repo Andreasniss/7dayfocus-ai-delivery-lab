@@ -10,13 +10,17 @@
    - Open issue #12 for P06.
    - Open P07–P11 with dependencies and evidence contracts.
    - Reconcile P11 after Andreas's three-hour Google Play time-box direction.
+   - Mark P07–P10 as parked optional extensions after the standalone-product need changed.
 2. Historical lifecycle records
    - Update P02 `intent.md` and `spec.md` status while preserving the adoption exception.
    - Update P03 `plan.md` and `evidence.md` with merge/publication disposition and waived visual limitation.
    - Update P04 `spec.md`, `plan.md`, and `evidence.md` with retrospective design clarification and closeout.
-3. Forward plan
+3. Product-discovery reflection and forward plan
    - Add `ROADMAP.md`.
+   - Explain in `README.md` why the standalone need was superseded by Claude/ChatGPT orchestration with Todoist.
+   - Record the earlier Tauri/Android proof without claiming a production launch.
    - Link the roadmap from `README.md` and `docs/ai-dlc/README.md`.
+   - Synchronize the public website case study and private project note.
 4. Evidence and review
    - Verify branch files, links, contradictory status terms, Markdown structure, and diff.
    - Open a pull request linked to issue #12.
@@ -33,6 +37,9 @@
 - [x] Reconcile P03 status and waived limitation.
 - [x] Reconcile P04 status and design clarification.
 - [x] Add and link the roadmap.
+- [x] Reframe P07–P10 as parked learning extensions.
+- [x] Record the product-discovery conclusion in the candidate README and roadmap.
+- [ ] Synchronize and verify the website case study and private project note.
 - [ ] Verify candidate documentation and complete diff.
 - [ ] Open and review the pull request.
 - [ ] Merge and verify `main`.
