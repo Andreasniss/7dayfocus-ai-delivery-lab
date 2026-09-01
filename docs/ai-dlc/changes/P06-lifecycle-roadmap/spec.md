@@ -15,9 +15,16 @@
 
 1. `ROADMAP.md` is the versioned summary; open GitHub issues remain authoritative for live scope and status.
 2. Each roadmap item links to exactly one primary issue.
-3. Dependencies and permitted parallelism are explicit.
+3. The roadmap distinguishes the P11 optional personal learning goal from parked P07–P10 extensions.
 4. Planned work is never phrased as delivered capability.
 5. Feature candidates remain bound by deterministic validation, complete diff, explicit approval, and atomic application.
+
+## Product-discovery contract
+
+1. The public README and portfolio case study state that the original need was valid when the prototype began.
+2. They state that Claude and ChatGPT now provide the orchestration layer while Todoist provides task persistence and visualization through its connector and CLI.
+3. Stopping standalone development is described as a discovery outcome, not product adoption or production evidence.
+4. The earlier Android/Tauri work is described as tested and prepared, never as production-launched.
 
 ## Android contract
 
@@ -32,7 +39,7 @@
 
 - Use one repository roadmap plus GitHub issues rather than a second project-management system.
 - Keep P07–P11 as outcome-sized changes, with detailed artifact packets created before their implementation.
-- Treat P07 as the shortest public reviewer path and P11 as a personally meaningful delivery path; neither replaces the other.
+- Treat P07–P10 as parked evidence or feature extensions and P11 as a personally meaningful optional delivery path.
 - Record retrospective clarification in place with a P06 date instead of silently rewriting history.
 
 ## Alternatives not selected
@@ -49,7 +56,7 @@
 
 - GitHub issues can change after the committed roadmap; live issue state remains authoritative.
 - Retrospective clarification can be mistaken for original design evidence unless its date and purpose stay visible.
-- Mobile architecture and reuse from the previous Android experiment remain unknown until P11 discovery.
+- The earlier private repository confirms a Tauri v2 Android foundation; the safe reuse and reconciliation path remains a P11 decision.
 - Hosting, live-provider runs, telemetry, signing, and Play Console work introduce boundaries requiring later explicit approval.
 
 ## Verification contract
