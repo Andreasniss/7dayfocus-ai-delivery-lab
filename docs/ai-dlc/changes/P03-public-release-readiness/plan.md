@@ -2,7 +2,7 @@
 
 - **Owner:** Andreas
 - **Accepted:** 2026-08-30
-- **Status:** In progress
+- **Status:** Completed and accepted; pull request #5 merged
 
 ## Sequence
 
@@ -16,9 +16,13 @@
 - [x] Review dependencies, licenses, disclosures, and all remote commit diffs.
 - [x] Attempt desktop/mobile capture and record the exact browser-access blocker.
 - [x] Open private draft pull request #5.
-- [ ] Complete review of the current pull-request head.
-- [ ] Merge only if the public-project clean-merge gates pass.
-- [ ] Keep visibility private until a separate explicit owner instruction.
+- [x] Complete review of the current pull-request head.
+- [x] Merge after the public-project clean-merge gates and owner waiver were recorded.
+- [x] Keep visibility private until Andreas explicitly authorized publication; publication was later completed through P05.
+
+## Closeout clarification
+
+P06 reconciled this checklist on 2026-09-01 from the merged pull request and P05 publication record. It does not convert the unavailable rendered QA or failed hosted Actions run into passed evidence.
 
 ## Stop conditions
 
