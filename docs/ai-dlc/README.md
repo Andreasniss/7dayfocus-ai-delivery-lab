@@ -48,7 +48,9 @@ For a new change, the target sequence is:
 
 P02 is the disclosed transition exception: coding began before steps 1–3 were formalized or accepted. Its packet was added when the gap was identified, reconciled with the implementation and review, and accepted by Andreas before merge. P03 and P04 follow the intended pre-implementation acceptance sequence.
 
-P05 was initiated by Andreas's explicit publication goal on 2026-08-31. The issue and accepted packet define the documentation, evidence, website synchronization, and visibility gates before publication work is merged.
+P05 was initiated by Andreas's explicit publication goal on 2026-08-31. Its accepted packet records the documentation, evidence, website synchronization, visibility, and publication closeout.
+
+P06 was initiated on 2026-09-01 after a lifecycle audit found status drift in completed packets and no active roadmap. It reconciles those records without backdating them and establishes [`ROADMAP.md`](../../ROADMAP.md) plus issues [#12](https://github.com/Andreasniss/7dayfocus-ai-delivery-lab/issues/12)–[#17](https://github.com/Andreasniss/7dayfocus-ai-delivery-lab/issues/17) as the forward backlog.
 
 ## How this relates to AWS AI-DLC
 
@@ -78,16 +80,15 @@ P04 adds the first applied-model workflow under a separate accepted contract:
 
 P04 does not claim live-provider verification without observed credentialed runs. The gateway and key handling are documented controls, not a production security assurance.
 
-Later changes may consider, on their own merits:
+Current roadmap issues own the deferred work rather than leaving it as an unprioritized list:
 
-- scoped `.claude/rules/` files;
-- `.claude/settings.json` permissions;
-- deterministic hooks;
-- dedicated verifier and adversarial-review agents;
-- reusable skills; and
-- evaluation cases and additional hosted enforcement when the platform permits it.
+- [P07](https://github.com/Andreasniss/7dayfocus-ai-delivery-lab/issues/13): hosted fixture demo and installable PWA;
+- [P08](https://github.com/Andreasniss/7dayfocus-ai-delivery-lab/issues/14): reliable hosted CI, deployment, release, and rollback evidence;
+- [P09](https://github.com/Andreasniss/7dayfocus-ai-delivery-lab/issues/15): deterministic operational control bands and incident-to-eval learning;
+- [P10](https://github.com/Andreasniss/7dayfocus-ai-delivery-lab/issues/16): deeper planning constraints and 30–50-case model evaluation; and
+- [P11](https://github.com/Andreasniss/7dayfocus-ai-delivery-lab/issues/17): personal Android installation, followed by an optional Google Play launch spike capped at three hours.
 
-No control is claimed as effective merely because its configuration or documentation exists.
+Scoped rules, permissions, hooks, dedicated verifier/adversarial agents, and reusable skills remain candidates only when a roadmap change demonstrates their value. No control is claimed as effective merely because its configuration or documentation exists.
 
 ## Privacy, evidence, and ownership
 
