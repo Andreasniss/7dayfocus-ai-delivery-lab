@@ -10,7 +10,7 @@ The automated evidence does not establish manual visual quality, production read
 
 ## P02 disposition
 
-P02 started with the owner's direction before the pending P01 manual visual-QA and final-acceptance gates were closed. That sequencing does not convert either pending P01 gate into completed evidence.
+P02 started with the owner's direction before the then-pending P01 manual visual-QA and final-acceptance gates were closed. That sequencing did not convert either gate into completed evidence; both were closed separately on September 3, 2026.
 
 P02 was reviewed, owner-accepted, and merged through [pull request #3](https://github.com/Andreasniss/7dayfocus-ai-delivery-lab/pull/3) as commit `16c04f6`. It adds a pure domain boundary, UUID v4 identifiers, versioned and validated browser persistence, bounded P01 migration, explicit storage recovery, a strict version-2 portable format with version-1 migration, and expanded adversarial tests. These delivered changes are not a production-readiness, certification, adoption, reliability, or scale claim.
 
@@ -55,8 +55,8 @@ Recorded on August 30, 2026 for the candidate tree and private root commit:
 - [x] Remote/local Git-blob comparison matched 37 of 37 files in the initial root tree.
 - [x] The predecessor was rechecked as private and unchanged at `b2ef5dd80bcc443a06a8f9b7723c75d59ca99001`.
 - [x] An equivalent parentless local reconstruction with the same tree passed history-aware Gitleaks and TruffleHog scans.
-- [ ] Manual browser and visual QA has not been recorded.
-- [ ] Final owner acceptance of P01 has not been recorded.
+- [x] Manual browser and visual QA was recorded on September 3, 2026 against an isolated checkout of P01 merge commit `50721115a392fb96db0bb90c774d351945b86827`. The desktop and 390 px day/week layouts, empty initial state, fictional task add/edit/category/complete/priority/drag-move/delete flow, week rollover, JSON export/import, and reload persistence were exercised. No browser console errors or warnings were observed, and all 23 observed development-server assets were same-origin.
+- [x] Andreas recorded final owner acceptance of P01 on September 3, 2026 after the manual gate completed and the retained evidence limitations were restated.
 
 **Verification constraints:** An authenticated fresh clone of the private repository was not available from the executor. History scans therefore ran against an equivalent local reconstruction with the same tree, not the exact remote commit object. No candidate-code verification completed in GitHub Actions because Actions was unavailable under an account-level restriction. Neither a fresh-clone check nor hosted CI is claimed as passed.
 
