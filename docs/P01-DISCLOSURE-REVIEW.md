@@ -2,7 +2,7 @@
 
 - **Candidate date:** August 30, 2026
 - **Scope:** initial private root baseline and post-creation inspection
-- **Status:** private repository creation, root-history inspection, exact tree comparison, and local deterministic gates recorded; manual visual QA and final P01 acceptance remain pending
+- **Status:** accepted by the owner on September 3, 2026 after manual browser and visual QA completed against the isolated P01 merge revision; the original fresh-clone and hosted-CI limitations remain unchanged
 
 This record reports checks actually run against the candidate tree. It is not a production-security assessment, penetration test, accessibility audit, visual review, or release approval.
 
@@ -45,6 +45,7 @@ GitHub-hosted CI was unavailable for this revision because of an account-level A
 | Dependency audit | `npm audit --audit-level=low` | 0 vulnerabilities in the full locked graph. |
 | Static output | `npm run build` | Produced HTML, CSS, and JavaScript assets; no application manifest or service worker. |
 | Local preview smoke | Vite preview on `127.0.0.1`, then HTTP checks for `/` and both generated assets | HTML, CSS, and JavaScript paths each returned HTTP 200 with the expected content type. No visual-browser claim is made. |
+| Manual browser and visual QA closeout | Isolated checkout of merge commit `50721115a392fb96db0bb90c774d351945b86827`; Node `24.19.0`; clean `npm ci`; local Vite server; in-app Chromium and Chrome | Passed on September 3, 2026: empty initial state; desktop and 390 px day/week layouts; fictional task add, edit, category, completion, priority, drag-move, and delete; week rollover; JSON export/import; reload persistence; no console errors or warnings; 23 observed development-server assets, all same-origin. This is a focused manual check, not a pixel-level, cross-browser, or accessibility audit. |
 | Root-history integrity | `git fsck --full --strict`, root/parent/file-count inspection on an equivalent local reconstruction | Passed: one parentless commit, the matching remote tree, and 37 reviewed files. |
 
 Automated tests cover planner domain behavior, task components, dates, import parsing, and one application smoke flow. They do not establish pixel-level correctness, complete accessibility, or all browser interactions.
@@ -92,11 +93,10 @@ The CC-BY-4.0 entry is `caniuse-lite`, a development-time transitive dependency.
 5. Rechecked the private predecessor at its pinned commit.
 6. Ran history scanners against an equivalent local reconstruction.
 
-## Pending gates
+## Final closeout
 
-1. Review and approve this updated disclosure record, ADR 0001, and the known P02 limitations.
-2. Record manual browser and visual QA.
-3. Explicitly record final owner acceptance of P01.
-4. Treat authenticated-clone and hosted-CI verification as disclosed limitations unless they are later rerun successfully.
+1. Manual browser and visual QA completed on September 3, 2026 against the isolated P01 merge revision.
+2. Andreas explicitly accepted P01 after reviewing the completed gate and retained limitations.
+3. Authenticated-clone and original hosted-CI verification remain disclosed historical limitations; the later closeout does not retroactively turn either into P01 evidence.
 
-The repository must remain private after P01. Public release is gated on the later applied-AI feature, evaluation, security, external-review, and `v0.1.0` requirements.
+The repository remained private at the P01 boundary. Its later public release was governed by separate applied-AI, evaluation, security, external-review, and publication work; that later status does not expand the P01 claim.
