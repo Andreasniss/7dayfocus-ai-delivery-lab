@@ -4,9 +4,9 @@ A local-first weekly planner with a human-approved AI assistant: bring an Anthro
 
 [Built by Andreas Nissen](https://github.com/Andreasniss) · [andreasnissen.dev](https://andreasnissen.dev) · [Connect on LinkedIn](https://www.linkedin.com/in/andreasnissen) · [Source on GitHub](https://github.com/Andreasniss/7dayfocus-ai-delivery-lab) · Apache-2.0
 
-> **Portfolio status:** Public pre-1.0 reference lab. P02 hardened the domain and persistence boundary, P04 added the provider-flexible Plan My Week workflow, and P05 completed publication review. This is an independent reference project, not a production service or a claim of provider affiliation, adoption, reliability, or scale.
+> **Portfolio status:** Public pre-1.0 reference lab. P02 hardened the domain and persistence boundary, P04 added the provider-flexible Plan My Week workflow, P05 completed publication review, and P11 is preparing a fixture-only Android install path. This is an independent reference project, not a production service or a claim of provider affiliation, adoption, reliability, or scale.
 
-> **Documented evidence snapshot, 1 September 2026:** the current repository records 244 automated tests and 24 deterministic evaluation cases. The [P06 pull request](https://github.com/Andreasniss/7dayfocus-ai-delivery-lab/pull/18) carries successful hosted Verify evidence. See the [case study](https://andreasnissen.dev/projects/7dayfocus-ai-delivery-lab/), [context and control article](https://andreasnissen.dev/writing/context-and-control/), and [AI-built work review article](https://andreasnissen.dev/writing/reviewing-ai-built-public-work/).
+> **Documented evidence snapshot, 5 September 2026:** the current P11 candidate records 249 automated tests and 24 deterministic evaluation cases, and [hosted Verify run #35](https://github.com/Andreasniss/7dayfocus-ai-delivery-lab/actions/runs/33483496032) passed on the reviewed behavior head. Android project generation and the fixture-only ARM64 debug APK build now pass with API 36 and the current stable Microsoft Build Tools 2026; physical-device evidence remains open. See the [case study](https://andreasnissen.dev/projects/7dayfocus-ai-delivery-lab/), [context and control article](https://andreasnissen.dev/writing/context-and-control/), and [AI-built work review article](https://andreasnissen.dev/writing/reviewing-ai-built-public-work/).
 
 ## See the proof in 60 seconds
 
@@ -20,6 +20,12 @@ npm run dev
 Open the Vite URL, add two fictional tasks to one day, open **Plan my week**, keep **Fixture demo**, and generate a proposal. Review the complete diff and select **Approve all changes**. Expected result: no task changes during generation; one validated move or priority change is applied only after approval.
 
 Fixture mode needs no provider account or API key and makes no external request. Live mode requires the local gateway started by `npm run dev`, a user-owned provider key, and non-sensitive fictional planner data.
+
+## Android personal-install path
+
+P11 adds a minimal Tauri v2 shell around the current React application. The packaged Android UI exposes only the deterministic fixture because the loopback Node gateway used by live providers is not part of the Android package. This avoids pretending that API-key handling or live model calls have a safe mobile implementation.
+
+The source, capability boundary, tests, and [PC continuation runbook](docs/ANDROID.md) are present. An APK build and physical-phone test are still explicit open evidence gates and are not claimed from this repository revision. Google Play remains optional and starts only after device success, with a maximum of three focused hours.
 
 ## The Anthropic method this repository demonstrates
 
@@ -49,7 +55,7 @@ The two methods solve related problems at different levels. Anthropic offers a l
 | Hands-on TypeScript/React engineering | Local planner UI, state boundary, import/export, and browser persistence |
 | Domain correctness | Pure deterministic reducer with task, week, capacity, priority, move, and rollover invariants |
 | Reliability and recovery | Versioned storage, bounded P01 migration, strict portable v2, non-destructive corrupt-data handling |
-| Evaluation discipline | 244 automated tests across success, boundary, malformed-input, recovery, capacity, accessibility, provider-adapter, and proposal-evaluation behavior |
+| Evaluation discipline | 249 automated tests across success, boundary, malformed-input, recovery, capacity, accessibility, mobile-runtime, provider-adapter, and proposal-evaluation behavior |
 | Applied model integration | Anthropic Messages, OpenAI Responses, and OpenRouter Chat Completions behind one proposal contract |
 | Human control | Structured proposal, independent invariant validation, complete diff, stale-state check, explicit approval, atomic application |
 | AI-assisted delivery | Accepted intent/specification/plan, ADRs, evidence ledger, severity-based review, and retained findings |
@@ -65,11 +71,14 @@ flowchart TD
     Store --> Storage["Versioned storage adapter"]
     UI --> Fixture["Deterministic fixture"]
     UI --> Gateway["Loopback Node gateway"]
+    Android["Tauri Android shell"] --> UI
     Gateway --> Providers["Anthropic / OpenAI / OpenRouter"]
     Storage --> Local["Browser localStorage"]
 ```
 
 UUID and date creation occur outside the reducer. Stored, imported, and model-generated JSON is treated as untrusted input. Invalid or stale proposals are rejected atomically. Fixture mode makes no provider request; live mode sends one bounded request through a loopback-only gateway to the selected fixed provider origin.
+
+In the packaged Android runtime, the provider selector is restricted to fixture mode before a request can be formed. The Android shell does not contain the Node gateway.
 
 ## Guided reviewer path
 
@@ -79,6 +88,7 @@ UUID and date creation occur outside the reducer. Stored, imported, and model-ge
 4. Read [`ADR 0004`](docs/adr/0004-local-byok-proposal-gateway.md) and the [`threat model`](docs/THREAT-MODEL.md).
 5. Inspect [`docs/ai-dlc/changes/P02-domain-hardening/`](docs/ai-dlc/changes/P02-domain-hardening/) and [`ADR 0002`](docs/adr/0002-domain-and-persistence-invariants.md) for the underlying planner invariants.
 6. Review the [`P05 publication record`](docs/ai-dlc/changes/P05-publication/), [`SECURITY.md`](SECURITY.md), [`PROVENANCE.md`](PROVENANCE.md), and [`REVIEW.md`](REVIEW.md) for release evidence, limits, ownership, and review gates.
+7. Review the [`P11 Android packet`](docs/ai-dlc/changes/P11-android-personal-install/), [`ADR 0005`](docs/adr/0005-tauri-fixture-only-android-shell.md), and the [device runbook](docs/ANDROID.md) for the fixture-only mobile boundary and open evidence gates.
 
 ## What changed after the prototype
 
@@ -101,6 +111,7 @@ The project deliberately excludes:
 - model-driven task creation, rewriting, deletion, completion, automatic application, or background execution;
 - authentication, accounts, multi-user operation, hosted credential storage, or a remotely accessible gateway;
 - telemetry, analytics, cloud application deployment, or production persistence;
+- live-provider access from the packaged Android application;
 - customer, employer, health, financial, or other sensitive data; and
 - claims of production readiness, security certification, accessibility conformance, adoption, reliability, or scale.
 

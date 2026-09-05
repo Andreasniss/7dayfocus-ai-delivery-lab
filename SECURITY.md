@@ -67,6 +67,14 @@ Semantic planning quality remains probabilistic. Schema validity and determinist
 
 ADR 0004 supersedes ADR 0001's optional FastAPI direction with a smaller Node gateway. The built static client remains usable in fixture mode without live provider access. Adding non-loopback access, authentication, a hosted proxy, provider-key persistence, external tools, autonomous execution, or shared/remote application data requires a new threat review and explicit owner approval. A loopback binding reduces exposure; it does not make the gateway production-safe.
 
+## Android package boundary
+
+ADR 0005 packages the static client with a minimal Tauri v2 Android shell. Packaged-runtime detection removes live-provider choices from the UI, so the Android application cannot intentionally form a `/api/plan` request or accept a provider key. The deterministic fixture, local proposal validation, explicit approval, and atomic reducer remain available.
+
+The package grants only Tauri's default core capability and adds no HTTP, filesystem, shell, authentication, deep-link, remote-sync, or credential plugin. Planner state remains plaintext WebView local storage and may be visible to the device owner, device backups, debugging tools, malware, or a compromised operating system. APK integrity, Android WebView behavior, file import/export, offline behavior, and device persistence remain unverified until recorded against a physical-device build.
+
+Signing material must remain outside the repository. A debug APK is suitable only for personal testing. Any Play submission requires separate signing, privacy/Data safety review, accurate disclosures, current target API verification, and owner approval.
+
 ## Independence
 
 This security policy belongs to an independent project and is not an assurance from Anthropic, OpenAI, or any other provider. The project is not affiliated with, sponsored by, or endorsed by those organizations.

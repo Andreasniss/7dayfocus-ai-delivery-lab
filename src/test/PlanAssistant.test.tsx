@@ -35,13 +35,41 @@ describe('PlanAssistant', () => {
   it('requires a key for a live provider without calling fetch', async () => {
     const user = userEvent.setup()
     const fetchSpy = vi.spyOn(globalThis, 'fetch')
-    render(<PlanAssistant state={state()} onApply={vi.fn()} />)
+    render(<PlanAssistant state={state()} onApply={vi.fn()} liveProvidersEnabled />)
 
     await user.click(screen.getByRole('button', { name: 'Open assistant' }))
     await user.selectOptions(screen.getByLabelText('Provider'), 'openai')
     await user.click(screen.getByRole('button', { name: 'Generate proposal' }))
 
     expect(screen.getByText('Enter an OpenAI API key for this request.')).toBeInTheDocument()
+    expect(fetchSpy).not.toHaveBeenCalled()
+    fetchSpy.mockRestore()
+  })
+
+  it('offers only the deterministic fixture in packaged Android mode', async () => {
+    const user = userEvent.setup()
+    render(<PlanAssistant state={state()} onApply={vi.fn()} liveProvidersEnabled={false} />)
+
+    await user.click(screen.getByRole('button', { name: 'Open assistant' }))
+
+    const provider = screen.getByLabelText('Provider')
+    expect(provider).toHaveValue('fixture')
+    expect(screen.getAllByRole('option')).toHaveLength(1)
+    expect(screen.getByText(/Android install mode uses the deterministic fixture/)).toBeInTheDocument()
+    expect(screen.queryByLabelText('API key')).not.toBeInTheDocument()
+  })
+
+  it('blocks a live request if packaged mode is enabled after provider selection', async () => {
+    const user = userEvent.setup()
+    const fetchSpy = vi.spyOn(globalThis, 'fetch')
+    const view = render(<PlanAssistant state={state()} onApply={vi.fn()} liveProvidersEnabled />)
+
+    await user.click(screen.getByRole('button', { name: 'Open assistant' }))
+    await user.selectOptions(screen.getByLabelText('Provider'), 'openai')
+    view.rerender(<PlanAssistant state={state()} onApply={vi.fn()} liveProvidersEnabled={false} />)
+    await user.click(screen.getByRole('button', { name: 'Generate proposal' }))
+
+    expect(screen.getByText('Live providers are unavailable in Android install mode.')).toBeInTheDocument()
     expect(fetchSpy).not.toHaveBeenCalled()
     fetchSpy.mockRestore()
   })
@@ -54,7 +82,7 @@ describe('PlanAssistant', () => {
         changes: [{ taskId: ID, dayIndex: 2, priority: true, reason: 'Balance the week' }],
       },
     }), { status: 200, headers: { 'content-type': 'application/json' } }))
-    render(<PlanAssistant state={state()} onApply={vi.fn()} />)
+    render(<PlanAssistant state={state()} onApply={vi.fn()} liveProvidersEnabled />)
 
     await user.click(screen.getByRole('button', { name: 'Open assistant' }))
     await user.selectOptions(screen.getByLabelText('Provider'), 'openai')
@@ -72,7 +100,7 @@ describe('PlanAssistant', () => {
 
   it('clears a typed key when the provider changes or the panel closes', async () => {
     const user = userEvent.setup()
-    render(<PlanAssistant state={state()} onApply={vi.fn()} />)
+    render(<PlanAssistant state={state()} onApply={vi.fn()} liveProvidersEnabled />)
 
     await user.click(screen.getByRole('button', { name: 'Open assistant' }))
     await user.selectOptions(screen.getByLabelText('Provider'), 'openai')

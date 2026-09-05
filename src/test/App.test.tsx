@@ -65,6 +65,25 @@ describe('P01 local planner smoke flow', () => {
     )
   })
 
+  it('connects packaged-runtime detection to the fixture-only assistant', async () => {
+    const user = userEvent.setup()
+    Object.defineProperty(window, '__TAURI_INTERNALS__', {
+      value: {},
+      configurable: true,
+    })
+
+    try {
+      render(<App />)
+      await user.click(screen.getByRole('button', { name: 'Open assistant' }))
+
+      expect(screen.getByLabelText('Provider')).toHaveValue('fixture')
+      expect(screen.getAllByRole('option')).toHaveLength(1)
+      expect(screen.queryByLabelText('API key')).not.toBeInTheDocument()
+    } finally {
+      Reflect.deleteProperty(window, '__TAURI_INTERNALS__')
+    }
+  })
+
   it('does not overwrite unreadable storage without explicit confirmation', async () => {
     const user = userEvent.setup()
     const unreadable = '{not-json'
