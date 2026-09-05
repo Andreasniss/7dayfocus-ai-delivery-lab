@@ -11,9 +11,12 @@ The required P11 outcome is a debug build installed and tested on Andreas's phon
 Install:
 
 - Node.js 24 and npm 11;
+- [Microsoft C++ Build Tools](https://visualstudio.microsoft.com/visual-cpp-build-tools/) with the **Desktop development with C++** workload and a Windows SDK;
 - Rust through [rustup](https://rustup.rs/);
 - [Android Studio](https://developer.android.com/studio) with Android SDK Platform 36, Android SDK Build-Tools 36, Android SDK Platform-Tools, Android SDK Command-line Tools, and the side-by-side NDK; and
 - the Android USB driver for the phone when Windows does not recognize it through ADB.
+
+Keep several gigabytes free for Rust, Gradle, the Android SDK, and the NDK. On a space-constrained PC, install the SDK on a data drive and point `ANDROID_HOME`, `NDK_HOME`, `CARGO_HOME`, and `GRADLE_USER_HOME` there. Tauri still requires the Microsoft linker from the C++ Build Tools; a GNU Rust host toolchain is not a supported substitute on Windows.
 
 Add the Rust Android targets:
 
@@ -51,6 +54,8 @@ git switch p11/android-personal-install
 npm ci
 npm run verify
 npm run tauri info
+cargo fmt --manifest-path src-tauri/Cargo.toml -- --check
+cargo check --manifest-path src-tauri/Cargo.toml --locked
 ```
 
 If P11 has already been merged, use `git switch main` and `git pull --ff-only` instead.
