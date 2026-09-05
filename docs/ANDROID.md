@@ -11,10 +11,12 @@ The required P11 outcome is a debug build installed and tested on Andreas's phon
 Install:
 
 - Node.js 24 and npm 11;
-- [Microsoft C++ Build Tools](https://visualstudio.microsoft.com/visual-cpp-build-tools/) with the **Desktop development with C++** workload and a Windows SDK;
+- the latest stable [Microsoft C++ Build Tools](https://visualstudio.microsoft.com/downloads/) with the **Desktop development with C++** workload and a Windows SDK;
 - Rust through [rustup](https://rustup.rs/);
 - [Android Studio](https://developer.android.com/studio) with Android SDK Platform 36, Android SDK Build-Tools 36, Android SDK Platform-Tools, Android SDK Command-line Tools, and the side-by-side NDK; and
 - the Android USB driver for the phone when Windows does not recognize it through ADB.
+
+Resolve current tool versions from the vendor's official documentation and the package manager's generic/current package before installing. Prefer the latest stable release; pin an older version only when repository compatibility evidence requires it, and record that exception. The standalone Build Tools are sufficient for this command-line workflow; the full Visual Studio Community IDE is optional.
 
 Keep several gigabytes free for Rust, Gradle, the Android SDK, and the NDK. On a space-constrained PC, install the SDK on a data drive and point `ANDROID_HOME`, `NDK_HOME`, `CARGO_HOME`, and `GRADLE_USER_HOME` there. Tauri still requires the Microsoft linker from the C++ Build Tools; a GNU Rust host toolchain is not a supported substitute on Windows.
 
@@ -67,7 +69,7 @@ npm run android:icons
 npm run android:init
 ```
 
-The icon command reproducibly generates platform assets from the committed `src-tauri/app-icon.svg`; generated icon variants are intentionally not versioned. Do not overwrite an existing `src-tauri/gen/android` without reviewing its diff. Confirm that the generated `app/build.gradle.kts` uses `compileSdk = 36` and `targetSdk = 36` before considering Google Play.
+The icon command reproducibly generates platform assets from the committed `src-tauri/app-icon.svg`; generated icon variants are intentionally not versioned. Do not overwrite an existing `src-tauri/gen/android` without reviewing its diff. Confirm that the generated `app/build.gradle.kts` uses `compileSdk = 36`, `buildToolsVersion = "36.0.0"`, and `targetSdk = 36` before considering Google Play.
 
 ## Install on Andreas's phone
 

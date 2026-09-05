@@ -15,6 +15,7 @@ val tauriProperties = Properties().apply {
 
 android {
     compileSdk = 36
+    buildToolsVersion = "36.0.0"
     namespace = "com.nissenlabs.dayfocus"
     defaultConfig {
         manifestPlaceholders["usesCleartextTraffic"] = "false"
