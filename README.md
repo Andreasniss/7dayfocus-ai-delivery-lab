@@ -51,6 +51,10 @@ The [PC runbook](docs/ANDROID.md) now has observed build and physical-phone evid
 
 ## The Anthropic method this repository demonstrates
 
+**Find the artifacts:** start at the [lifecycle index and file map](docs/ai-dlc/README.md#find-the-artifacts), then open [the complete Plan My Week example](docs/ai-dlc/changes/P04-plan-my-week/). Each scoped change has one folder under `docs/ai-dlc/changes/`, containing `intent.md`, `spec.md`, `plan.md`, and `evidence.md` as work progresses. The same folder spans sessions and review fixes. P04 is a change identifier, not a lifecycle stage. This four-file layout is our adaptation of Anthropic's handoffs.
+
+The [standing-document map](docs/ai-dlc/README.md#standing-repository-documents) explains `SECURITY.md`, `PRIVACY.md`, `PROVENANCE.md`, agent instructions, architecture decisions, and their relationship to these packets.
+
 Anthropic's [AI-native SDLC playbook](https://claude.com/blog/the-ai-native-sdlc-playbook) keeps the familiar Plan, Design, Build, Test, Deploy, and Maintain responsibilities, then changes how work moves between them. Each stage produces a committed artifact that the next stage can read: `intent.md`, `spec.md`, `plan.md`, the code diff and tests, pull-request findings, and an incident record that can start the loop again. Humans correct and accept the artifacts that require product, architecture, risk, or release judgment.
 
 This repository makes that handoff visible without claiming to reproduce Anthropic's internal process:

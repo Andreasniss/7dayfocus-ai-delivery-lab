@@ -2,6 +2,43 @@
 
 This directory makes the project's AI-assisted delivery process inspectable through version-controlled intent, specifications, plans, diffs, tests, review findings, and evidence. Candidate artifacts become committed evidence only when they are included in a Git revision.
 
+## Find the artifacts
+
+Start with [all change folders](changes/) or open [P04: Plan My Week](changes/P04-plan-my-week/). The exact example path from the repository root is `docs/ai-dlc/changes/P04-plan-my-week/`.
+
+| File | Direct example | Purpose |
+| --- | --- | --- |
+| `intent.md` | [P04 intent](changes/P04-plan-my-week/intent.md) | Outcome, constraints, and exclusions |
+| `spec.md` | [P04 specification](changes/P04-plan-my-week/spec.md) | Required behavior, design, and failure cases |
+| `plan.md` | [P04 build plan](changes/P04-plan-my-week/plan.md) | Implementation sequence and planned checks |
+| `evidence.md` | [P04 evidence](changes/P04-plan-my-week/evidence.md) | Observed checks, findings, fixes, revisions, and limits |
+
+**One folder represents one scoped change across its delivery cycle.** Reuse it through design revisions, implementation sessions, test failures, and review corrections. Create the documents as useful content becomes available; never prefill passing evidence. A later separately scoped feature or incident correction gets a new folder linked to its predecessor. Code, tests, ADRs, and PR discussions remain in their own homes and are linked from the packet.
+
+Use a unique full folder name, such as `<change-id>-<short-name>`, and include it in the issue or PR. Historical P06 and P12 prefixes occur more than once; their complete folder names distinguish those records. Preserve their existing URLs rather than renumbering history. This lab's repository rules require packets; the general skill permits an issue or PR alone for small reversible changes.
+
+The reusable skill's instructions live separately at [`skills/ai-sdlc-skill/SKILL.md`](../../skills/ai-sdlc-skill/SKILL.md). Project evidence stays here, outside that installed bundle. The [canonical skill's layout guide](https://github.com/Andreasniss/ai-sdlc-skill/blob/main/skills/ai-sdlc-skill/references/artifact-layout.md) explains adoption; the installed copy retains its explicitly pinned revision until a reviewed update.
+
+## Standing repository documents
+
+These documents apply across many change packets. Their root location makes them easy to discover; deeper architecture and operational records live under `docs/`.
+
+| Home | Purpose in this repository |
+| --- | --- |
+| [`README.md`](../../README.md) | Product entry point, setup, evidence, and navigation |
+| [`LICENSE`](../../LICENSE), [`NOTICE`](../../NOTICE), [`CONTRIBUTING.md`](../../CONTRIBUTING.md) | Reuse terms, attribution, and contribution expectations |
+| [`SECURITY.md`](../../SECURITY.md) | Supported security scope and private vulnerability reporting |
+| [`PRIVACY.md`](../../PRIVACY.md) | Contributor publication hygiene and disclosure checks; this is not the application's end-user privacy notice |
+| [`PROVENANCE.md`](../../PROVENANCE.md) | Baseline origins, inherited material, asset sources, and human/AI roles |
+| [`AGENTS.md`](../../AGENTS.md), [`CLAUDE.md`](../../CLAUDE.md), [`REVIEW.md`](../../REVIEW.md) | Agent routing, repository rules, and review criteria |
+| [`docs/THREAT-MODEL.md`](../THREAT-MODEL.md) | System trust boundaries, data handling, threats, and limitations |
+| [`docs/adr/`](../adr/), [`docs/ANDROID.md`](../ANDROID.md) | Architecture decision rationale and the Android runbook |
+| [`docs/ai-dlc/changes/`](changes/) | A separate four-file record for each scoped delivery change |
+
+Reference these files from the relevant spec and plan. Update a standing document in the same change when its facts or rules change; do not copy all standing policies into every packet. For example, adding a provider can affect the threat model, while a new imported asset can affect provenance.
+
+GitHub explicitly supports files such as `SECURITY.md` and `CONTRIBUTING.md` as [community health files](https://docs.github.com/en/communities/setting-up-your-project-for-healthy-contributions/creating-a-default-community-health-file), including root, `.github/`, and `docs/` locations. `PRIVACY.md`, `PROVENANCE.md`, and `REVIEW.md` are project-chosen names with the purposes above, not universal AI-DLC requirements. [ADRs](https://adr.github.io/) come from architecture decision-recording practice. A human-readable provenance narrative is distinct from [SLSA build provenance](https://slsa.dev/spec/v1.2/provenance).
+
 ## Honest adoption record
 
 This lifecycle layer was introduced **during P02, after P02 implementation work had already begun**. The P02 packet is therefore a contemporaneous mid-change capture, not proof that the full artifact chain preceded the first P02 code edit. Dates, status, and evidence must not be backdated or rewritten to imply otherwise.
@@ -11,6 +48,8 @@ P01 also predates this layer. Its existing disclosure record remains the evidenc
 ## What comes directly from Anthropic guidance
 
 Anthropic's public AI-native SDLC playbook proposes a committed flow from intent to specification to plan, then code and tests, pull-request review findings, and incident learning. It treats accepted artifacts as gates for the next stage, Git and pull requests as an audit trail, and humans as owners of high-judgment and production-boundary approvals.
+
+Location clarification, checked 6 September 2026: the playbook suggests an `intent/` folder in a single product's repository and explicitly puts `spec.md` alongside `intent.md`. It names a committed `plan.md` and says to update it when implementation departs from the plan. It does not prescribe `evidence.md` or exactly four files per cycle. Our existing `docs/ai-dlc/changes/<change>/` home preserves that artifact continuity without introducing a second `intent/` tree.
 
 Anthropic's public guidance also documents:
 
