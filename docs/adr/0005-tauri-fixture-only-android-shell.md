@@ -25,4 +25,3 @@ The Android shell uses `com.nissenlabs.dayfocus`, API 24 minimum support, and AP
 ## Alternatives
 
 An installable PWA would be smaller but would require a hosted deployment and would not reuse the earlier Tauri learning. Capacitor would add a new wrapper stack. Native Android would duplicate validated domain logic. Direct provider calls from the WebView were rejected because they would expand credential and network boundaries solely to preserve feature parity.
-

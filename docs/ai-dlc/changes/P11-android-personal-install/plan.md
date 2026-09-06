@@ -36,4 +36,3 @@ Andreas also accepted a populated fictional demo and genuine app screenshots for
 - `npm run android:init` and `npm run android:build:debug` when Android SDK and Rust Android targets are available
 - physical-device checklist on Andreas's phone
 - current-head hosted CI and review
-

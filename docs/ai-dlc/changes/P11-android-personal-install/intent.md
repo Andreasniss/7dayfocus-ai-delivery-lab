@@ -37,4 +37,3 @@ Andreas is the product, architecture, device-installation, signing, and release 
 - Packaged-runtime tests prove that only fixture mode is offered.
 - Tauri configuration and Rust source pass every check available in this environment.
 - An Android APK build and physical-device test are recorded later from Andreas's PC with exact commit, commands, device class, Android version, results, and limitations.
-

@@ -153,13 +153,11 @@ The excluded Rust task reuses the ARM64 library from the completed same-candidat
 
 Start a timer only after the device checklist passes. Stop the cumulative Play work at three focused hours or earlier when an account, identity, tester, continuous-testing, policy, privacy, security, or engineering gate cannot be completed safely inside the remaining time.
 
-Within the time box:
+**Release-signing stopping gate:** this candidate does not configure Gradle release signing or load `keystore.properties`. Creating that ignored file alone has no effect. `npm run android:build:bundle` is a bundle-compilation command, not a signed, upload-ready release path. Do not upload its output or claim release signing is ready.
 
-1. Create a keystore outside the repository and back it up safely.
-2. Configure ignored `keystore.properties`; never commit the keystore or passwords.
-3. Run `npm run android:build:bundle` and locate the `.aab` under `src-tauri/gen/android/app/build/outputs/bundle/`.
-4. Complete accurate app content, privacy, Data safety, content rating, target audience, and store-listing fields.
-5. Upload first to internal testing or the furthest valid track available to the account.
+If Andreas chooses to start the optional spike, assess the account and signing requirements first. A separate reviewed release-signing change must load external keystore properties, associate the signing configuration with the release build, and verify the resulting signed AAB before any upload. Keep the keystore and passwords outside Git and back them up safely. Stop if that work or an account gate cannot be completed safely within the remaining time box.
+
+Only after that gate passes, complete accurate app content, privacy, Data safety, content rating, target audience, and store-listing fields and upload to an appropriate testing track. None of these release steps has been performed or verified in P11.
 
 Google states that some personal developer accounts created after 13 November 2023 need a closed test before production access. From 31 August 2026, new mobile apps must target API 36. Record the actual account-specific gate instead of assuming it applies.
 

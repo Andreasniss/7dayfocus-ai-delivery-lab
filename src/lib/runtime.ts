@@ -10,4 +10,3 @@ export function getRuntimeCapabilities(target: Window = window): RuntimeCapabili
     liveProviders: !packaged,
   }
 }
-

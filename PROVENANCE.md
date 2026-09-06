@@ -75,7 +75,9 @@ If a later milestone introduces a model-provider connection, external data, scre
 
 P11 reuses the architectural lesson and stable Android identifier from Andreas's private predecessor, but does not import its Git history, Supabase integration, authentication, deep-link behavior, remote synchronization, credentials, signing material, or private operational data. The public Tauri configuration, Rust shell, runtime capability boundary, tests, documentation, and application icon were authored as a new change in this repository.
 
-The icon source is the repository-owned `src-tauri/app-icon.svg`, created for P11 under Andreas's direction. Tauri CLI 2.11.4 successfully generated and visually verified the Android and bundle variants from that source. Generated variants are intentionally not committed and can be recreated with `npm run android:icons`. OpenAI Codex assisted with P11 research, artifact drafting, implementation, tests, and verification. Andreas owns and accepts the product boundary, mobile architecture, device testing, signing, and any release decision.
+The icon source is the repository-owned `src-tauri/app-icon.svg`, created for P11 under Andreas's direction. Tauri CLI 2.11.4 generated the Android and bundle variants; the resulting project icon was visually inspected. Android launcher resources under `src-tauri/gen/android/app/src/main/res` are versioned. Intermediate bundle variants under `src-tauri/icons` remain ignored. Both can be recreated with `npm run android:icons`.
+
+The two PNGs under `docs/screenshots` are unedited captures of the installed Android WebView, made under Andreas's direction using the fictional portable example in `examples/demo-week.json`. They contain no personal task data or device identifiers. The screenshot README records their intermediate-build provenance separately from exact-head build evidence. OpenAI Codex assisted with P11 research, artifact drafting, implementation, tests, and verification. Andreas owns and accepts the product boundary, mobile architecture, device testing, signing, and any release decision.
 
 ## Corrections
 

@@ -61,4 +61,3 @@ Reuse Tauri v2. Keep the mobile build deliberately fixture-only until a separate
 - A physical device and Android toolchain are required before installation can be claimed.
 - Andreas controls USB debugging, installation approval, keystore creation, Play App Signing, disclosures, and any Play Console submission.
 - A Play production path may be blocked by account-specific closed-testing requirements. That is an accepted stop condition.
-
