@@ -22,7 +22,7 @@ The path-level source comparison and final disclosure checks are summarized in [
 
 - Andreas Nissen owns the product intent, scope, architecture decisions, expert review, disclosure decisions, and release acceptance.
 - The predecessor planner was developed under Andreas's direction with Claude Code assistance.
-- OpenAI Codex assisted with the P01 clean-room extraction, local-only refactor, documentation, test addition, and verification. Its output was treated as proposed work and subjected to deterministic checks and owner authorization for repository creation. Manual P01 visual QA remains historical pending evidence rather than a claim of completion.
+- OpenAI Codex assisted with the P01 clean-room extraction, local-only refactor, documentation, test addition, and verification. Its output was treated as proposed work and subjected to deterministic checks and owner authorization for repository creation. Manual P01 visual QA later completed against the isolated P01 merge revision on September 3, 2026, followed by explicit owner acceptance; the original fresh-clone and hosted-CI limitations remain unchanged.
 
 AI assistance does not establish correctness. Claims in this repository are limited to evidence that was actually run or reviewed. The project does not imply that Claude, Anthropic, OpenAI, or another provider powers a P01 feature.
 
