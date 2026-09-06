@@ -81,3 +81,7 @@ Do not commit raw chat transcripts, prompt histories, hidden reasoning, private 
 ## Independence
 
 The process is derived from selected public Anthropic guidance and uses provider-neutral repository conventions. It is not an Anthropic standard, certification, endorsement, approval, or compliance claim. Do not describe this repository or its process as "Anthropic-compliant."
+
+## Before public uploads
+
+Follow `PRIVACY.md`. Run the staged and outgoing-commit privacy checks before any Git push or API-based commit upload. Public PRs are already public; passing CI cannot undo a disclosure.

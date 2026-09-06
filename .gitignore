@@ -17,3 +17,14 @@ src-tauri/gen/android/local.properties
 src-tauri/gen/android/keystore.properties
 *.jks
 *.keystore
+
+# Local authoring and execution artifacts
+__pycache__/
+*.pyc
+*.har
+private-authoring/
+transcripts/
+
+.envrc
+.envrc.*
+.direnv/
