@@ -77,3 +77,7 @@ The process is derived from selected public Anthropic guidance and uses provider
 ## Before public uploads
 
 Follow `PRIVACY.md`. Run the staged and outgoing-commit privacy checks before any Git push or API-based commit upload. Public PRs are already public; passing CI cannot undo a disclosure.
+
+## Reusable delivery skill
+
+For implementation and review work, read [Evidence SDLC](skills/evidence-sdlc/SKILL.md). Preserve the requirements above and existing authorization; the skill adds no merge or deployment authority. Repository-specific checks are in `delivery-checks.json`.
