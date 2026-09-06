@@ -61,7 +61,7 @@ Semantic planning quality remains probabilistic. Schema validity and determinist
 
 ## AI-assisted repository controls
 
-`AGENTS.md`, `CLAUDE.md`, and `REVIEW.md` provide instructions and review conventions; prompt text is not a security boundary. The repository now includes opt-in publication-privacy hooks and the reusable Evidence SDLC skill. Their scope and limits are documented in [`PRIVACY.md`](PRIVACY.md) and the [skill](skills/evidence-sdlc/SKILL.md); they do not grant authority or replace human review, runtime permissions, or protected CI. No Claude Code permission or sandbox configuration is provided.
+`AGENTS.md`, `CLAUDE.md`, and `REVIEW.md` provide instructions and review conventions; prompt text is not a security boundary. The repository now includes opt-in publication-privacy hooks and the reusable AI SDLC Skill. Their scope and limits are documented in [`PRIVACY.md`](PRIVACY.md) and the [skill](skills/ai-sdlc-skill/SKILL.md); they do not grant authority or replace human review, runtime permissions, or protected CI. No Claude Code permission or sandbox configuration is provided.
 
 ## Local gateway boundary
 
