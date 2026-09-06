@@ -1,12 +1,33 @@
 # 7DayFocus AI Delivery Lab
 
-A local-first weekly planner with a human-approved AI assistant: bring an Anthropic, OpenAI, or OpenRouter key, review a bounded proposal, and explicitly approve every change.
+A local-first seven-day planner for web and Android. Organize Work and Life tasks, set daily priorities, and review proposed planning changes before approving them. Try the populated fictional demo without an account or API key.
 
 [Built by Andreas Nissen](https://github.com/Andreasniss) · [andreasnissen.dev](https://andreasnissen.dev) · [Connect on LinkedIn](https://www.linkedin.com/in/andreasnissen) · [Source on GitHub](https://github.com/Andreasniss/7dayfocus-ai-delivery-lab) · Apache-2.0
 
-> **Portfolio status:** Public pre-1.0 reference lab. P02 hardened the domain and persistence boundary, P04 added the provider-flexible Plan My Week workflow, and P05 completed publication review. This is an independent reference project, not a production service or a claim of provider affiliation, adoption, reliability, or scale.
+> **Portfolio status:** Public pre-1.0 reference lab. P02 hardened the domain and persistence boundary, P04 added the provider-flexible Plan My Week workflow, P05 completed publication review, and P11 reached installation and testing on a Pixel 8 Pro. This is an independent reference project, not a production service or a claim of provider affiliation, adoption, reliability, or scale.
 
-> **Documented evidence snapshot, 1 September 2026:** the current repository records 244 automated tests and 24 deterministic evaluation cases. The [P06 pull request](https://github.com/Andreasniss/7dayfocus-ai-delivery-lab/pull/18) carries successful hosted Verify evidence. See the [case study](https://andreasnissen.dev/projects/7dayfocus-ai-delivery-lab/), [context and control article](https://andreasnissen.dev/writing/context-and-control/), and [AI-built work review article](https://andreasnissen.dev/writing/reviewing-ai-built-public-work/).
+> **Evidence snapshot, 6 September 2026:** 253 automated tests, including 24 deterministic proposal cases; one passing native Android regression test; zero known runtime npm vulnerabilities. The API 36 ARM64 debug build was installed and tested on a Pixel 8 Pro running Android 17. [P11 evidence](docs/ai-dlc/changes/P11-android-personal-install/evidence.md) records exact revisions, failures, fixes, and limitations. See the [case study](https://andreasnissen.dev/projects/7dayfocus-ai-delivery-lab/) for the product and engineering story.
+
+## See the app
+
+The weekly board makes the distribution of tasks visible. Switch to Day view for today's priorities and upcoming work. These genuine app captures use the same [15-task fictional demo week](examples/demo-week.json), not personal data or generated UI mockups.
+
+<p>
+  <img src="docs/screenshots/android-day.png" width="320" alt="Installed Android day view with a fictional priority and readable task cards">
+  <img src="docs/screenshots/android-proposal.png" width="320" alt="Android fixture proposal showing a Sunday-to-Saturday move and explicit approve or dismiss controls">
+</p>
+
+Pixel 8 Pro, Android 17, app-only captures. The fixture proposes one capacity-safe move; nothing changes until approval. [Capture provenance and reproduction](docs/screenshots/README.md).
+
+## What makes this implementation worth inspecting
+
+- **A bounded week:** day and week views, Work/Life labels, priorities, completion, touch dragging, and a review-and-carry-over flow with daily capacity limits.
+- **Suggestions stay outside saved state:** the assistant can propose moves and priorities for existing incomplete tasks, not create, rewrite, delete, or complete them.
+- **Approval is enforced in code:** validate the whole proposed result, show a complete diff, reject stale proposals, then apply one atomic action only after explicit approval.
+- **A reproducible offline path:** the fixture needs no credentials or model request. Android exposes only that path; optional live providers remain in local web development.
+- **Inspectable data and delivery boundaries:** versioned storage, validated JSON import, non-destructive recovery, accepted change packets, deterministic tests, and retained real-device findings.
+
+These are the project's distinguishing design choices, not a claim of market-wide feature uniqueness. Browser state stays local to that browser profile; Android state stays in its WebView. There are no accounts, cloud synchronization, or analytics.
 
 ## See the proof in 60 seconds
 
@@ -17,9 +38,15 @@ npm run verify
 npm run dev
 ```
 
-Open the Vite URL, add two fictional tasks to one day, open **Plan my week**, keep **Fixture demo**, and generate a proposal. Review the complete diff and select **Approve all changes**. Expected result: no task changes during generation; one validated move or priority change is applied only after approval.
+Open the Vite URL, choose **Import**, and select [`examples/demo-week.json`](examples/demo-week.json). Confirm replacement only if the current local data is disposable or backed up. Open **Plan my week**, keep **Fixture demo**, and generate a proposal. The initial demo proposes moving **Map onboarding flow** from Sunday to Saturday. Review the diff and select **Approve all changes**. Expected result: no task changes during generation; one validated move is applied only after approval. [Full walkthrough](examples/README.md).
 
 Fixture mode needs no provider account or API key and makes no external request. Live mode requires the local gateway started by `npm run dev`, a user-owned provider key, and non-sensitive fictional planner data.
+
+## Android personal-install path
+
+P11 adds a minimal Tauri v2 shell around the current React application. The packaged Android UI exposes only the deterministic fixture because the loopback Node gateway used by live providers is not part of the Android package. This avoids pretending that API-key handling or live model calls have a safe mobile implementation.
+
+The [PC runbook](docs/ANDROID.md) now has observed build and physical-phone evidence. Pixel testing caught and corrected status-bar overlap, narrow task text, and interrupted touch dragging. Android JSON import was verified; export is disabled with a visible warning because its WebView download path did not produce a file. Use disposable demo data. There is no dedicated in-app reset button; reimporting the demo restores its starting state after confirmation. Google Play and release signing remain optional and unclaimed, with any Play attempt capped at three focused hours.
 
 ## The Anthropic method this repository demonstrates
 
@@ -49,7 +76,7 @@ The two methods solve related problems at different levels. Anthropic offers a l
 | Hands-on TypeScript/React engineering | Local planner UI, state boundary, import/export, and browser persistence |
 | Domain correctness | Pure deterministic reducer with task, week, capacity, priority, move, and rollover invariants |
 | Reliability and recovery | Versioned storage, bounded P01 migration, strict portable v2, non-destructive corrupt-data handling |
-| Evaluation discipline | 244 automated tests across success, boundary, malformed-input, recovery, capacity, accessibility, provider-adapter, and proposal-evaluation behavior |
+| Evaluation discipline | 253 automated tests across success, boundary, malformed-input, recovery, capacity, accessibility, mobile-runtime, provider-adapter, proposal-evaluation, and public-demo behavior |
 | Applied model integration | Anthropic Messages, OpenAI Responses, and OpenRouter Chat Completions behind one proposal contract |
 | Human control | Structured proposal, independent invariant validation, complete diff, stale-state check, explicit approval, atomic application |
 | AI-assisted delivery | Accepted intent/specification/plan, ADRs, evidence ledger, severity-based review, and retained findings |
@@ -65,11 +92,14 @@ flowchart TD
     Store --> Storage["Versioned storage adapter"]
     UI --> Fixture["Deterministic fixture"]
     UI --> Gateway["Loopback Node gateway"]
+    Android["Tauri Android shell"] --> UI
     Gateway --> Providers["Anthropic / OpenAI / OpenRouter"]
     Storage --> Local["Browser localStorage"]
 ```
 
 UUID and date creation occur outside the reducer. Stored, imported, and model-generated JSON is treated as untrusted input. Invalid or stale proposals are rejected atomically. Fixture mode makes no provider request; live mode sends one bounded request through a loopback-only gateway to the selected fixed provider origin.
+
+In the packaged Android runtime, the provider selector is restricted to fixture mode before a request can be formed. The Android shell does not contain the Node gateway.
 
 ## Guided reviewer path
 
@@ -79,6 +109,7 @@ UUID and date creation occur outside the reducer. Stored, imported, and model-ge
 4. Read [`ADR 0004`](docs/adr/0004-local-byok-proposal-gateway.md) and the [`threat model`](docs/THREAT-MODEL.md).
 5. Inspect [`docs/ai-dlc/changes/P02-domain-hardening/`](docs/ai-dlc/changes/P02-domain-hardening/) and [`ADR 0002`](docs/adr/0002-domain-and-persistence-invariants.md) for the underlying planner invariants.
 6. Review the [`P05 publication record`](docs/ai-dlc/changes/P05-publication/), [`SECURITY.md`](SECURITY.md), [`PROVENANCE.md`](PROVENANCE.md), and [`REVIEW.md`](REVIEW.md) for release evidence, limits, ownership, and review gates.
+7. Review the [`P11 Android packet`](docs/ai-dlc/changes/P11-android-personal-install/), [`ADR 0005`](docs/adr/0005-tauri-fixture-only-android-shell.md), and the [device runbook](docs/ANDROID.md) for the fixture-only mobile boundary, observed phone results, and remaining limits.
 
 ## What changed after the prototype
 
@@ -101,6 +132,7 @@ The project deliberately excludes:
 - model-driven task creation, rewriting, deletion, completion, automatic application, or background execution;
 - authentication, accounts, multi-user operation, hosted credential storage, or a remotely accessible gateway;
 - telemetry, analytics, cloud application deployment, or production persistence;
+- live-provider access from the packaged Android application;
 - customer, employer, health, financial, or other sensitive data; and
 - claims of production readiness, security certification, accessibility conformance, adoption, reliability, or scale.
 

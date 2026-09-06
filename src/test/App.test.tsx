@@ -65,6 +65,49 @@ describe('P01 local planner smoke flow', () => {
     )
   })
 
+  it('connects packaged-runtime detection to the fixture-only assistant', async () => {
+    const user = userEvent.setup()
+    Object.defineProperty(window, '__TAURI_INTERNALS__', {
+      value: {},
+      configurable: true,
+    })
+
+    try {
+      render(<App />)
+      await user.click(screen.getByRole('button', { name: 'Open assistant' }))
+
+      expect(screen.getByLabelText('Provider')).toHaveValue('fixture')
+      expect(screen.getAllByRole('option')).toHaveLength(1)
+      expect(screen.queryByLabelText('API key')).not.toBeInTheDocument()
+    } finally {
+      Reflect.deleteProperty(window, '__TAURI_INTERNALS__')
+    }
+  })
+
+  it('discloses unavailable Android export without disabling the import picker', async () => {
+    const user = userEvent.setup()
+    Object.defineProperty(window, '__TAURI_INTERNALS__', { value: {}, configurable: true })
+    try {
+      render(<App />)
+      const exportButton = screen.getByRole('button', { name: 'Export' })
+      expect(exportButton).toBeDisabled()
+      expect(exportButton).toHaveAccessibleDescription(
+        'JSON export is unavailable in this Android build. Use disposable demo data only.',
+      )
+      expect(screen.getByRole('button', { name: 'Import' })).toBeEnabled()
+      await user.click(exportButton)
+      expect(exportButton).toBeDisabled()
+    } finally {
+      Reflect.deleteProperty(window, '__TAURI_INTERNALS__')
+    }
+  })
+
+  it('keeps JSON export available in the browser runtime', () => {
+    render(<App />)
+    expect(screen.getByRole('button', { name: 'Export' })).toBeEnabled()
+    expect(screen.queryByText(/JSON export is unavailable/)).not.toBeInTheDocument()
+  })
+
   it('does not overwrite unreadable storage without explicit confirmation', async () => {
     const user = userEvent.setup()
     const unreadable = '{not-json'

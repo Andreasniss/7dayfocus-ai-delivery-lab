@@ -32,6 +32,7 @@ interface Candidate {
 interface PlanAssistantProps {
   state: WeekState
   onApply: (revision: string, proposal: PlanProposal) => void
+  liveProvidersEnabled?: boolean
 }
 
 function dayName(state: WeekState, dayIndex: number): string {
@@ -40,7 +41,7 @@ function dayName(state: WeekState, dayIndex: number): string {
   return `${date.toLocaleDateString('en-US', { weekday: 'short' })}, ${label.month} ${label.num}`
 }
 
-export function PlanAssistant({ state, onApply }: PlanAssistantProps) {
+export function PlanAssistant({ state, onApply, liveProvidersEnabled = false }: PlanAssistantProps) {
   const [open, setOpen] = useState(false)
   const [provider, setProvider] = useState<PlanProvider>('fixture')
   const [model, setModel] = useState(DEFAULT_MODELS.anthropic)
@@ -68,6 +69,10 @@ export function PlanAssistant({ state, onApply }: PlanAssistantProps) {
 
   async function generate() {
     if (busy) return
+    if (!liveProvidersEnabled && provider !== 'fixture') {
+      setMessage('Live providers are unavailable in Android install mode.')
+      return
+    }
     if (provider !== 'fixture' && !apiKey.trim()) {
       setMessage(`Enter an ${PROVIDER_LABELS[provider]} API key for this request.`)
       return
@@ -144,9 +149,11 @@ export function PlanAssistant({ state, onApply }: PlanAssistantProps) {
             <label>
               Provider
               <select value={provider} onChange={event => selectProvider(event.target.value as PlanProvider)} disabled={busy}>
-                {Object.entries(PROVIDER_LABELS).map(([value, label]) => (
-                  <option key={value} value={value}>{label}</option>
-                ))}
+                {Object.entries(PROVIDER_LABELS)
+                  .filter(([value]) => liveProvidersEnabled || value === 'fixture')
+                  .map(([value, label]) => (
+                    <option key={value} value={value}>{label}</option>
+                  ))}
               </select>
             </label>
             {provider !== 'fixture' ? (
@@ -183,7 +190,9 @@ export function PlanAssistant({ state, onApply }: PlanAssistantProps) {
           </div>
 
           <div className="plan-assistant__boundary">
-            {provider === 'fixture' ? (
+            {!liveProvidersEnabled ? (
+              <span>Android install mode uses the deterministic fixture. Live providers remain available only in local web development with the loopback gateway.</span>
+            ) : provider === 'fixture' ? (
               <span>Fixture mode is deterministic and makes no external request.</span>
             ) : (
               <span>Your current task text and instruction go to {PROVIDER_LABELS[provider]}. The key stays in active memory and is not saved.</span>

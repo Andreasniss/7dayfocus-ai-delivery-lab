@@ -6,7 +6,7 @@ These instructions apply to every file in this repository. Human owner: **Andrea
 
 This repository is an inspectable portfolio reference for AI-assisted software delivery. It is not a production service or evidence of affiliation with an AI provider or employer.
 
-P02 stabilized the planner domain and browser persistence. P03 prepared a truthful public-release candidate without changing visibility. P04 adds the accepted local BYOK proposal workflow in issue #6. Do not add accounts, telemetry, remote persistence, hosted credentials, real customer or employer data, or model-driven mutations beyond the P04 contract.
+P02 stabilized the planner domain and browser persistence. P03 prepared a truthful public-release candidate without changing visibility. P04 added the accepted local BYOK proposal workflow in issue #6. P11 adds a fixture-only Tauri v2 Android shell under issue #17. Do not add accounts, telemetry, remote persistence, hosted credentials, real customer or employer data, or model-driven mutations beyond the P04 contract.
 
 ## Source of truth
 
@@ -63,6 +63,14 @@ npm run verify
 - Validate the complete proposal against the current snapshot and capacity rules before showing or applying it.
 - Require one explicit human approval and apply through one atomic domain action; reject stale proposals without mutation.
 - Keep fixture mode credential-free and free of external network requests.
+
+## P11 Android rules
+
+- Packaged Tauri mode exposes only the deterministic fixture. Do not offer live providers or call `/api/plan` from the Android shell.
+- Keep the Tauri capability set minimal. Do not add HTTP, filesystem, shell, authentication, deep-link, remote-sync, or credential plugins without a later accepted design and threat review.
+- Keep signing keys, passwords, device identifiers, generated local paths, and Play Console exports out of Git.
+- Do not claim an APK, device installation, mobile behavior, signing, or Play availability until the exact revision is built and observed in the required environment.
+- Physical-device success is the required P11 outcome. Google Play remains optional and capped at three focused hours after device success.
 
 ## Review and evidence
 

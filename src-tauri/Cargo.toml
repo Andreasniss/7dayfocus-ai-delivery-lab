@@ -1,0 +1,19 @@
+[package]
+name = "dayfocus"
+version = "0.1.0"
+description = "Android shell for the 7DayFocus AI Delivery Lab"
+authors = ["Andreas Nissen"]
+license = "Apache-2.0"
+repository = "https://github.com/Andreasniss/7dayfocus-ai-delivery-lab"
+edition = "2021"
+rust-version = "1.88.0"
+
+[lib]
+name = "dayfocus_lib"
+crate-type = ["staticlib", "cdylib", "rlib"]
+
+[build-dependencies]
+tauri-build = { version = "2.5.6", features = [] }
+
+[dependencies]
+tauri = { version = "2.11.5", features = [] }

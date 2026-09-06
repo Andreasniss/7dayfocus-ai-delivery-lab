@@ -1,0 +1,164 @@
+# Android Build and Personal-Device Test
+
+This runbook completes P11 from a PC with Android Studio and a physical Android phone. The current Android package is deliberately fixture-only. It does not embed the local Node provider gateway, accept an API key, or call Anthropic, OpenAI, or OpenRouter.
+
+## Expected result
+
+The required P11 outcome is a debug build installed and tested on Andreas's phone. Google Play is optional and starts only after that result.
+
+Observed on 6 September 2026: the ARM64 debug build installed and passed the recorded device checks on Pixel 8 Pro / Android 17. See the [evidence ledger](ai-dlc/changes/P11-android-personal-install/evidence.md) for the candidate revision and APK fingerprint. This is one-device evidence, not universal Android compatibility.
+
+For a populated reviewer experience, copy [`examples/demo-week.json`](../examples/demo-week.json) to the phone and select it through **Import**. Existing tasks are replaced only after confirmation. Android JSON export is disabled with a visible limitation message; use disposable demo data. There is no dedicated in-app reset button. Reimport the example to restore the demo, or use Android's app-storage controls only with explicit data-loss approval. Browser JSON export remains available.
+
+## One-time PC setup
+
+Install:
+
+- the exact Node.js version in `.nvmrc` and npm version in `package.json`'s `packageManager` field;
+- the latest stable [Microsoft C++ Build Tools](https://visualstudio.microsoft.com/downloads/) with the **Desktop development with C++** workload and a Windows SDK;
+- Rust through [rustup](https://rustup.rs/);
+- [Android Studio](https://developer.android.com/studio) with Android SDK Platform 36, Android SDK Build-Tools 36, Android SDK Platform-Tools, Android SDK Command-line Tools, and the side-by-side NDK; and
+- the Android USB driver for the phone when Windows does not recognize it through ADB.
+
+Resolve current tool versions from the vendor's official documentation and the package manager's generic/current package before installing. Prefer the latest stable release; pin an older version only when repository compatibility evidence requires it, and record that exception. The standalone Build Tools are sufficient for this command-line workflow; the full Visual Studio Community IDE is optional.
+
+Existing repository pins are a reproducibility exception to that default: use the pinned Node/npm versions and locked dependency graph for verification. Updating those pins is a separate reviewed change, not an implicit setup step.
+
+Keep several gigabytes free for Rust, Gradle, the Android SDK, and the NDK. On a space-constrained PC, install the SDK on a data drive and point `ANDROID_HOME`, `NDK_HOME`, `CARGO_HOME`, and `GRADLE_USER_HOME` there. Tauri still requires the Microsoft linker from the C++ Build Tools; a GNU Rust host toolchain is not a supported substitute on Windows.
+
+Add the Rust Android targets:
+
+```powershell
+rustup target add aarch64-linux-android armv7-linux-androideabi i686-linux-android x86_64-linux-android
+```
+
+Set the environment paths for the current PowerShell session. Replace the SDK and NDK values with the paths shown by Android Studio under **Settings > Languages & Frameworks > Android SDK**:
+
+```powershell
+$env:JAVA_HOME = "C:\Program Files\Android\Android Studio\jbr"
+$env:ANDROID_HOME = "$env:LOCALAPPDATA\Android\Sdk"
+$env:NDK_HOME = "$env:ANDROID_HOME\ndk\<installed-version>"
+$env:Path += ";$env:ANDROID_HOME\platform-tools;$env:ANDROID_HOME\cmdline-tools\latest\bin;$env:USERPROFILE\.cargo\bin"
+```
+
+Verify the toolchain:
+
+```powershell
+node --version
+npm --version
+rustc --version
+cargo --version
+java -version
+adb version
+```
+
+## Resume the exact repository change
+
+```powershell
+git clone https://github.com/Andreasniss/7dayfocus-ai-delivery-lab.git
+cd 7dayfocus-ai-delivery-lab
+git fetch origin
+git switch p11/android-personal-install
+npm ci
+npm run verify
+npm run tauri info
+cargo fmt --manifest-path src-tauri/Cargo.toml -- --check
+cargo check --manifest-path src-tauri/Cargo.toml --locked
+```
+
+If P11 has already been merged, use `git switch main` and `git pull --ff-only` instead.
+
+The Android Studio project is already committed. Do not reinitialize it on a normal checkout; regenerate the icon assets:
+
+```powershell
+npm run android:icons
+```
+
+The icon command reproducibly generates platform assets from the committed `src-tauri/app-icon.svg`. Intermediate bundle variants under `src-tauri/icons` are ignored; the Android launcher resources are committed with the Android project. A fresh icon generation should leave those tracked resources unchanged. Only if creating a missing Android project, run `npm run android:init` and then rerun `npm run android:icons`; initialization can introduce default Tauri launcher assets. Do not overwrite an existing `src-tauri/gen/android` without reviewing its diff. Confirm that the generated `app/build.gradle.kts` uses `compileSdk = 36`, `buildToolsVersion = "36.0.0"`, and `targetSdk = 36` before considering Google Play.
+
+For exact-revision validation, start from a clean committed checkout and keep its Cargo target output separate from other checkouts. Sharing the Cargo download cache and Gradle dependency cache is fine, but a shared `CARGO_TARGET_DIR` can reuse Tauri code-generation results bound to the earlier checkout and leave `TauriActivity` missing in the new one. Use the checkout's default `src-tauri/target` (unset a shared target override) or a new checkout-specific target directory. Record the starting commit, clean source status, APK fingerprint, and device results in the pull request.
+
+## Install on Andreas's phone
+
+On the phone:
+
+1. Enable Developer options.
+2. Enable USB debugging.
+3. Connect the USB cable and accept the computer's debugging fingerprint.
+
+On the PC:
+
+```powershell
+adb devices
+npm run android:dev
+```
+
+`adb devices` must show one authorized device. `android:dev` builds, installs, and opens the development package. Keep it in the foreground so Gradle, Rust, ADB, and WebView errors remain visible.
+
+Then produce a reusable ARM64 debug APK:
+
+```powershell
+npm run android:build:debug
+Get-ChildItem -Recurse src-tauri\gen\android\app\build\outputs\apk\*.apk
+```
+
+Install the reported APK when needed:
+
+```powershell
+adb install -r <path-to-debug-apk>
+```
+
+## Device checklist
+
+Record the Android version, general device model, app version, commit SHA, and result for every row. Do not record the device serial number.
+
+Use only fictional test data. Before installing, check whether `com.nissenlabs.dayfocus` already exists: the earlier private prototype used the same identifier. Preserve existing data, and stop for Andreas's approval if an incompatible signing key or reset would require removing it. Never uninstall merely to bypass an update failure.
+
+| Test | Expected result |
+| --- | --- |
+| Install and launch | App opens without crash or account prompt |
+| Add/edit/complete/priority/delete | Each action updates the intended task only |
+| Move by touch | A long press and drag moves one task to the selected day |
+| Restart persistence | Tasks remain after fully closing and reopening the app |
+| Assistant providers | Only `Fixture demo (no key)` appears |
+| Proposal generation | Generation changes no task before approval |
+| Proposal approval | The complete valid diff applies atomically after approval |
+| Stale proposal | Changing the week before approval blocks the old proposal |
+| Import/export | Works through Android WebView file surfaces, or the exact limitation is recorded |
+| Reset | With only disposable test data and explicit approval, reset clears the intended state; otherwise record why the check remains pending |
+| Portrait layout | Controls remain readable and tappable at the phone's normal display scaling |
+| Keyboard focus and errors | The soft keyboard leaves the edited field and relevant controls usable; invalid input produces a visible error without corrupting saved state |
+| Offline relaunch | Planner and fixture work with airplane mode enabled |
+| Update/reinstall | `adb install -r` preserves expected state; uninstall behavior is documented separately |
+
+Append observed results to [`P11 evidence`](ai-dlc/changes/P11-android-personal-install/evidence.md). Device success requires the checklist, not merely a successful Gradle build.
+
+### Native safe-area regression check
+
+Keep the phone unlocked for this test. After building and installing the debug APK from the same candidate, compile and install its instrumentation test:
+
+```powershell
+Push-Location src-tauri/gen/android
+./gradlew.bat :app:assembleUniversalDebugAndroidTest -PabiList=arm64-v8a -ParchList=arm64 -PtargetList=aarch64 -x :app:rustBuildArm64Debug
+adb install -r app/build/outputs/apk/androidTest/universal/debug/app-universal-debug-androidTest.apk
+adb shell am instrument -w -e waitForActivitiesToComplete false -e class com.nissenlabs.dayfocus.MainActivityInsetsTest com.nissenlabs.dayfocus.test/androidx.test.runner.AndroidJUnitRunner
+adb shell am force-stop com.nissenlabs.dayfocus
+adb shell am start -n com.nissenlabs.dayfocus/.MainActivity
+Pop-Location
+```
+
+The excluded Rust task reuses the ARM64 library from the completed same-candidate APK build; it is not a substitute for that build. This standalone instrumentation test checks actual WebView bounds against Android's system-bar and camera-cutout insets. Activity cleanup is deliberately deferred: destroying the last Tauri activity exits the app process and can prevent the runner from reporting a result. The required runner argument keeps it alive until reporting; the following force-stop and relaunch perform cleanup without clearing data. Require the explicit `OK (1 test)` result, not merely a successful ADB exit code or a dot. This test does not replace the touch, keyboard, persistence, proposal, or offline checklist rows.
+
+## Optional Google Play spike
+
+Start a timer only after the device checklist passes. Stop the cumulative Play work at three focused hours or earlier when an account, identity, tester, continuous-testing, policy, privacy, security, or engineering gate cannot be completed safely inside the remaining time.
+
+**Release-signing stopping gate:** this candidate does not configure Gradle release signing or load `keystore.properties`. Creating that ignored file alone has no effect. `npm run android:build:bundle` is a bundle-compilation command, not a signed, upload-ready release path. Do not upload its output or claim release signing is ready.
+
+If Andreas chooses to start the optional spike, assess the account and signing requirements first. A separate reviewed release-signing change must load external keystore properties, associate the signing configuration with the release build, and verify the resulting signed AAB before any upload. Keep the keystore and passwords outside Git and back them up safely. Stop if that work or an account gate cannot be completed safely within the remaining time box.
+
+Only after that gate passes, complete accurate app content, privacy, Data safety, content rating, target audience, and store-listing fields and upload to an appropriate testing track. None of these release steps has been performed or verified in P11.
+
+Google states that some personal developer accounts created after 13 November 2023 need a closed test before production access. From 31 August 2026, new mobile apps must target API 36. Record the actual account-specific gate instead of assuming it applies.
+
+References: [Tauri Android prerequisites](https://v2.tauri.app/start/prerequisites/#android), [Tauri Google Play guide](https://v2.tauri.app/distribute/google-play/), [Android target API requirements](https://support.google.com/googleplay/android-developer/answer/11926878), and [Play app setup](https://support.google.com/googleplay/android-developer/answer/9859152).

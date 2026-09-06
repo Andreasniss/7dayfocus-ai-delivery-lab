@@ -19,6 +19,7 @@ import { WeekReview } from './components/WeekReview'
 import { MAX_TOTAL_TASKS } from './domain/weekState'
 import { useWeekStore } from './hooks/useWeekStore'
 import { exportData, parseImport, readJsonFile } from './lib/dataIO'
+import { getRuntimeCapabilities } from './lib/runtime'
 import type { Task } from './types'
 import { dayDate, formatDayLabel, getTodayIndex } from './utils/dates'
 
@@ -82,6 +83,7 @@ function TaskDragPreview({ task }: { task: Task }) {
 }
 
 export default function App() {
+  const runtime = getRuntimeCapabilities()
   const { state, dispatch, storageIssue, resolveStorageIssue } = useWeekStore()
   const [showReview, setShowReview] = useState(false)
   const [activeTask, setActiveTask] = useState<Task | null>(null)
@@ -162,6 +164,7 @@ export default function App() {
           onNewWeek={() => setShowReview(true)}
           onImport={() => importInputRef.current?.click()}
           onExport={() => exportData(state)}
+          exportEnabled={!runtime.packaged}
         />
         {storageIssue ? (
           <section className="storage-alert" role="alert" aria-live="assertive">
@@ -189,6 +192,7 @@ export default function App() {
 
         <PlanAssistant
           state={state}
+          liveProvidersEnabled={runtime.liveProviders}
           onApply={(revision, proposal) => dispatch({ type: 'APPLY_PLAN_PROPOSAL', revision, proposal })}
         />
 

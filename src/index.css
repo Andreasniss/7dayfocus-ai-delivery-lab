@@ -90,6 +90,13 @@ button:focus-visible, input:focus-visible, select:focus-visible, textarea:focus-
 
 .header-actions {
   justify-content: flex-end;
+  flex-wrap: wrap;
+}
+
+.header-export-note {
+  flex-basis: 100%;
+  color: var(--muted);
+  font-size: 12px;
 }
 
 .header-brand {
@@ -321,6 +328,7 @@ button:focus-visible, input:focus-visible, select:focus-visible, textarea:focus-
 
 .task-drag-handle {
   cursor: grab;
+  touch-action: none;
 }
 
 .task-drag-handle:active {
@@ -843,6 +851,15 @@ button:focus-visible, input:focus-visible, select:focus-visible, textarea:focus-
 }
 
 @media (max-width: 900px) {
+  .task-item {
+    flex-wrap: wrap;
+  }
+
+  .task-text {
+    flex: 1 0 100%;
+    order: -1;
+  }
+
   .header {
     grid-template-columns: 1fr;
     align-items: start;

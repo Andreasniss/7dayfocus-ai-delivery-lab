@@ -8,6 +8,7 @@ interface Props {
   onNewWeek: () => void
   onImport: () => void
   onExport: () => void
+  exportEnabled?: boolean
 }
 
 export function Header({
@@ -18,6 +19,7 @@ export function Header({
   onNewWeek,
   onImport,
   onExport,
+  exportEnabled = true,
 }: Props) {
   return (
     <header className="header">
@@ -39,7 +41,17 @@ export function Header({
       <div className="header-actions">
         <span className="local-badge">Local only</span>
         <button className="btn" onClick={onImport}>Import</button>
-        <button className="btn" onClick={onExport}>Export</button>
+        <button
+          className="btn"
+          onClick={onExport}
+          disabled={!exportEnabled}
+          aria-describedby={!exportEnabled ? 'android-export-note' : undefined}
+        >Export</button>
+        {!exportEnabled ? (
+          <span id="android-export-note" className="header-export-note">
+            JSON export is unavailable in this Android build. Use disposable demo data only.
+          </span>
+        ) : null}
       </div>
     </header>
   )
