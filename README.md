@@ -1,8 +1,9 @@
 # 7DayFocus AI Delivery Lab
 
+[Built by Andreas Nissen](https://github.com/Andreasniss) · [andreasnissen.dev](https://andreasnissen.dev) · [Connect on LinkedIn](https://www.linkedin.com/in/andreasnissen) · [Source on GitHub](https://github.com/Andreasniss/7dayfocus-ai-delivery-lab) · [Apache-2.0](LICENSE)
+
 A local-first seven-day planner for web and Android. Organize Work and Life tasks, set daily priorities, and review proposed planning changes before approving them. Try the populated fictional demo without an account or API key.
 
-[Built by Andreas Nissen](https://github.com/Andreasniss) · [andreasnissen.dev](https://andreasnissen.dev) · [Connect on LinkedIn](https://www.linkedin.com/in/andreasnissen) · [Source on GitHub](https://github.com/Andreasniss/7dayfocus-ai-delivery-lab) · Apache-2.0
 
 > **Portfolio status:** Public pre-1.0 reference lab. P02 hardened the domain and persistence boundary, P04 added the provider-flexible Plan My Week workflow, P05 completed publication review, and P11 reached installation and testing on a Pixel 8 Pro. This is an independent reference project, not a production service or a claim of provider affiliation, adoption, reliability, or scale.
 
@@ -170,4 +171,8 @@ This repository pilots [AI SDLC Skill](skills/ai-sdlc-skill/SKILL.md), an indepe
 
 ## Canonical delivery skill
 
-The bundled [AI SDLC Skill](skills/ai-sdlc-skill/README.md) is pinned to the reviewed [standalone source](https://github.com/Andreasniss/ai-sdlc-skill/tree/793ca27f23b336e21b50972919146c9bfcacaba2). The [source manifest](skills/ai-sdlc-skill.source.json) records the exact commit and each file digest. Updates require a reviewed PR; the repository never downloads skill updates automatically.
+The bundled [AI SDLC Skill](skills/ai-sdlc-skill/README.md) is pinned to the reviewed [standalone source](https://github.com/Andreasniss/ai-sdlc-skill/tree/811c549bf772cfac6ad285faf374ca32a7e820d1). The [source manifest](skills/ai-sdlc-skill.source.json) records the exact commit and each file digest. Updates require a reviewed PR; the repository never downloads skill updates automatically.
+
+## Reuse and contributions
+
+Copyright 2026 Andreas Nissen. Original project code and accompanying technical documentation are licensed under [Apache-2.0](LICENSE), except where separately indicated. See [NOTICE](NOTICE). Third-party dependencies and bundled material retain their own terms. Read [CONTRIBUTING.md](CONTRIBUTING.md) for setup, verification, and contribution expectations.
