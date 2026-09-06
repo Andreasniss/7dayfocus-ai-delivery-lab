@@ -8,3 +8,7 @@
 6. Publish only after required checks pass; synchronize website evidence without claiming measured delivery gains.
 
 The skill initially lives in this repository because the current connector can publish into existing repositories but cannot create a new standalone repository. It remains independently installable.
+
+## Approved standalone extraction follow-through
+
+On 6 September 2026, Andreas approved the standalone publication plan and requested migration of the existing skill identifier. The canonical `ai-sdlc-skill` repository is now published. Pin this adopter's bundle to its reviewed full commit, record file digests, and update the installation source link. This follows the approved extraction plan; it does not change the helper, application behavior, or authority boundaries. Preserve the dated pilot evidence and rerun the existing verification and publication gates.
