@@ -22,7 +22,11 @@ import java.util.concurrent.TimeUnit
 class MainActivityInsetsTest {
   @Test
   fun webViewStaysInsideSafeAreaAndNarrowCardsKeepReadableText() {
-    ActivityScenario.launch(MainActivity::class.java).use { scenario ->
+    assertEquals("Run this standalone test with activity cleanup deferred until after reporting",
+      "false", InstrumentationRegistry.getArguments().getString("waitForActivitiesToComplete"))
+    // Closing the last Tauri activity exits the instrumented process before the
+    // runner can report its result. The runbook stops the app after reporting.
+    ActivityScenario.launch(MainActivity::class.java).let { scenario ->
       InstrumentationRegistry.getInstrumentation().waitForIdleSync()
       lateinit var appWebView: WebView
       scenario.onActivity { activity ->

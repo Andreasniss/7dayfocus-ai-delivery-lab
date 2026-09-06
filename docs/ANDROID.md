@@ -141,11 +141,13 @@ Keep the phone unlocked for this test. After building and installing the debug A
 Push-Location src-tauri/gen/android
 ./gradlew.bat :app:assembleUniversalDebugAndroidTest -PabiList=arm64-v8a -ParchList=arm64 -PtargetList=aarch64 -x :app:rustBuildArm64Debug
 adb install -r app/build/outputs/apk/androidTest/universal/debug/app-universal-debug-androidTest.apk
-adb shell am instrument -w -e class com.nissenlabs.dayfocus.MainActivityInsetsTest com.nissenlabs.dayfocus.test/androidx.test.runner.AndroidJUnitRunner
+adb shell am instrument -w -e waitForActivitiesToComplete false -e class com.nissenlabs.dayfocus.MainActivityInsetsTest com.nissenlabs.dayfocus.test/androidx.test.runner.AndroidJUnitRunner
+adb shell am force-stop com.nissenlabs.dayfocus
+adb shell am start -n com.nissenlabs.dayfocus/.MainActivity
 Pop-Location
 ```
 
-The excluded Rust task reuses the ARM64 library from the completed same-candidate APK build; it is not a substitute for that build. The instrumentation test launches and closes the app without clearing its data and checks actual WebView bounds against Android's system-bar and camera-cutout insets. It does not replace the touch, keyboard, persistence, proposal, or offline checklist rows.
+The excluded Rust task reuses the ARM64 library from the completed same-candidate APK build; it is not a substitute for that build. This standalone instrumentation test checks actual WebView bounds against Android's system-bar and camera-cutout insets. Activity cleanup is deliberately deferred: destroying the last Tauri activity exits the app process and can prevent the runner from reporting a result. The required runner argument keeps it alive until reporting; the following force-stop and relaunch perform cleanup without clearing data. Require the explicit `OK (1 test)` result, not merely a successful ADB exit code or a dot. This test does not replace the touch, keyboard, persistence, proposal, or offline checklist rows.
 
 ## Optional Google Play spike
 
