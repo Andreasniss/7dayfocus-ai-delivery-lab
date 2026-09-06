@@ -68,14 +68,15 @@ cargo check --manifest-path src-tauri/Cargo.toml --locked
 
 If P11 has already been merged, use `git switch main` and `git pull --ff-only` instead.
 
-Generate the Android Studio project once:
+The Android Studio project is already committed. Do not reinitialize it on a normal checkout; regenerate the icon assets:
 
 ```powershell
 npm run android:icons
-npm run android:init
 ```
 
-The icon command reproducibly generates platform assets from the committed `src-tauri/app-icon.svg`. Intermediate bundle variants under `src-tauri/icons` are ignored; the generated Android launcher resources are committed with the Android project. Do not overwrite an existing `src-tauri/gen/android` without reviewing its diff. Confirm that the generated `app/build.gradle.kts` uses `compileSdk = 36`, `buildToolsVersion = "36.0.0"`, and `targetSdk = 36` before considering Google Play.
+The icon command reproducibly generates platform assets from the committed `src-tauri/app-icon.svg`. Intermediate bundle variants under `src-tauri/icons` are ignored; the Android launcher resources are committed with the Android project. A fresh icon generation should leave those tracked resources unchanged. Only if creating a missing Android project, run `npm run android:init` and then rerun `npm run android:icons`; initialization can introduce default Tauri launcher assets. Do not overwrite an existing `src-tauri/gen/android` without reviewing its diff. Confirm that the generated `app/build.gradle.kts` uses `compileSdk = 36`, `buildToolsVersion = "36.0.0"`, and `targetSdk = 36` before considering Google Play.
+
+For exact-revision validation, start from a clean committed checkout and keep its Cargo target output separate from other checkouts. Sharing the Cargo download cache and Gradle dependency cache is fine, but a shared `CARGO_TARGET_DIR` can reuse Tauri code-generation results bound to the earlier checkout and leave `TauriActivity` missing in the new one. Use the checkout's default `src-tauri/target` (unset a shared target override) or a new checkout-specific target directory. Record the starting commit, clean source status, APK fingerprint, and device results in the pull request.
 
 ## Install on Andreas's phone
 

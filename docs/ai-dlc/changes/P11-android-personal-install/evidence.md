@@ -133,6 +133,12 @@ Close this finding by creating a clean checkout of the final committed candidate
 
 ## Remaining release gates
 
+### Fresh-checkout findings and deferred feedback
+
+- Regenerating icons in the clean checkout exposed a mismatch: the committed Android launcher PNGs still contained Tauri's default artwork. The committed SVG was correct. Regenerated the launcher PNGs and adaptive-icon resources from that source, and corrected the runbook to avoid reinitializing an existing Android project and to generate icons after initialization when creating a missing project. Final icon-generation idempotence and packaged verification belong to the exact-head PR evidence.
+- The first detached-checkout APK attempt failed at Kotlin compilation with `Unresolved reference: TauriActivity`. It reused a Cargo target directory from another checkout; the generated activity remained in the earlier checkout while the new checkout received the other generated files. This is a failed build, not device evidence. The next attempt isolates Cargo target output for the clean checkout while retaining download caches; the runbook now records this boundary.
+- Andreas reported that mobile checkbox tick marks are not centered in their rectangles and explicitly deferred a fix. This owner-reported visual issue is tracked separately in [backlog #23](https://github.com/Andreasniss/7dayfocus-ai-delivery-lab/issues/23); no cause or cross-device behavior is claimed, and no checkbox change is included in P11.
+
 - Exact final-head clean build/device pass, hosted CI, and PR review/merge, with live status in [PR #19](https://github.com/Andreasniss/7dayfocus-ai-delivery-lab/pull/19). Do not infer that gate from the intermediate results above.
 - The dependent website case study must publish only evidence supported by the merged Android source.
 - Release signing and Google Play remain optional, unstarted, and unclaimed. The three-hour Play timer has not started. P07-P10 remain parked.
