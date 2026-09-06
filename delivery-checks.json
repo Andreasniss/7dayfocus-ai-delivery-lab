@@ -1,6 +1,6 @@
 {
   "checks": [
-    {"name": "skill behavior", "argv": ["python3", "-m", "unittest", "discover", "-s", "skills/evidence-sdlc/tests"], "timeout_seconds": 60},
+    {"name": "skill behavior", "argv": ["python3", "-m", "unittest", "discover", "-s", "skills/ai-sdlc-skill/tests"], "timeout_seconds": 60},
     {"name": "application verification", "argv": ["npm", "run", "verify"], "timeout_seconds": 600}
   ]
 }
