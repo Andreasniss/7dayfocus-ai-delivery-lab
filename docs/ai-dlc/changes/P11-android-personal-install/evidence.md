@@ -2,7 +2,7 @@
 
 - **Owner:** Andreas
 - **Status:** Implementation in progress
-- **Evidence date:** 2026-09-05
+- **Evidence date:** 2026-09-06
 
 ## Confirmed predecessor evidence
 
@@ -46,7 +46,7 @@ Rejected carry-over:
 - `git diff --check` and the credential/private-key signature scan passed.
 - Hosted Verify [run #35](https://github.com/Andreasniss/7dayfocus-ai-delivery-lab/actions/runs/33483496032) passed on behavior head `44423b99756550f9558395c45bbb4c51fa0acc45` after the fail-closed request guard and 249th test were added.
 - `tauri info --verbose` recognized Tauri CLI 2.11.4, the React/Vite project, CSP, development URL, and frontend distribution path.
-- `tauri icon src-tauri/app-icon.svg` generated the Android and bundle variants successfully; the 256 px render was visually checked for legibility. Generated variants remain reproducible output and are not committed.
+- `tauri icon src-tauri/app-icon.svg` generated the Android and bundle variants successfully; the 256 px render was visually checked for legibility. Intermediate bundle variants remain ignored; Android launcher resources were later committed with the generated project during the PC continuation.
 - `tauri android init --ci` stopped before modifying the generated Android project because `cargo` is unavailable. The observed error was `failed to run command cargo metadata ... No such file or directory`.
 - Tauri environment diagnostics also confirmed that Rust, Cargo, and rustup are absent. Node.js 24.19.0, npm 11.9.0, and Java 17 are available.
 - On the PC continuation, `npm ci` completed from the locked graph with zero reported vulnerabilities and `npm run verify` passed: 17 test files and 249 tests, followed by the same 49-module production build.
@@ -62,6 +62,16 @@ Rejected carry-over:
 - Gradle initially selected Build-Tools 35.0.0 by default. The generated project was pinned to the already installed latest stable Build-Tools 36.0.0, Gradle build output was cleaned, and `npm run android:build:debug` then passed from a clean Android output state.
 - The resulting universal debug APK is ARM64-only and 132,713,374 bytes. `aapt` confirmed package `com.nissenlabs.dayfocus`, version `0.1.0`, minimum SDK 24, and compile/target SDK 36. `apksigner` verified APK Signature Scheme v2. The observed SHA-256 was `8C694F0079929FA5C828D90C3D7BEB62C57A6EEF54EA37ED66AD07042AFD0299`.
 - The successful build emitted upstream/generated deprecation warnings for Tauri Android APIs and Gradle features, plus one Android SDK XML-version compatibility warning during the first Gradle run. They did not fail the build; no application behavior claim is inferred from that result.
+
+## PC follow-up: 6 September 2026
+
+- Refreshed candidate head `e1a8dc8923b6c52b635007e95fca3fc6bf841207` was clean. Its hosted [Verify check](https://github.com/Andreasniss/7dayfocus-ai-delivery-lab/actions/runs/33958053652/job/101284855541) completed successfully.
+- Microsoft's installed-product inventory now reports Visual Studio Build Tools 2026 version 18.9.1 as complete, launchable, stable (not prerelease), and not requiring a reboot.
+- The PC's system Node version did not match `.nvmrc`. An isolated official Node.js 24.19.0 distribution was checked against the vendor's SHA-256 checksum and its executable's valid OpenJS Authenticode signature, then paired with the repository-pinned npm 11.9.0. System-wide Node/npm settings were not changed. The existing pins were preserved as the repository's reproducibility exception to the latest-stable setup preference.
+- With those exact Node/npm versions, `npm ci`, `npm run verify`, `npm audit --omit=dev`, and `git diff --check` passed on this documentation-only continuation: 17 test files, 249 tests (including the 24 deterministic cases), and the 49-module production build; zero known runtime npm vulnerabilities. npm 11.9.0 warned that it does not recognize the existing user `min-release-age` configuration; that user setting was not changed, and the locked install was used.
+- The existing APK was rehashed and still matches `8C694F0079929FA5C828D90C3D7BEB62C57A6EEF54EA37ED66AD07042AFD0299`. Rehashing is artifact-integrity evidence, not a new build or device test.
+- A fresh `adb devices -l` check successfully started the device bridge but returned no connected devices. Installation and every physical-device checklist result remain pending.
+- Runbook review restored explicit reset, keyboard-focus, and error-state checks from the accepted specification, and added an existing-installation safeguard because the predecessor shares the package identifier. These are documentation-only changes, not newly verified mobile behavior.
 
 ## Open gates
 
