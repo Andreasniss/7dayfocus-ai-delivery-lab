@@ -21,7 +21,7 @@ PATTERNS = [
     ('AWS access key', re.compile(rb'\b(?:AKIA|ASIA)[A-Z0-9]{16}\b')),
     ('GitHub token', re.compile(rb'\bgh[pousr]_[A-Za-z0-9]{30,}\b|\bgithub_pat_[A-Za-z0-9_]{40,}\b')),
     ('provider token', re.compile(rb'\bsk-(?:proj-|ant-)?[A-Za-z0-9_-]{30,}\b')),
-    ('root home path', re.compile(rb'/' rb'root(?=$|[/\\\s"\x27.,;:)\]}])')),
+    ('root home path', re.compile(rb'/' rb'root(?=$|[/\\\s"\x27.,;:)\]}`<>*])')),
     ('local user path', re.compile(rb'/(?:Users|home)/[^/\r\n]+')),
     ('Windows user path', re.compile(rb'(?:[A-Za-z]:[\\/]+|[\\/]{2}[^\\/]+[\\/]+(?:[^\\/]+[\\/]+)?)(?:Users|home)[\\/]+[^\\/\r\n]+', re.I)),
     ('image authoring field', re.compile(rb'(?<![A-Za-z0-9_])(?:style[_-]?prompt|image[_-]?prompt|generation[_-]?prompt|negative[_-]?prompt|base[_-]?style[_-]?prompt)["\x27]?\s*[:=]', re.I)),
@@ -71,7 +71,7 @@ def inspect(name, data, mode='100644', notebook_baseline=None):
             problems.append(label)
     if p.suffix == '.ipynb':
         try:
-            notebook = json.loads(data)
+            notebook = json.loads(data, parse_constant=lambda value: (_ for _ in ()).throw(ValueError('non-JSON constant')))
             if (not isinstance(notebook, dict) or notebook.get('nbformat') != 4
                     or type(notebook.get('nbformat_minor')) is not int
                     or notebook['nbformat_minor'] < 0

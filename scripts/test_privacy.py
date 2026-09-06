@@ -74,7 +74,7 @@ class ContentChecks(unittest.TestCase):
     def test_home_directory_without_child(self):
         for path in ['/ro' + 'ot/project/file', '/ho' + 'me/alice', '/ho' + 'me/andré/file', '/ho' + 'me/李/file', '/Us' + 'ers/Élodie/file', '/Us' + 'ers/Jane Doe/file', '/Us' + 'ers/alice', 'C:' + chr(92) + 'Users' + chr(92) + 'alice']:
             self.assertTrue(privacy.inspect('data.txt', path.encode()))
-        for value in ['{\"cwd\":\"/ro' + 'ot\"}', '/ro' + 'ot\nnext', chr(92) + '/ro' + 'ot' + chr(92) + '/project']:
+        for value in ['`/ro' + 'ot`', '<code>/ro' + 'ot</code>', '{\"cwd\":\"/ro' + 'ot\"}', '/ro' + 'ot\nnext', chr(92) + '/ro' + 'ot' + chr(92) + '/project']:
             self.assertTrue(privacy.inspect('data.txt', value.encode()))
 
     def test_unquoted_authoring_fields(self):
@@ -112,6 +112,8 @@ class ContentChecks(unittest.TestCase):
         baseline = {'demo.ipynb': hashlib.sha256(data).hexdigest()}
         self.assertFalse(privacy.inspect('demo.ipynb', data, notebook_baseline=baseline))
         self.assertTrue(privacy.inspect('demo.ipynb', data + b' ', notebook_baseline=baseline))
+        for constant in ['NaN', 'Infinity', '-Infinity']:
+            self.assertTrue(privacy.inspect('demo.ipynb', ('{"nbformat":4,"nbformat_minor":5,"metadata":{"value":' + constant + '},"cells":[]}').encode()))
         self.assertTrue(privacy.inspect('demo.ipynb', b'{}'))
         self.assertTrue(privacy.inspect('demo.ipynb', b'{"cells":[]}'))
 
