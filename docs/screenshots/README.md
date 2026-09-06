@@ -1,6 +1,6 @@
 # App screenshots
 
-Captured on 6 September 2026 from the installed Pixel 8 Pro app running Android 17. The APK's application sources are recorded at `4220b266154275cd1d7d552b1c1af2b0b5595801`; see the [P11 evidence ledger](../ai-dlc/changes/P11-android-personal-install/evidence.md) for its SHA-256 and device checks.
+Captured on 6 September 2026 from the installed Pixel 8 Pro app running Android 17. These images came from the intermediate worktree-built APK documented in the [P11 evidence ledger](../ai-dlc/changes/P11-android-personal-install/evidence.md), not an exact-commit build. Its application sources were subsequently committed as `4220b266154275cd1d7d552b1c1af2b0b5595801`. Final exact-revision build/device proof is recorded separately in [PR #19](https://github.com/Andreasniss/7dayfocus-ai-delivery-lab/pull/19); the images alone do not establish it.
 
 | Capture | What is shown |
 | --- | --- |

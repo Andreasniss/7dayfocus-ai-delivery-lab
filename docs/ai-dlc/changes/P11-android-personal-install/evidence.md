@@ -89,9 +89,9 @@ Rejected carry-over:
 - Task creation with native touch/keyboard input, empty-edit rejection, edit/priority/completion controls, fixture-only provider selection, non-mutating generation, stale-proposal rejection, and one explicit test approval were observed on the Pixel. The approved diff affected exactly one fictional task; the existing user task was not changed. Fixture generation emitted no network requests in WebView diagnostics.
 - With airplane mode enabled and Wi-Fi disabled, the app relaunched with all three tasks and generated a non-mutating fixture proposal with no requests. Android WebView still reported `navigator.onLine=true`, so that property is not treated as proof of connectivity. Airplane mode, Wi-Fi, and Bluetooth settings were restored to their initial values afterward. Final-candidate verification remains below as a pending gate.
 
-## Verified device candidate: 6 September 2026
+## Intermediate device pass: 6 September 2026
 
-The completed phone pass used the application sources committed as `4220b266154275cd1d7d552b1c1af2b0b5595801`. The APK was built before that commit; the later public-example/test additions did not alter its production bundle. Both builds produced the same `index-CC82P5C4.css` and `index-DHy-1RGQ.js` assets. Subsequent screenshot and evidence changes are documentation-only.
+The phone pass below used an APK built from an uncommitted worktree whose application sources were subsequently committed as `4220b266154275cd1d7d552b1c1af2b0b5595801`. It is intermediate behavior evidence, not proof that an exact committed revision was built. Matching production assets did not satisfy the final exact-revision gate; the review finding below preserves that distinction.
 
 - `npm run verify`: lint, type checking, 18 test files / 253 tests (including 24 deterministic proposal cases), and production build passed with Node 24.19.0 / npm 11.9.0.
 - `npm audit --omit=dev`: zero known runtime npm vulnerabilities.
@@ -125,8 +125,14 @@ Several diagnostic harness attempts failed because of a locked/backgrounded app,
 
 The review covered accepted scope, unchanged domain/storage boundaries, fixture/provider separation, user control, test coverage, and public claims. No additional blocking defect was identified in the observed Android follow-up. This is a scoped repository review, not independent human review, an exhaustive security audit, accessibility certification, or broad device-compatibility testing. Existing generated/upstream Gradle/Tauri deprecation warnings remain disclosed.
 
+## Exact-revision review correction
+
+The final PR review raised **[P2] Rebuild and test the exact documented revision**. The intermediate APK was built before its source commit. Asset equivalence is useful diagnostic evidence but is not an exact-revision build. The earlier candidate-level conclusion was therefore insufficient for merge.
+
+Close this finding by creating a clean checkout of the final committed candidate, performing the locked install and complete verification, building its APK, recording the commit and APK SHA-256, and repeating installation and device observations on that APK. Record the observed result on the exact-head [PR #19 review thread](https://github.com/Andreasniss/7dayfocus-ai-delivery-lab/pull/19#discussion_r3943733863) after the candidate is committed. The PR is the live source of truth for that final gate; this committed ledger retains the historical failure and correction plan without a self-referential commit claim.
+
 ## Remaining release gates
 
-- Exact final-head hosted CI and PR review/merge, with live status in [PR #19](https://github.com/Andreasniss/7dayfocus-ai-delivery-lab/pull/19).
+- Exact final-head clean build/device pass, hosted CI, and PR review/merge, with live status in [PR #19](https://github.com/Andreasniss/7dayfocus-ai-delivery-lab/pull/19). Do not infer that gate from the intermediate results above.
 - The dependent website case study must publish only evidence supported by the merged Android source.
 - Release signing and Google Play remain optional, unstarted, and unclaimed. The three-hour Play timer has not started. P07-P10 remain parked.
