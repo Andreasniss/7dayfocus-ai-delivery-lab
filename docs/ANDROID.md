@@ -6,6 +6,10 @@ This runbook completes P11 from a PC with Android Studio and a physical Android 
 
 The required P11 outcome is a debug build installed and tested on Andreas's phone. Google Play is optional and starts only after that result.
 
+Observed on 6 September 2026: the ARM64 debug build installed and passed the recorded device checks on Pixel 8 Pro / Android 17. See the [evidence ledger](ai-dlc/changes/P11-android-personal-install/evidence.md) for the candidate revision and APK fingerprint. This is one-device evidence, not universal Android compatibility.
+
+For a populated reviewer experience, copy [`examples/demo-week.json`](../examples/demo-week.json) to the phone and select it through **Import**. Existing tasks are replaced only after confirmation. Android JSON export is disabled with a visible limitation message; use disposable demo data. There is no dedicated in-app reset button. Reimport the example to restore the demo, or use Android's app-storage controls only with explicit data-loss approval. Browser JSON export remains available.
+
 ## One-time PC setup
 
 Install:
