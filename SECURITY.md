@@ -61,7 +61,7 @@ Semantic planning quality remains probabilistic. Schema validity and determinist
 
 ## AI-assisted repository controls
 
-`AGENTS.md`, `CLAUDE.md`, and `REVIEW.md` provide instructions and review conventions; prompt text is not a security boundary. The repository does not commit Claude Code permissions, sandbox settings, hooks, specialized agents, or reusable skills. Any such controls require a later gated change and must not be claimed from documentation alone.
+`AGENTS.md`, `CLAUDE.md`, and `REVIEW.md` provide instructions and review conventions; prompt text is not a security boundary. The repository now includes opt-in publication-privacy hooks and the reusable Evidence SDLC skill. Their scope and limits are documented in [`PRIVACY.md`](PRIVACY.md) and the [skill](skills/evidence-sdlc/SKILL.md); they do not grant authority or replace human review, runtime permissions, or protected CI. No Claude Code permission or sandbox configuration is provided.
 
 ## Local gateway boundary
 
@@ -71,7 +71,9 @@ ADR 0004 supersedes ADR 0001's optional FastAPI direction with a smaller Node ga
 
 ADR 0005 packages the static client with a minimal Tauri v2 Android shell. Packaged-runtime detection removes live-provider choices from the UI, so the Android application cannot intentionally form a `/api/plan` request or accept a provider key. The deterministic fixture, local proposal validation, explicit approval, and atomic reducer remain available.
 
-The package grants only Tauri's default core capability and adds no HTTP, filesystem, shell, authentication, deep-link, remote-sync, or credential plugin. Planner state remains plaintext WebView local storage and may be visible to the device owner, device backups, debugging tools, malware, or a compromised operating system. APK integrity, Android WebView behavior, file import/export, offline behavior, and device persistence remain unverified until recorded against a physical-device build.
+The package grants only Tauri's default core capability and adds no HTTP, filesystem, shell, authentication, deep-link, remote-sync, or credential plugin. Planner state remains plaintext WebView local storage and may be visible to the device owner, device backups, debugging tools, malware, or a compromised operating system.
+
+The [P11 ledger](docs/ai-dlc/changes/P11-android-personal-install/evidence.md) records observed APK integrity, layout, import, persistence, fixture approval, and offline behavior from the Pixel 8 Pro / Android 17 intermediate build. Android export did not produce a file and is now disabled with a visible warning; no backup capability is implied. Intermediate results do not establish an exact-final-revision pass: [PR #19](https://github.com/Andreasniss/7dayfocus-ai-delivery-lab/pull/19) is the live record for the final clean committed build, repeated device checks, and review gate. Neither one-device testing nor a verified debug signature establishes broad compatibility or security assurance.
 
 Signing material must remain outside the repository. A debug APK is suitable only for personal testing. Any Play submission requires separate signing, privacy/Data safety review, accurate disclosures, current target API verification, and owner approval.
 

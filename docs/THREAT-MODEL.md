@@ -27,7 +27,7 @@
 | Partial or stale application | Snapshot fingerprint, complete preflight, and one atomic reducer action | Another tab remains last-write-wins in browser storage |
 | Capacity violation | Deterministic simulation checks task and priority limits before approval and inside reducer | Existing accepted over-capacity legacy state remains possible |
 | Denial of service or cost amplification | Request and provider-response size limits, timeout, locked single in-flight UI request, bounded tasks, bounded output | Provider rate limits and billing remain user-owned |
-| Provider credential exposed by the Android shell | Packaged-runtime capability removes live-provider options and API-key input; no HTTP or credential plugin is present | Runtime detection and Android packaging still require physical-device verification |
+| Provider credential exposed by the Android shell | Packaged-runtime capability removes live-provider options and API-key input; no HTTP or credential plugin is present | The P11 ledger records one Pixel test; PR #19 tracks exact-final-revision verification. No live mobile provider or broad-device assurance is claimed |
 | Over-privileged mobile package | Tauri grants only `core:default`; no filesystem, shell, HTTP, authentication, deep-link, or remote-sync plugin | Android WebView, operating system, backups, debugging tools, and device compromise remain outside scope |
 | Signing secret committed | Keystores and signing properties are ignored and the runbook keeps them outside the repository | Andreas must back up and protect signing material in the PC/Play environment |
 

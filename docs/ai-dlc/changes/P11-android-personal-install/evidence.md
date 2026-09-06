@@ -135,6 +135,8 @@ Close this finding by creating a clean checkout of the final committed candidate
 
 ### Fresh-checkout findings and deferred feedback
 
+- Review identified stale Android verification language in the security policy. Reconciled the policy and threat-model row with observed intermediate-device evidence, the disabled-export limitation, and the separate live exact-final-revision gate in PR #19. Also aligned the repository-control paragraph with the privacy hooks and Evidence SDLC skill now present on main; neither is presented as an authorization or security boundary.
+
 - Review found that asset provenance incorrectly described all generated icons as omitted. Corrected it to distinguish committed Android launcher resources from ignored intermediate bundle variants, and documented the fictional screenshot source.
 - Review found that the optional Play instructions implied `keystore.properties` was wired into Gradle, although no release signing configuration exists. Removed that implication and made separately reviewed configuration plus signed-AAB verification an explicit stopping gate before upload. Release signing remains unimplemented, optional, and unclaimed; no Play work was started to close this documentation finding.
 - The earlier `git diff --check` results covered local incremental edits, not the whole PR. Reviewing `git diff --check origin/main...HEAD` exposed extra blank lines at EOF in nine added files. Removed those formatting-only errors and added the complete candidate-range check to the final PR evidence requirements; the earlier narrower pass is not a candidate-range pass.
