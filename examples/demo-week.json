@@ -1,0 +1,32 @@
+{
+  "_meta": {
+    "app": "7DayFocus",
+    "version": "2",
+    "description": "Fictional portfolio demo. Fixed snapshot for 6-12 September 2026; not personal task data."
+  },
+  "weekStart": "2026-09-06",
+  "settings": {
+    "maxPriority": 3,
+    "maxTasksPerDay": 5,
+    "weekStartDay": 0,
+    "weekLength": 7,
+    "homeView": "week"
+  },
+  "tasks": [
+    { "text": "Draft demo storyline", "dayIndex": 0, "completed": false, "priority": true, "label": "Work" },
+    { "text": "Map onboarding flow", "dayIndex": 0, "completed": false, "priority": false, "label": "Work" },
+    { "text": "Plan meals for the week", "dayIndex": 0, "completed": false, "priority": false, "label": "Life" },
+    { "text": "Read design notes", "dayIndex": 0, "completed": false, "priority": false, "label": "Work" },
+    { "text": "Sketch weekly overview", "dayIndex": 1, "completed": false, "priority": true, "label": "Work" },
+    { "text": "Write import edge cases", "dayIndex": 1, "completed": true, "priority": false, "label": "Work" },
+    { "text": "Review proposal copy", "dayIndex": 2, "completed": false, "priority": true, "label": "Work" },
+    { "text": "Take an evening walk", "dayIndex": 2, "completed": true, "priority": false, "label": "Life" },
+    { "text": "Test small-screen layout", "dayIndex": 3, "completed": false, "priority": true, "label": "Work" },
+    { "text": "Record demo feedback", "dayIndex": 3, "completed": false, "priority": false, "label": "Work" },
+    { "text": "Polish screenshot captions", "dayIndex": 4, "completed": false, "priority": true, "label": "Work" },
+    { "text": "Call a friend", "dayIndex": 4, "completed": false, "priority": false, "label": "Life" },
+    { "text": "Publish project notes", "dayIndex": 5, "completed": false, "priority": true, "label": "Work" },
+    { "text": "Buy groceries", "dayIndex": 5, "completed": true, "priority": false, "label": "Life" },
+    { "text": "Read a chapter", "dayIndex": 6, "completed": false, "priority": false, "label": "Life" }
+  ]
+}

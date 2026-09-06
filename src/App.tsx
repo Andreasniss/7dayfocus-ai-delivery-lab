@@ -164,6 +164,7 @@ export default function App() {
           onNewWeek={() => setShowReview(true)}
           onImport={() => importInputRef.current?.click()}
           onExport={() => exportData(state)}
+          exportEnabled={!runtime.packaged}
         />
         {storageIssue ? (
           <section className="storage-alert" role="alert" aria-live="assertive">

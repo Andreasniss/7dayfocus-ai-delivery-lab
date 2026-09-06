@@ -19,6 +19,14 @@
 
 ## Verification contract
 
+### Accepted physical-device feedback follow-up: 6 September 2026
+
+Andreas accepted resolving the observed phone defects in this session and recording the reproduce/fix/verify sequence as public delivery evidence. The first Pixel installation exposed a status-bar overlap covered by the existing portrait-layout requirement. Apply native system-bar/display-cutout insets, add a real-device regression check, rebuild and update without clearing app data, then rerun the device checklist. Small additional corrections must address observed usability or correctness defects within the accepted P11 boundary; broader features remain backlog work. Public evidence must omit device identifiers, personal data, and raw conversations, and must not imply Anthropic certification or endorsement.
+
+### Commands and gates
+
+Andreas also accepted a populated fictional demo and genuine app screenshots for the public README and existing website case study on 6 September. Publish a portable example file through the existing import workflow, test that its documented fixture proposal is reproducible, and use the same data for captures. Do not automatically seed or overwrite users' saved state. Reconcile public claims with the final physical-device evidence and preserve the website's existing publishing workflow.
+
 - `npm ci`
 - `npm run verify`
 - `npm audit --omit=dev`

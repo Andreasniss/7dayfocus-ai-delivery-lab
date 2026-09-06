@@ -128,6 +128,20 @@ Use only fictional test data. Before installing, check whether `com.nissenlabs.d
 
 Append observed results to [`P11 evidence`](ai-dlc/changes/P11-android-personal-install/evidence.md). Device success requires the checklist, not merely a successful Gradle build.
 
+### Native safe-area regression check
+
+Keep the phone unlocked for this test. After building and installing the debug APK from the same candidate, compile and install its instrumentation test:
+
+```powershell
+Push-Location src-tauri/gen/android
+./gradlew.bat :app:assembleUniversalDebugAndroidTest -PabiList=arm64-v8a -ParchList=arm64 -PtargetList=aarch64 -x :app:rustBuildArm64Debug
+adb install -r app/build/outputs/apk/androidTest/universal/debug/app-universal-debug-androidTest.apk
+adb shell am instrument -w -e class com.nissenlabs.dayfocus.MainActivityInsetsTest com.nissenlabs.dayfocus.test/androidx.test.runner.AndroidJUnitRunner
+Pop-Location
+```
+
+The excluded Rust task reuses the ARM64 library from the completed same-candidate APK build; it is not a substitute for that build. The instrumentation test launches and closes the app without clearing its data and checks actual WebView bounds against Android's system-bar and camera-cutout insets. It does not replace the touch, keyboard, persistence, proposal, or offline checklist rows.
+
 ## Optional Google Play spike
 
 Start a timer only after the device checklist passes. Stop the cumulative Play work at three focused hours or earlier when an account, identity, tester, continuous-testing, policy, privacy, security, or engineering gate cannot be completed safely inside the remaining time.
