@@ -1,11 +1,11 @@
 # 7DayFocus AI Delivery Lab
 
-[Built by Andreas Nissen](https://github.com/Andreasniss) · [andreasnissen.dev](https://andreasnissen.dev) · [Connect on LinkedIn](https://www.linkedin.com/in/andreasnissen) · [Source on GitHub](https://github.com/Andreasniss/7dayfocus-ai-delivery-lab) · [Apache-2.0](LICENSE)
+[Built by Andreas Nissen](https://github.com/Andreasniss) · [AndreasNissen.dev](https://andreasnissen.dev) · [Connect on LinkedIn](https://www.linkedin.com/in/andreasnissen) · [Source on GitHub](https://github.com/Andreasniss/7dayfocus-ai-delivery-lab) · [Apache-2.0](LICENSE)
 
 A local-first seven-day planner for web and Android. Organize Work and Life tasks, set daily priorities, and review proposed planning changes before approving them. Try the populated fictional demo without an account or API key.
 
 
-> **Portfolio status:** Public pre-1.0 reference lab. P02 hardened the domain and persistence boundary, P04 added the provider-flexible Plan My Week workflow, P05 completed publication review, and P11 reached installation and testing on a Pixel 8 Pro. This is an independent reference project, not a production service or a claim of provider affiliation, adoption, reliability, or scale.
+> **Portfolio status:** Completed learning lab and public pre-1.0 reference project. P02 hardened the domain and persistence boundary, P04 added the provider-flexible Plan My Week workflow, P05 completed publication review, and P11 reached installation and testing on a Pixel 8 Pro. This is an independent reference project, not a production service or a claim of provider affiliation, adoption, reliability, or scale.
 
 > **Evidence snapshot, 6 September 2026:** 253 automated tests, including 24 deterministic proposal cases; one passing native Android regression test; zero known runtime npm vulnerabilities. The API 36 ARM64 debug build was installed and tested on a Pixel 8 Pro running Android 17. [P11 evidence](docs/ai-dlc/changes/P11-android-personal-install/evidence.md) records exact revisions, failures, fixes, and limitations. See the [case study](https://andreasnissen.dev/projects/7dayfocus-ai-delivery-lab/) for the product and engineering story.
 
@@ -30,9 +30,13 @@ Pixel 8 Pro, Android 17, app-only captures. The fixture proposes one capacity-sa
 
 These are the project's distinguishing design choices, not a claim of market-wide feature uniqueness. Browser state stays local to that browser profile; Android state stays in its WebView. There are no accounts, cloud synchronization, or analytics.
 
-## See the proof in 60 seconds
+## Run the fictional demo
+
+Prerequisites: Git, npm, and Node.js 24.19.0 as selected by `.nvmrc`. With nvm installed:
 
 ```bash
+git clone https://github.com/Andreasniss/7dayfocus-ai-delivery-lab.git
+cd 7dayfocus-ai-delivery-lab
 nvm use
 npm ci
 npm run verify
@@ -68,7 +72,7 @@ The project adapts the pattern with provider-neutral `AGENTS.md`, `REVIEW.md`, s
 
 AWS's [AI-Driven Development Life Cycle](https://aws.amazon.com/blogs/devops/ai-driven-development-life-cycle/) and the open-source [AI-DLC Workflows](https://awslabs.github.io/aidlc-workflows/guide/00-introduction/) go further as an enterprise delivery framework. They organize work across Inception, Construction, and Operations, use Units and Bolts to decompose and sequence implementation, calibrate workflow depth to scope and risk, and maintain explicit state, audit, and evidence across a larger lifecycle.
 
-The two methods solve related problems at different levels. Anthropic offers a lightweight, committed-artifact handshake that is easy to inspect in one repository. AWS offers a broader governance and orchestration model for complex delivery. This lab intentionally implements the smaller Anthropic-inspired chain and links the AWS method as the next step when a project needs deeper decomposition, traceability, or enterprise controls. The companion article, [Three AI-Native Software Delivery Methods Compared](https://andreasnissen.dev/writing/ai-native-software-delivery-methods/), also places OpenAI's harness-engineering approach beside both.
+The two methods solve related problems at different levels. Anthropic offers a lightweight, committed-artifact handshake that is easy to inspect in one repository. AWS offers a broader governance and orchestration model for complex delivery. This lab intentionally implements the smaller Anthropic-inspired chain and links the AWS method as the next step when a project needs deeper decomposition, traceability, or enterprise controls. The companion article, [AI-Native Software Delivery: Which Method Fits Your Change?](https://andreasnissen.dev/writing/ai-native-software-delivery-methods/), also places OpenAI's harness-engineering approach beside both.
 
 ## What this demonstrates
 
@@ -155,24 +159,45 @@ Andreas owns product intent, architecture, requirements, evaluation criteria, ri
 
 The lifecycle is derived from selected public Anthropic material and adapted with provider-neutral project conventions. It is not an Anthropic standard, certification, approval, endorsement, or compliance claim. No raw prompts, private reasoning, customer material, or employer-confidential data are included.
 
-## License and independence
+## FAQ
 
-Code and documentation are licensed under the [Apache License 2.0](LICENSE), subject to third-party package licenses in `package-lock.json`.
+### Do I need an API key to try the planner?
 
-This independent project is not affiliated with, sponsored by, or endorsed by Anthropic, OpenAI, AWS, or any other provider or employer. Third-party names and marks belong to their respective owners.
+No. Import the fictional demo week and use **Fixture demo**. It exercises generation, review, and approval without a model request. Optional live providers require your own key and the local web gateway; deterministic tests do not establish live-model quality.
 
-## Contributing safely
+### Does Android support live providers and JSON export?
 
-Read [the publication privacy boundary](PRIVACY.md) and install the local Git hooks before uploading changes. Private authoring stays outside public branches and PRs; intentional demo prompts and reviewed engineering evidence remain public.
+No. The packaged app is fixture-only. JSON import was verified on the recorded Pixel installation; export is disabled because the tested WebView download path did not produce a file. See the [Android runbook](docs/ANDROID.md) for prerequisites and observed limits.
 
-## Reusable delivery workflow
+### Should I use Plan mode or automatic execution when changing this repository?
 
-This repository pilots [AI SDLC Skill](skills/ai-sdlc-skill/SKILL.md), an independently written adaptation of selected [Anthropic AI-native SDLC guidance](https://claude.com/blog/the-ai-native-sdlc-playbook). The skill preserves existing instructions and separates planning, verification evidence, review, and release authority. See the [adoption guide](skills/ai-sdlc-skill/references/adoption.md) and [pilot record](docs/evidence-sdlc-pilot.md). This is an experimental delivery aid, not a security boundary or evidence of measured productivity gains.
+Use Plan mode when you want to settle requirements or design before implementation. For clear, authorized work, an execution-enabled mode can also plan and follow the bundled delivery skill. Preserve this repository’s required acceptance of intent, specification, and plan before implementation. Host permissions still govern actions; a skill or generated plan does not grant approval. [Choosing a delivery method](https://andreasnissen.dev/writing/ai-native-software-delivery-methods/) explains the distinction.
 
-## Canonical delivery skill
+### Where do the delivery records and planner data live?
 
-The bundled [AI SDLC Skill](skills/ai-sdlc-skill/README.md) is pinned to the reviewed [standalone source](https://github.com/Andreasniss/ai-sdlc-skill/tree/811c549bf772cfac6ad285faf374ca32a7e820d1). The [source manifest](skills/ai-sdlc-skill.source.json) records the exact commit and each file digest. Updates require a reviewed PR; the repository never downloads skill updates automatically.
+Accepted change records and evidence are committed under [`docs/ai-dlc/changes/`](docs/ai-dlc/changes/), with current review status in GitHub issues and pull requests. Planner data is separate plaintext browser or WebView storage. Native assistant plans are not assumed to disappear at session end, but their retention is host-specific; commit the useful decisions and evidence required for this repository’s durable record. Never commit raw conversations or private data.
 
-## Reuse and contributions
+## Related writing
 
-Copyright 2026 Andreas Nissen. Original project code and accompanying technical documentation are licensed under [Apache-2.0](LICENSE), except where separately indicated. See [NOTICE](NOTICE). Third-party dependencies and bundled material retain their own terms. Read [CONTRIBUTING.md](CONTRIBUTING.md) for setup, verification, and contribution expectations.
+| Read | Why it matters here |
+| --- | --- |
+| [7DayFocus case study](https://andreasnissen.dev/projects/7dayfocus-ai-delivery-lab/) | Product outcome, app screenshots, and observed device findings |
+| [AI-Native Software Delivery: Which Method Fits Your Change?](https://andreasnissen.dev/writing/ai-native-software-delivery-methods/) | How this lightweight artifact approach fits alongside other methods |
+| [AGENTS.md and CLAUDE.md: Shared Rules, Different Entry Points](https://andreasnissen.dev/writing/agents-md-claude-md-shared-instructions/) | Shared repository rules across assistant entry points |
+| [What Evidence Should an AI-Generated Pull Request Carry?](https://andreasnissen.dev/writing/evidence-for-ai-generated-pull-requests/) | What reviewers should be able to inspect |
+
+Follow the [AI-Assisted Software Delivery series](https://andreasnissen.dev/series/ai-assisted-software-delivery/) for the reading order.
+
+## Delivery workflow
+
+This repository uses [AI SDLC Skill](skills/ai-sdlc-skill/README.md), an independently written adaptation of selected [Anthropic AI-native SDLC guidance](https://claude.com/blog/the-ai-native-sdlc-playbook). It preserves repository instructions and separates planning, verification evidence, review, and release authority. It is an experimental delivery aid, not a security boundary or evidence of measured productivity gains. See the [adoption guide](skills/ai-sdlc-skill/references/adoption.md) and [pilot record](docs/evidence-sdlc-pilot.md).
+
+The bundled copy is pinned to the reviewed [standalone source](https://github.com/Andreasniss/ai-sdlc-skill/tree/811c549bf772cfac6ad285faf374ca32a7e820d1). The [source manifest](skills/ai-sdlc-skill.source.json) records the exact commit and each file digest. Updates require a reviewed PR; the repository never downloads skill updates automatically.
+
+## Contributing and reuse
+
+Read [CONTRIBUTING.md](CONTRIBUTING.md) for setup, verification, and contribution expectations, [SECURITY.md](SECURITY.md) for reporting guidance, and [PRIVACY.md](PRIVACY.md) before any public upload. Install the local hooks as documented there. Keep private authoring outside public branches and PRs; intentional demo prompts, synthetic fixtures, and reviewed engineering evidence remain public.
+
+Copyright 2026 Andreas Nissen. Original project code and accompanying technical documentation are licensed under [Apache-2.0](LICENSE), except where separately indicated. See [NOTICE](NOTICE). Third-party dependencies and bundled material retain their own terms.
+
+This independent personal project is not affiliated with or endorsed by any provider or employer. Third-party names and marks belong to their respective owners.
