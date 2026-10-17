@@ -29,3 +29,11 @@ inclusion follow [Apache-2.0](LICENSE), unless explicitly agreed otherwise. Pres
 third-party license and copyright notices; identify copied material and its source.
 Report sensitive vulnerabilities through [SECURITY.md](SECURITY.md), not a public
 issue. Ordinary bugs and improvements can use this repository's GitHub issues.
+
+## Maintain guides
+
+Use the [shared guide-maintenance standard](https://github.com/Andreasniss/ai-sdlc-skill/blob/main/CONTRIBUTING.md#maintain-guides)
+for instruction changes. Keep the current task route discoverable, requirements
+with one owner, and evidence tied to the check actually run. Historical packets
+remain dated evidence. This authoring standard does not waive AGENTS.md's
+accepted change packet, REVIEW.md, privacy checks or full verification gate.
