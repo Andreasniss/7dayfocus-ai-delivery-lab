@@ -1,6 +1,12 @@
 # Guide maintenance evidence
 
-Local verification of the documentation candidate: local Markdown targets and
+Local verification ran against the uncommitted documentation worktree before
+candidate commit `7542b53a12e43add3dee4687c23ac7568ef8a26e` existed. That commit
+contains the tested guide changes and this evidence record. Its PR CI also passed
+the complete verification gate. The later shared-reference pin and this evidence
+clarification change prose only; final-revision checks remain with the PR.
+
+Observed local results: local Markdown targets and
 anchors and diff whitespace pass; the complete npm verification gate and bundled
 skill unittest suite pass. Independent source review checked the actual diff and
 P13 acceptance precedent and found no scope or authority regression. Application,
