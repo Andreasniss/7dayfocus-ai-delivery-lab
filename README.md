@@ -2,7 +2,13 @@
 
 A seven-day planner for web and Android. Organize Work and Life tasks, set daily priorities, and review proposed changes before applying them.
 
-I used this project to improve my 7DayFocus app and learn AI-assisted software delivery. The repository keeps the working planner, engineering decisions, tests and Android findings available to inspect. It is a personal learning project, not a production service.
+I used this project to improve my 7DayFocus app and learn AI-assisted software delivery. The lab is complete. You can run the planner and inspect the engineering decisions, tests and Android findings.
+
+## See the app
+
+<img src="docs/screenshots/android-proposal.png" width="280" alt="Android proposal to move Map onboarding flow from Sunday to Saturday, with options to approve or dismiss the change">
+
+*Map onboarding flow* stays on Sunday until I approve the move to Saturday. This Pixel 8 Pro capture uses the offline demo and fictional tasks. [Day view and screenshot details](docs/screenshots/README.md).
 
 <a id="run-the-fictional-demo"></a>
 
@@ -25,12 +31,6 @@ npm run dev
 4. Review the proposed move of **Map onboarding flow** from Sunday to Saturday, then select **Approve all changes**.
 
 Expected result: no tasks change during generation; one validated move is applied after approval. Fixture mode needs no account or API key and makes no model request. [Full walkthrough](examples/README.md).
-
-## See the app
-
-<img src="docs/screenshots/android-day.png" width="280" alt="7DayFocus on Android showing a daily priority and task cards">
-
-An actual Pixel 8 Pro capture using fictional sample tasks. [More screenshots and capture provenance](docs/screenshots/README.md).
 
 ## How suggestions work
 
